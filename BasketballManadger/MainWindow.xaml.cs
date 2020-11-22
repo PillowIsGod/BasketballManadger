@@ -23,6 +23,8 @@ namespace BasketballManadger
         public MainWindow()
         {
             InitializeComponent();
+
+            
         }
 
         private void btnShowMessage_Click(object sender, RoutedEventArgs e)
@@ -45,7 +47,7 @@ namespace BasketballManadger
         }
 
 
-
+        
 
 
        

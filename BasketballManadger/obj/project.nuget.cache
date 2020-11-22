@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Hba7ptcH7Nvd4TKLCBRRwBu7Tg7Z5Xu1LetLvCwMpZ6GVz09IMB/kk9KAp1p2gogoonZdjsGoI9aMXnCw2jwYw==",
+  "dgSpecHash": "0+A7CgiN6dhBYVwl/PRgfgt80+iDsODrM8zTrpKzLiSJ19Y29hB2rtLfK3RCsNJxn2Am7LylW1yhVlGmw8Mkig==",
   "success": true,
   "projectFilePath": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\BasketballManadger.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Zhenya\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

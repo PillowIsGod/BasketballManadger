@@ -1,0 +1,203 @@
+﻿{
+  "Teams": [
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Warriors.png",
+      "Name": "Warriors",
+      "City": "Golden-State"
+    },
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Bucks.png",
+      "Name": "Bucks",
+      "City": "Milwaukee"
+    },
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Lakers.png",
+      "Name": "Lakers",
+      "City": "Los-Angeles"
+    },
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Nets.png",
+      "Name": "Nets",
+      "City": "Brooklyn"
+    },
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Clippers.png",
+      "Name": "Clippers",
+      "City": "Los-Angeles"
+    }
+  ],
+  "Players": [
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Stephen_Curry.png",
+      "Name": "Stephen Curry",
+      "Age": 32,
+      "Career_age": 11,
+      "Current_team": "Warriors",
+      "Height": 1.91,
+      "Weight": 86,
+      "Position": "Point_Guard"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Klay_Thompson.png",
+      "Name": "Klay Thompson",
+      "Age": 30,
+      "Career_age": 10,
+      "Current_team": "Warriors",
+      "Height": 1.98,
+      "Weight": 98,
+      "Position": "Shooting_Guard"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Draymond_Green.png",
+      "Name": "Draymond Green",
+      "Age": 30,
+      "Career_age": 10,
+      "Current_team": "Warriors",
+      "Height": 1.98,
+      "Weight": 104,
+      "Position": "Power_Forward"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Giannis.png",
+      "Name": "Giannis Antetokounmpo",
+      "Age": 25,
+      "Career_age": 5,
+      "Current_team": "Bucks",
+      "Height": 2.11,
+      "Weight": 110,
+      "Position": "Power_Forward"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Khris_Middleton.png",
+      "Name": "Khris Middleton",
+      "Age": 29,
+      "Career_age": 9,
+      "Current_team": "Bucks",
+      "Height": 2.01,
+      "Weight": 101,
+      "Position": "Small_Forward"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Brook_Lopez.png",
+      "Name": "Brook Lopez",
+      "Age": 32,
+      "Career_age": 11,
+      "Current_team": "Bucks",
+      "Height": 2.13,
+      "Weight": 128,
+      "Position": "Center"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\LeBron_James.png",
+      "Name": "LeBron James",
+      "Age": 35,
+      "Career_age": 15,
+      "Current_team": "Lakers",
+      "Height": 2.06,
+      "Weight": 113,
+      "Position": "Small_Forward"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Anthony_Davis.png",
+      "Name": "Anthony Davis",
+      "Age": 27,
+      "Career_age": 7,
+      "Current_team": "Lakers",
+      "Height": 2.08,
+      "Weight": 115,
+      "Position": "Center"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Kyle_Kuzma.png",
+      "Name": "Kyle Kuzma",
+      "Age": 25,
+      "Career_age": 4,
+      "Current_team": "Lakers",
+      "Height": 2.03,
+      "Weight": 100,
+      "Position": "Power_Forward"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Kevin_Durant.png",
+      "Name": "Kevin Durant",
+      "Age": 32,
+      "Career_age": 11,
+      "Current_team": "Nets",
+      "Height": 2.08,
+      "Weight": 109,
+      "Position": "Small_Forward"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Kyrie_Irving.png",
+      "Name": "Kyrie Irving",
+      "Age": 28,
+      "Career_age": 7,
+      "Current_team": "Nets",
+      "Height": 1.88,
+      "Weight": 88,
+      "Position": "Point_Guard"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Spencer_Dinwiddie.png",
+      "Name": "Spencer Dinwiddie",
+      "Age": 27,
+      "Career_age": 6,
+      "Current_team": "Nets",
+      "Height": 1.96,
+      "Weight": 98,
+      "Position": "Shooting_Guard"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Kawhi_Leonard.png",
+      "Name": "Kawhi Leonard",
+      "Age": 29,
+      "Career_age": 8,
+      "Current_team": "Clippers",
+      "Height": 2.01,
+      "Weight": 104,
+      "Position": "Small_Forward"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Paul_George.png",
+      "Name": "Paul George",
+      "Age": 30,
+      "Career_age": 9,
+      "Current_team": "Clippers",
+      "Height": 2.03,
+      "Weight": 100,
+      "Position": "Shooting_Guard"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Patrick_Beverley.png",
+      "Name": "Patrick Beverley",
+      "Age": 32,
+      "Career_age": 11,
+      "Current_team": "Clippers",
+      "Height": 1.85,
+      "Weight": 84,
+      "Position": "Point_Guard"
+    }
+  ],
+  "Positions": [
+    {
+      "Name": "Point_Guard",
+      "Role": "Passes the ball"
+    },
+    {
+      "Name": "Shooting_Guard",
+      "Role": "Defends, scores"
+    },
+    {
+      "Name": "Small_Forward",
+      "Role": "Scores from all positions"
+    },
+    {
+      "Name": "Power_Forward",
+      "Role": "Scores in paint"
+    },
+    {
+      "Name": "Center",
+      "Role": "Defends the paint"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+﻿<Window x:Class="BasketballManadger.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BasketballManadger"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            
+        </Grid.RowDefinitions>
+        <Button x:Name="btnShowMessage" Content="Show Message" HorizontalAlignment="Left" Margin="691,10,0,0" VerticalAlignment="Top" Height="50" Width="100" Click="btnShowMessage_Click" MouseEnter="tb_MouseEnter" MouseLeave="tb_MouseLeave"/>
+        <TextBox x:Name="tbMessageShower" HorizontalAlignment="Left" Margin="362,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="34" Background="#FFC99A9A"  MouseEnter="tb_MouseEnter" MouseLeave="tb_MouseLeave"/>
+        <TextBox x:Name="tbF" HorizontalAlignment="Left" Margin="10,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="34" Background="#FFC99A9A"  MouseEnter="tb_MouseEnter" MouseLeave="tb_MouseLeave"/>
+        <TextBox x:Name="tbX" HorizontalAlignment="Left" Margin="10,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149" Height="34" Background="#FFC99A9A"  MouseEnter="tb_MouseEnter" MouseLeave="tb_MouseLeave"/>
+        <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="77,0,0,0" VerticalAlignment="Center"/>
+        <ComboBox HorizontalAlignment="Left" Margin="242,225,0,0" VerticalAlignment="Top" Width="120">
+            <Button Content="Ыщьувцв"/>
+        </ComboBox>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="362,108,0,0" VerticalAlignment="Top"/>
+        <ListBox Margin="569,169,59,75"/>
+        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="118,302,0,0" VerticalAlignment="Top"/>
+        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="128,322,0,0" VerticalAlignment="Top"/>
+        <RadioButton Content="RadioButton" HorizontalAlignment="Left" Margin="128,348,0,0" VerticalAlignment="Top"/>
+        <GroupBox Header="GroupBox" Margin="242,275,364,36"/>
+        <Rectangle HorizontalAlignment="Left" Height="66" Margin="215,76,0,0" Stroke="Black" VerticalAlignment="Top" Width="67"/>
+        <TextBlock HorizontalAlignment="Left" Margin="458,15,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top" Height="154" Width="216"/>
+        <Grid/>
+
+    </Grid>
+</Window>

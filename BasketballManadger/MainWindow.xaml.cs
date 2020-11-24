@@ -20,6 +20,7 @@ namespace BasketballManadger
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string JsonPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\content.json";
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +30,8 @@ namespace BasketballManadger
 
         private void btnShowMessage_Click(object sender, RoutedEventArgs e)
         {
-            tbMessageShower.Text = "some text";
+            List<BasketballPlayers> players = JsonPath.GetBasketballPlayers();
+            tbMessageShower.Text = "";
         }
 
        

@@ -2,27 +2,27 @@
   "Teams": [
     {
       "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Warriors.png",
-      "Name": "Warriors",
+      "TeamName": "Warriors",
       "City": "Golden-State"
     },
     {
       "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Bucks.png",
-      "Name": "Bucks",
+      "TeamName": "Bucks",
       "City": "Milwaukee"
     },
     {
       "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Lakers.png",
-      "Name": "Lakers",
+      "TeamName": "Lakers",
       "City": "Los-Angeles"
     },
     {
       "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Nets.png",
-      "Name": "Nets",
+      "TeamName": "Nets",
       "City": "Brooklyn"
     },
     {
       "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Clippers.png",
-      "Name": "Clippers",
+      "TeamName": "Clippers",
       "City": "Los-Angeles"
     }
   ],
@@ -180,23 +180,23 @@
   ],
   "Positions": [
     {
-      "Name": "Point_Guard",
+      "Position": "Point_Guard",
       "Role": "Passes the ball"
     },
     {
-      "Name": "Shooting_Guard",
+      "Position": "Shooting_Guard",
       "Role": "Defends, scores"
     },
     {
-      "Name": "Small_Forward",
+      "Position": "Small_Forward",
       "Role": "Scores from all positions"
     },
     {
-      "Name": "Power_Forward",
+      "Position": "Power_Forward",
       "Role": "Scores in paint"
     },
     {
-      "Name": "Center",
+      "Position": "Center",
       "Role": "Defends the paint"
     }
   ]

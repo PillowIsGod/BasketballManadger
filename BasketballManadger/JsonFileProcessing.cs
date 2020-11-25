@@ -2,37 +2,73 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace BasketballManadger
 {
-    class JsonFileProcessing
+    public class JsonFileProcessing
     {
         public readonly string JsonPath;
         public JsonFileProcessing(string jsonPath)
         {
             JsonPath = jsonPath;
         }
-        public List<BasketballPlayers> GetBasketballPlayers()
+
+        private List<T> GetDataArray<T>() where T : new()
         {
-            List<BasketballPlayers> players = new List<BasketballPlayers>();
+            List<T> result = new List<T>();
+
             string content = File.ReadAllText(JsonPath);
 
             if (string.IsNullOrEmpty(content))
             {
-                return players;
+                return result;
+            }
+            var text = JsonConvert.DeserializeObject<JsonRootModel>(content);
+
+            if(typeof(T) == typeof(BasketballPlayers))
+            {
+                foreach (var item in text.Players)
+                {
+                    var tType = (T)Convert.ChangeType(item, typeof(BasketballPlayers));
+                    result.Add(tType);
+                }
+
+            }
+            if (typeof(T) == typeof(Teams))
+            {
+                foreach (var item in text.Teams)
+                {
+                    var tType = (T)Convert.ChangeType(item, typeof(Teams));
+                    result.Add(tType);
+                }
+
             }
 
-            var text = JsonConvert.DeserializeObject<List<BasketballPlayers>>(content);
-            foreach (var item in text)
-            {
-                players.Add(item);
-            }
-            return players;
+            return result;
+        }
+
+        public List<BasketballPlayers> GetBasketballPlayers()
+        {
+            var result = GetDataArray<BasketballPlayers>();
+
+            return result;
+
+            //List<BasketballPlayers> players = new List<BasketballPlayers>();
+            
+            //foreach (var item in text.Players)
+            //{
+            //    players.Add(item);
+            //}
+            //return players;
         }
         public List<Teams> GetTeams()
         {
-            return null;
+            var result = GetDataArray<Teams>();
+
+            return result;
+
         }
         public List<Positions> GetPositions()
         {

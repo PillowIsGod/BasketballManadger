@@ -4,15 +4,17 @@ using System.Text;
 
 namespace BasketballManadger
 {
-    public class BasketballPlayers : Positions
+    public class BasketballPlayers 
     {
-        public string Picture;
-        public string Name;
-        public int Age;
-        public int Career_age;
-        public string Current_team;
-        public double Height;
-        public int Weight;
+        public string Picture { get; set; }
+
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public int Career_age { get; set; }
+        public string Current_team { get; set; }
+        public double Height { get; set; }
+        public int Weight { get; set; }
+        public string Position { get; set; }
         public BasketballPlayers()
         {
         }

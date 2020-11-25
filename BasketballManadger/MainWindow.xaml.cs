@@ -20,7 +20,7 @@ namespace BasketballManadger
     /// </summary>
     public partial class MainWindow : Window
     {
-        public string JsonPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\content.json";
+        static JsonFileProcessing JsonPath = new JsonFileProcessing(@"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\content.json");
         public MainWindow()
         {
             InitializeComponent();
@@ -30,7 +30,7 @@ namespace BasketballManadger
 
         private void btnShowMessage_Click(object sender, RoutedEventArgs e)
         {
-            List<BasketballPlayers> players = JsonPath.GetBasketballPlayers();
+            List<Teams> players = JsonPath.GetTeams();
             tbMessageShower.Text = "";
         }
 

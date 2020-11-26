@@ -6,9 +6,9 @@ namespace BasketballManadger
 {
     public class Teams
     {
-        public string Logo;
-        public string TeamName;
-        public string City;
+        public string Logo { get; set; }
+        public string TeamName { get; set; }
+        public string City { get; set; }
         public Teams()
         {
 

@@ -19,13 +19,17 @@ namespace BasketballManadger
         {
             List<T> result = new List<T>();
 
+
             string content = File.ReadAllText(JsonPath);
 
-            if (string.IsNullOrEmpty(content))
+                if (string.IsNullOrEmpty(content))
             {
                 return result;
             }
+            
+
             var text = JsonConvert.DeserializeObject<JsonRootModel>(content);
+
 
             if(typeof(T) == typeof(BasketballPlayers))
             {
@@ -43,25 +47,27 @@ namespace BasketballManadger
                     var tType = (T)Convert.ChangeType(item, typeof(Teams));
                     result.Add(tType);
                 }
-
             }
 
+            if (typeof(T) == typeof(Positions))
+            {
+                foreach (var item in text.Positions)
+                {
+                    var tType = (T)Convert.ChangeType(item, typeof(Positions));
+                    result.Add(tType);
+                }
+
+            }
             return result;
         }
 
         public List<BasketballPlayers> GetBasketballPlayers()
         {
+            
             var result = GetDataArray<BasketballPlayers>();
 
             return result;
 
-            //List<BasketballPlayers> players = new List<BasketballPlayers>();
-            
-            //foreach (var item in text.Players)
-            //{
-            //    players.Add(item);
-            //}
-            //return players;
         }
         public List<Teams> GetTeams()
         {
@@ -72,7 +78,9 @@ namespace BasketballManadger
         }
         public List<Positions> GetPositions()
         {
-            return null;
+            var result = GetDataArray<Positions>();
+
+            return result;
         }
 
     }

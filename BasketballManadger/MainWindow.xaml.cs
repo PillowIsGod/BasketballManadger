@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,32 +27,18 @@ namespace BasketballManadger
             InitializeComponent();
 
             
-        }
-
-        private void btnShowMessage_Click(object sender, RoutedEventArgs e)
+        }     
+        private void Window_Loaded (object sender, RoutedEventArgs e)
         {
-            List<Teams> players = JsonPath.GetTeams();
-            tbMessageShower.Text = "";
+            var teams = JsonPath.GetTeams();
+            dgTeams.ItemsSource = teams;
         }
 
-       
-
-
-
-        private void tb_MouseLeave(object sender, MouseEventArgs e)
+        private void Window_Activated(object sender, EventArgs e)
         {
-            ((Control)sender).Background = Brushes.DarkRed;
-        }
 
-        private void tb_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ((Control)sender).Background = Brushes.Red;
         }
 
 
-        
-
-
-       
     }
 }

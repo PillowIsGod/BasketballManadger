@@ -8,80 +8,53 @@
         Title="BasketballManager" Height="450" Width="800" Activated="Window_Activated" Loaded="Window_Loaded">
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="19*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <RadioButton HorizontalAlignment="Right" VerticalAlignment="Top" Width="250" Margin="0,15,15,0" Grid.Column="0">
-            <Image Source="{Binding Path=Picture}"/>
-        </RadioButton>
         <DataGrid x:Name="dgTeams" AutoGenerateColumns ="False" GridLinesVisibility="None" FontSize="16" Grid.Column="0"  Grid.ColumnSpan="2">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Logo">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding Path = Logo}" Width="140"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Logo">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Path = Logo}" Width="140" Height="150"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTextColumn Width="auto" Binding="{Binding Path=FullTeamName}" FontSize="20"  IsReadOnly="True" Header="Team" FontStyle="Oblique" FontWeight="Bold">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="VerticalAlignment" Value="Center" />
-                            <!--<Setter Property="Background" Value="Black" />
+                    <DataGridTextColumn Width="auto" Binding="{Binding Path=FullTeamName}" FontSize="20"  IsReadOnly="True" Header="Team" FontStyle="Oblique" FontWeight="Bold">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <!--<Setter Property="Background" Value="Black" />
                             <Setter Property="Foreground" Value="White" />-->
 
-                        </Style>
+                            </Style>
 
-                    </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn.ElementStyle>
 
-                </DataGridTextColumn>
-
-                <!--<DataGridTemplateColumn Header="Lineups">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <ComboBox DisplayMemberPath="Name" ItemsSource="{Binding Path = BasketballPlayers}" Width="140">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Image Source="{Binding Picture}" MaxWidth="150"></Image>
-                                            <Label Content="{Binding Name}"></Label>
-                                        </Grid>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Players">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TreeView  ItemsSource="{Binding Path = BasketballPlayers}" Width="auto" BorderThickness="0" Height="150">
+                                    <TreeView.ItemTemplate>
+                                        <DataTemplate>
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition>
+                                                    </ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Image Source="{Binding Picture}" MaxWidth="100" Grid.Column="0" ToolTip="{Binding Path=TipStat}"></Image>
+                                                <TextBlock Text="{Binding Path=Name}" Grid.Column="1" VerticalAlignment="Center" FontSize ="16"></TextBlock>
+                                            </Grid>
+                                        </ScrollViewer>
                                     </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
-                <DataGridTemplateColumn Header="Tree">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TreeView DisplayMemberPath="Name" ItemsSource="{Binding Path = BasketballPlayers}" Width="auto" BorderThickness="0">
-                                <TreeView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition></ColumnDefinition>
-                                                <ColumnDefinition>
-                                                </ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-                                            <Image Source="{Binding Picture}" MaxWidth="100" Grid.Column="0" ToolTip="{Binding Path=Position}"></Image>
-                                            <TextBlock Text="{Binding Path=Name}" Grid.Column="1" VerticalAlignment="Center" FontSize ="16"></TextBlock>
-                                            <!--<Label  Content="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1">-->
-                                            <!--</Label>-->
-                                        </Grid>
-                                    </DataTemplate>
-                                </TreeView.ItemTemplate>
-                            </TreeView>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-
-
-            </DataGrid.Columns>
-        </DataGrid>
+                                    </TreeView.ItemTemplate>
+                                </TreeView>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
     </Grid>
 
 </Window>

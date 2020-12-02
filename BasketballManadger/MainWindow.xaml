@@ -5,56 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BasketballManadger"
         mc:Ignorable="d"
-        Title="BasketballManager" Height="450" Width="800" Activated="Window_Activated" Loaded="Window_Loaded">
+        Title="BasketballManager" Height="450" Width="800" Loaded="Window_Loaded">
 
     <Grid>
-        <DataGrid x:Name="dgTeams" AutoGenerateColumns ="False" GridLinesVisibility="None" FontSize="16" Grid.Column="0"  Grid.ColumnSpan="2">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Logo">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding Path = Logo}" Width="140" Height="150"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTextColumn Width="auto" Binding="{Binding Path=FullTeamName}" FontSize="20"  IsReadOnly="True" Header="Team" FontStyle="Oblique" FontWeight="Bold">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="VerticalAlignment" Value="Center" />
-                                <!--<Setter Property="Background" Value="Black" />
-                            <Setter Property="Foreground" Value="White" />-->
-
-                            </Style>
-
-                        </DataGridTextColumn.ElementStyle>
-
-                    </DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Players">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TreeView  ItemsSource="{Binding Path = BasketballPlayers}" Width="auto" BorderThickness="0" Height="150">
-                                    <TreeView.ItemTemplate>
-                                        <DataTemplate>
-                                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition></ColumnDefinition>
-                                                    <ColumnDefinition>
-                                                    </ColumnDefinition>
-                                                </Grid.ColumnDefinitions>
-                                                <Image Source="{Binding Picture}" MaxWidth="100" Grid.Column="0" ToolTip="{Binding Path=TipStat}"></Image>
-                                                <TextBlock Text="{Binding Path=Name}" Grid.Column="1" VerticalAlignment="Center" FontSize ="16"></TextBlock>
-                                            </Grid>
-                                        </ScrollViewer>
-                                    </DataTemplate>
-                                    </TreeView.ItemTemplate>
-                                </TreeView>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ListView x:Name="lvTeamsOutput" Grid.Column = "0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding Path=Logo}" Width="150" Grid.Column="0" HorizontalAlignment="Center"></Image>
+                            <TextBlock Text="{Binding Path=City}" Width="100" Grid.Column="1" HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding Path = TeamName}" Width="100" Grid.Column="2" HorizontalAlignment="Center"></TextBlock>
+                        </Grid>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 
 </Window>

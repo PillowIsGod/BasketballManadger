@@ -22,14 +22,14 @@ namespace BasketballManadger
     public partial class MainWindow : Window
     {
         static JsonFileProcessing JsonPath = new JsonFileProcessing(@"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\content.json");
-
+        private BindingList<Teams> _teamsList;
         public MainWindow()
         {
             InitializeComponent();
 
-            
-        }     
-        private void Window_Loaded (object sender, RoutedEventArgs e)
+
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var teams = JsonPath.GetTeams();
             var players = JsonPath.GetBasketballPlayers();
@@ -38,31 +38,34 @@ namespace BasketballManadger
                 item.BasketballPlayers = players;
             }
             var basketballPlayer = new BasketballPlayers();
-            var playersToRelate = new List<BasketballPlayers>();
+            var playersToRelate = new BindingList<BasketballPlayers>();
             foreach (var item in teams)
             {
                 playersToRelate = basketballPlayer.RelatePlayerToATeam(item, players);
                 item.BasketballPlayers = playersToRelate;
-                item.Players.AddRange(playersToRelate.Select(x => x.Name).ToList());
             }
-            dgTeams.ItemsSource = teams;
-
+            _teamsList = teams;
+            lvTeamsOutput.ItemsSource = _teamsList;
         }
 
-        private void Window_Activated(object sender, EventArgs e)
-        {
 
-        }
 
-        private void btnShowPlayers_Click(object sender, RoutedEventArgs e)
-        {
-            var players = JsonPath.GetBasketballPlayers();
-            var teams = JsonPath.GetTeams();
-            var basketballPlayer = new BasketballPlayers();
-            foreach (var item in teams)
-            {
-               basketballPlayer.RelatePlayerToATeam(item, players);
-            }
-        }
+        //private void _teamsList_ListChanged(object sender, ListChangedEventArgs e)
+        //{
+        //    if (e.ListChangedType == ListChangedType.ItemAdded || e.ListChangedType == ListChangedType.ItemDeleted || e.ListChangedType == ListChangedType.ItemChanged)
+        //    {
+        //        try
+        //        {
+        //            JsonPath.SaveData(sender);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show(ex.Message);
+        //            Close();
+        //        }
+        //    }
+
+
+
     }
 }

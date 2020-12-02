@@ -82,3 +82,71 @@
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
+
+
+
+
+
+    var str = JObject.FromObject(new { Teams = listTosave, Players = listPlayers, Positions = listPositions}).ToString();
+
+    <DataGrid x:Name="dgTeams" AutoGenerateColumns ="False" GridLinesVisibility="None" FontSize="16" Grid.Column="0">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Logo">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding Path = Logo}" Width="140" Height="150"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                <DataGridTextColumn Width="auto" FontSize="20"  IsReadOnly="False" Header="Team" FontStyle="Oblique" FontWeight="Bold">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0}  {1}">
+                            <Binding Path="City"></Binding>
+                            <Binding Path ="TeamName"></Binding>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTemplateColumn Header="Players">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TreeView  ItemsSource="{Binding Path = BasketballPlayers}" Width="auto" BorderThickness="0" Height="150">
+                                    <TreeView.ItemTemplate>
+                                        <DataTemplate>
+                                            
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                    <ColumnDefinition></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Image Source="{Binding Picture}" MaxWidth="100" Grid.Column="0" Grid.RowSpan ="3"></Image>
+                                                <TextBox Text="Team: " Grid.Column="1" FontSize ="16" Grid.Row="0" BorderThickness="0"></TextBox>
+                                                <TextBox Text="{Binding Path=Current_team}" Grid.Column="2" FontSize ="16" Grid.Row="0" BorderThickness="0"></TextBox>
+                                                <TextBox Text="Name:" Grid.Column="1" FontSize ="16" Grid.Row="1" BorderThickness="0"></TextBox>
+                                                <TextBox Text="{Binding Path=Name}" Grid.Column="2" FontSize ="16" Grid.Row="1" BorderThickness="0"></TextBox>
+                                                <TextBox Text="Position: "  Grid.Column="1" FontSize ="16" Grid.Row="2" BorderThickness="0"></TextBox>
+                                                <TextBox Text="{Binding Path=Position}"  Grid.Column="2" FontSize ="16" Grid.Row="2" BorderThickness="0"></TextBox>
+                                            </Grid>
+                                        </ScrollViewer>
+                                    </DataTemplate>
+                                    </TreeView.ItemTemplate>
+                                </TreeView>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>

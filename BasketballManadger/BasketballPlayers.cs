@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace BasketballManadger
@@ -22,9 +23,9 @@ namespace BasketballManadger
             get {
                 return "Team: " + this.Current_team + " " + "\n" + "Position: " + this.Position;
                 } }
-        public List<BasketballPlayers> RelatePlayerToATeam(Teams team, List<BasketballPlayers> players)
+        public BindingList<BasketballPlayers> RelatePlayerToATeam(Teams team, BindingList<BasketballPlayers> players)
         {
-            List<BasketballPlayers> playersToReturn = new List<BasketballPlayers>();
+            BindingList<BasketballPlayers> playersToReturn = new BindingList<BasketballPlayers>();
 
                 foreach (var item in players)
                 {

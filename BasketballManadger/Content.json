@@ -1,4 +1,4 @@
-﻿{
+{
   "Teams": [
     {
       "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Warriors.png",
@@ -180,23 +180,23 @@
   ],
   "Positions": [
     {
-      "Position": "Point_Guard",
+      "Name": "Point_Guard",
       "Role": "Passes the ball"
     },
     {
-      "Position": "Shooting_Guard",
+      "Name": "Shooting_Guard",
       "Role": "Defends, scores"
     },
     {
-      "Position": "Small_Forward",
+      "Name": "Small_Forward",
       "Role": "Scores from all positions"
     },
     {
-      "Position": "Power_Forward",
+      "Name": "Power_Forward",
       "Role": "Scores in paint"
     },
     {
-      "Position": "Center",
+      "Name": "Center",
       "Role": "Defends the paint"
     }
   ]

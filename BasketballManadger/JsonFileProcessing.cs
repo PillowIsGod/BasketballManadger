@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -14,10 +16,10 @@ namespace BasketballManadger
         {
             JsonPath = jsonPath;
         }
-
-        private List<T> GetDataArray<T>() where T : new()
+        
+        private BindingList<T> GetDataArray<T>() where T : new()
         {
-            List<T> result = new List<T>();
+            BindingList<T> result = new BindingList<T>();
 
 
             string content = File.ReadAllText(JsonPath);
@@ -61,7 +63,8 @@ namespace BasketballManadger
             return result;
         }
 
-        public List<BasketballPlayers> GetBasketballPlayers()
+
+        public BindingList<BasketballPlayers> GetBasketballPlayers()
         {
             
             var result = GetDataArray<BasketballPlayers>();
@@ -69,19 +72,28 @@ namespace BasketballManadger
             return result;
 
         }
-        public List<Teams> GetTeams()
+        public BindingList<Teams> GetTeams()
         {
             var result = GetDataArray<Teams>();
 
             return result;
 
         }
-        public List<Positions> GetPositions()
+        public BindingList<Positions> GetPositions()
         {
             var result = GetDataArray<Positions>();
 
             return result;
         }
+        //public void SaveData(BindingList<Teams> listTosave)
+        //{
+        //    var str = JObject.FromObject(new { Teams = listTosave, Players = listPlayers, Positions = listPositions}).ToString();
+        //    using (StreamWriter sw = File.CreateText(JsonPath))
+        //    {
+        //        string output = JsonConvert.SerializeObject(listTosave);
+        //        sw.Write(output);
+        //    }
+        //}
 
     }
 }

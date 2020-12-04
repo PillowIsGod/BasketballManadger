@@ -26,11 +26,6 @@ namespace BasketballManadger
         public MainWindow()
         {
             InitializeComponent();
-
-
-        }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
             var teams = JsonPath.GetTeams();
             var players = JsonPath.GetBasketballPlayers();
             foreach (var item in teams)
@@ -38,14 +33,24 @@ namespace BasketballManadger
                 item.BasketballPlayers = players;
             }
             var basketballPlayer = new BasketballPlayers();
-            var playersToRelate = new BindingList<BasketballPlayers>();
             foreach (var item in teams)
             {
-                playersToRelate = basketballPlayer.RelatePlayerToATeam(item, players);
-                item.BasketballPlayers = playersToRelate;
+                item.BasketballPlayers = basketballPlayer.RelatePlayerToATeam(item, players); ;
             }
             _teamsList = teams;
+
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             lvTeamsOutput.ItemsSource = _teamsList;
+        }
+
+        private void Button_ShowPlayers(object sender, RoutedEventArgs e)
+        {
+           var str = lvTeamsOutput.SelectedValue;
+            Teams str1 = str as Teams;
+            var players = str1.BasketballPlayers;
+            lvPlayers.ItemsSource = players;
         }
 
 

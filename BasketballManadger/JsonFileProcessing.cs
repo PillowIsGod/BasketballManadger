@@ -85,15 +85,32 @@ namespace BasketballManadger
 
             return result;
         }
-        //public void SaveData(BindingList<Teams> listTosave)
-        //{
-        //    var str = JObject.FromObject(new { Teams = listTosave, Players = listPlayers, Positions = listPositions}).ToString();
-        //    using (StreamWriter sw = File.CreateText(JsonPath))
-        //    {
-        //        string output = JsonConvert.SerializeObject(listTosave);
-        //        sw.Write(output);
-        //    }
-        //}
+        public void SaveData(BindingList<Teams> listToSave)
+        {
+            var listPlayers = GetBasketballPlayers();
+            var listPositions = GetPositions();
+            var jObj = new { Teams = listToSave, Players = listPlayers, Positions = listPositions };
+            using (FileStream fs = new FileStream(JsonPath, FileMode.Truncate))
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                var str = JObject.FromObject(jObj).ToString();
+                sw.WriteLine(str);
+            }
+        }
+        public void SaveData(BindingList<BasketballPlayers> listToSave)
+        {
+            var listTeams = GetTeams();
+            var listPositions = GetPositions();
+            var jObj = new { Teams = listTeams, Players = listToSave, Positions = listPositions };
+
+
+            using (FileStream fs = new FileStream(JsonPath, FileMode.Truncate))
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                var str = JObject.FromObject(jObj).ToString();
+                sw.WriteLine(str);
+            }
+        }
 
     }
 }

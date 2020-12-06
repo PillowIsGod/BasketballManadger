@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BasketballManadger"
         mc:Ignorable="d"
-        Title="BasketballManager" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="BasketballManager" Height="800" Width="1200" Loaded="Window_Loaded">
 
     <Grid x:Name="gridMain">
         <Grid.ColumnDefinitions>
@@ -17,7 +17,7 @@
             <RowDefinition/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="lvTeamsOutput" Grid.Column = "0" Grid.Row="0">
+        <ListView x:Name="lvTeamsOutput" Grid.Column = "0" Grid.Row="0" SelectionChanged="lvTeamsOutput_SelectionChanged" MouseDoubleClick="lvTeamsOutput_MouseDoubleClick">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -39,7 +39,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView x:Name="lvPlayers" Grid.Column="1" Grid.Row="0" Width="auto">
+        <ListView x:Name="lvPlayers" Grid.Column="1" Grid.Row="0" Width="auto" Visibility="Hidden" MouseDoubleClick="lvPlayers_MouseDoubleClickEditing" SelectionChanged="lvPlayers_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -78,37 +78,100 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Grid Grid.Column="0" Grid.Row="1" Height="30" VerticalAlignment="Bottom">
+        <Grid Grid.Row="1" Height="30" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnShowPlayers" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1" Click="Button_ShowPlayers">
-                <TextBlock Text="Show Players" FontSize="14"></TextBlock>
+            <Button x:Name="btnAddTeam" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1" >
+                <TextBlock Text= "Add" FontSize="14"></TextBlock>
             </Button>
-            <Button x:Name ="btnEditTeam" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1">
-                <TextBlock Text="Edit" FontSize="14"></TextBlock>
-            </Button>
-            <Button x:Name="btnRemoveTeam" Grid.Column="2" VerticalAlignment="Bottom" Grid.Row="1">
+            <Button x:Name="btnRemoveTeam" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1">
                 <TextBlock Text="Remove" FontSize="14" ></TextBlock>
             </Button>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="1" Height="30" VerticalAlignment="Bottom">
+        <Grid x:Name="gridPlayerButtons" Grid.Column="1" Grid.Row="1" Height="30" VerticalAlignment="Bottom" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnAddPlayer" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1" Click="Button_ShowPlayers">
+            <Button x:Name="btnAddPlayer" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1">
                 <TextBlock Text="Add Player" FontSize="14"></TextBlock>
             </Button>
-            <Button x:Name="btnEditPlayer" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1">
-                <TextBlock Text="Edit Player" FontSize="14"></TextBlock>
-            </Button>
-            <Button x:Name="btnRemovePlayer" Grid.Column="2" VerticalAlignment="Bottom" Grid.Row="1">
+            <Button x:Name="btnRemovePlayer" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1">
                 <TextBlock Text="Remove Player" FontSize="14" ></TextBlock>
+            </Button>
+        </Grid>
+        <Grid x:Name="gridEditingPlayers" Grid.Column="2" Grid.Row="0" Height="150" VerticalAlignment="Top" Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Please, enter new characteristics: " Grid.ColumnSpan="2" Grid.Row="0"></TextBlock>
+            <TextBlock Text="Team: " Grid.Column="0" Grid.Row="1"></TextBlock>
+            <TextBox x:Name="tbGetTeam" Grid.Column="1" Grid.Row="1" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Name: " Grid.Column="0" Grid.Row="2"></TextBlock>
+            <TextBox x:Name="tbGetName" Grid.Column="1" Grid.Row="2" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Age: " Grid.Column="0" Grid.Row="3"></TextBlock>
+            <TextBox x:Name="tbGetAge" Grid.Column="1" Grid.Row="3" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Career Age: " Grid.Column="0" Grid.Row="4"></TextBlock>
+            <TextBox  x:Name="tbGetCareerAge" Grid.Column="1" Grid.Row="4" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Height: " Grid.Column="0" Grid.Row="5"></TextBlock>
+            <TextBox x:Name="tbGetHeight" Grid.Column="1" Grid.Row="5" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Weight: " Grid.Column="0" Grid.Row="6" ></TextBlock>
+            <TextBox x:Name="tbGetWeight" Grid.Column="1" Grid.Row="6" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Position: " Grid.Column="0" Grid.Row="7"></TextBlock>
+            <TextBox x:Name="tbGetPosition" Grid.Column="1" Grid.Row="7" IsReadOnly="False"></TextBox>
+        </Grid>
+        <Grid x:Name="gridBtnsToConfirmPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnConfirmPlayer" Grid.Column="0" Click="btnConfirmPlayer_Click">
+                <TextBlock Text="Confirm"></TextBlock>
+        </Button>
+            <Button x:Name="btnDeclinePlayer" Grid.Column="1" Click="btnDeclinePlayer_Click">
+                <TextBlock Text="Decline"></TextBlock>
+            </Button>
+        </Grid>
+        <Grid x:Name="gridEditingTeams" Grid.Row="0" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Please, enter new value: " Grid.ColumnSpan="2" Grid.Row="0"></TextBlock>
+            <TextBlock Text="City: " Grid.Column="0" Grid.Row="1"></TextBlock>
+            <TextBox x:Name="tbGetCity" Grid.Column="1" Grid.Row="1"></TextBox>
+            <TextBlock Text="Team Name: " Grid.Column="0" Grid.Row="2"></TextBlock>
+            <TextBox x:Name ="tbgetTeamName" Grid.Column="1" Grid.Row="2"></TextBox>
+        </Grid>
+        <Grid x:Name="gridBtnsToConfirmTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnConfirmTeam" Grid.Column="0" Click="btnConfirmTeam_Click">
+                <TextBlock Text="Confirm"></TextBlock>
+            </Button>
+            <Button x:Name="btnDeclineTeam" Grid.Column="1" Click="btnDeclineTeam_Click">
+                <TextBlock Text="Decline"></TextBlock>
             </Button>
         </Grid>
     </Grid>

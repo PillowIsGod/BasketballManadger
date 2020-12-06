@@ -3,50 +3,35 @@
     {
       "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Warriors.png",
       "TeamName": "Warriors",
-      "City": "Golden-State"
+      "City": "Golden-State",
+      "FullTeamName": "Golden-State Warriors"
     },
     {
       "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Bucks.png",
       "TeamName": "Bucks",
-      "City": "Milwaukee"
+      "City": "Milwaukee",
+      "FullTeamName": "Milwaukee Bucks"
     },
     {
       "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Lakers.png",
       "TeamName": "Lakers",
-      "City": "Los-Angeles"
+      "City": "Los-Angeles",
+      "FullTeamName": "Los-Angeles Lakers"
     },
     {
       "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Nets.png",
       "TeamName": "Nets",
-      "City": "Brooklyn"
+      "City": "Brooklyn",
+      "FullTeamName": "Brooklyn Nets"
     },
     {
       "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Clippers.png",
       "TeamName": "Clippers",
-      "City": "Los-Angeles"
+      "City": "Los-Angeles",
+      "FullTeamName": "Los-Angeles Clippers"
     }
   ],
   "Players": [
-    {
-      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Stephen_Curry.png",
-      "Name": "Stephen Curry",
-      "Age": 32,
-      "Career_age": 11,
-      "Current_team": "Warriors",
-      "Height": 1.91,
-      "Weight": 86,
-      "Position": "Point_Guard"
-    },
-    {
-      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Klay_Thompson.png",
-      "Name": "Klay Thompson",
-      "Age": 30,
-      "Career_age": 10,
-      "Current_team": "Warriors",
-      "Height": 1.98,
-      "Weight": 98,
-      "Position": "Shooting_Guard"
-    },
     {
       "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Draymond_Green.png",
       "Name": "Draymond Green",
@@ -176,27 +161,47 @@
       "Height": 1.85,
       "Weight": 84,
       "Position": "Point_Guard"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Stephen_Curry.png",
+      "Name": "Stephen Curry",
+      "Age": 32,
+      "Career_age": 11,
+      "Current_team": "Warriors",
+      "Height": 1.91,
+      "Weight": 86,
+      "Position": "Point_Guard"
+    },
+    {
+      "Picture": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Players pictures\\Klay_Thompson.png",
+      "Name": "Klay Thompson",
+      "Age": 30,
+      "Career_age": 10,
+      "Current_team": "Warriors",
+      "Height": 1.98,
+      "Weight": 98,
+      "Position": "Shooting_Guard"
     }
   ],
   "Positions": [
     {
-      "Name": "Point_Guard",
+      "Position": null,
       "Role": "Passes the ball"
     },
     {
-      "Name": "Shooting_Guard",
+      "Position": null,
       "Role": "Defends, scores"
     },
     {
-      "Name": "Small_Forward",
+      "Position": null,
       "Role": "Scores from all positions"
     },
     {
-      "Name": "Power_Forward",
+      "Position": null,
       "Role": "Scores in paint"
     },
     {
-      "Name": "Center",
+      "Position": null,
       "Role": "Defends the paint"
     }
   ]

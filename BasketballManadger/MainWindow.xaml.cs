@@ -51,9 +51,31 @@ namespace BasketballManadger
             lvPlayers.Visibility = Visibility.Visible;
             gridPlayerButtons.Visibility = Visibility.Visible;
         }
+        private void ClearPlayersInterface()
+        {
+            gridBtnsToConfirmEditingPlayers.Visibility = Visibility.Hidden;
+            gridEditingPlayers.Visibility = Visibility.Hidden;
+            gridBtnsToConfirmAddingPlayers.Visibility = Visibility.Hidden;
+            gridBtnsToConfirmDeletingPlayers.Visibility = Visibility.Hidden;
+            tbGetAge.Clear();
+            tbGetName.Clear();
+            tbGetCareerAge.Clear();
+            tbGetHeight.Clear();
+            tbGetWeight.Clear();
+            tbGetTeam.Clear();
+            tbGetPosition.Clear();
+        }
+        private void ClearTeamsInterface()
+        {
+            gridEditingTeams.Visibility = Visibility.Hidden;
+            gridBtnsToConfirmEditingTeam.Visibility = Visibility.Hidden;
+            gridBtnsToConfirmAddingTeam.Visibility = Visibility.Hidden;
+            gridBtnsToConfirmDeletingTeam.Visibility = Visibility.Hidden;
+            tbgetTeamName.Clear();
+            tbGetCity.Clear();
+        }
 
-
-        private void btnConfirmPlayer_Click(object sender, RoutedEventArgs e)
+        private void btnConfirmEditingPlayer_Click(object sender, RoutedEventArgs e)
         {
             var player = lvPlayers.SelectedValue;
             BasketballPlayers player1 = player as BasketballPlayers;
@@ -96,29 +118,13 @@ namespace BasketballManadger
                 }
             }
             JsonPath.SaveData(currentPlayers);
-            
-            gridBtnsToConfirmPlayers.Visibility = Visibility.Hidden;
-            gridEditingPlayers.Visibility = Visibility.Hidden;
-            tbGetAge.Clear();
-            tbGetName.Clear();
-            tbGetCareerAge.Clear();
-            tbGetHeight.Clear();
-            tbGetWeight.Clear();
-            tbGetTeam.Clear();
-            tbGetPosition.Clear();
+
+            ClearPlayersInterface();
         }
 
-        private void btnDeclinePlayer_Click(object sender, RoutedEventArgs e)
+        private void btnDeclineEditingPlayer_Click(object sender, RoutedEventArgs e)
         {
-            gridBtnsToConfirmPlayers.Visibility = Visibility.Hidden;
-            gridEditingPlayers.Visibility = Visibility.Hidden;
-            tbGetAge.Clear();
-            tbGetName.Clear();
-            tbGetCareerAge.Clear();
-            tbGetHeight.Clear();
-            tbGetWeight.Clear();
-            tbGetTeam.Clear();
-            tbGetPosition.Clear();
+            ClearPlayersInterface();
         }
 
         private void lvTeamsOutput_SelectionChanged(object sender, RoutedEventArgs e)
@@ -129,63 +135,197 @@ namespace BasketballManadger
             lvPlayers.ItemsSource = players;
             lvPlayers.Visibility = Visibility.Visible;
             gridPlayerButtons.Visibility = Visibility.Visible;
-            gridEditingPlayers.Visibility = Visibility.Hidden;
-            gridBtnsToConfirmPlayers.Visibility = Visibility.Hidden;
-            gridEditingTeams.Visibility = Visibility.Hidden;
-            gridBtnsToConfirmTeam.Visibility = Visibility.Hidden;
-            tbgetTeamName.Clear();
-            tbGetCity.Clear();
+            ClearPlayersInterface();
+            ClearTeamsInterface();
         }
 
 
         private void lvPlayers_MouseDoubleClickEditing(object sender, MouseButtonEventArgs e)
         {
-            gridEditingTeams.Visibility = Visibility.Hidden;
-            gridBtnsToConfirmTeam.Visibility = Visibility.Hidden;
+            ClearTeamsInterface();
             gridEditingPlayers.Visibility = Visibility.Visible;
-            gridBtnsToConfirmPlayers.Visibility = Visibility.Visible;
+            gridBtnsToConfirmEditingPlayers.Visibility = Visibility.Visible;
         }
 
         private void lvTeamsOutput_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            gridEditingPlayers.Visibility = Visibility.Hidden;
-            gridBtnsToConfirmPlayers.Visibility = Visibility.Hidden;
+            ClearPlayersInterface();
             gridEditingTeams.Visibility = Visibility.Visible;
-            gridBtnsToConfirmTeam.Visibility = Visibility.Visible;
+            gridBtnsToConfirmEditingTeam.Visibility = Visibility.Visible;
         }
 
-        private void btnConfirmTeam_Click(object sender, RoutedEventArgs e)
+        private void btnConfirmEditingTeam_Click(object sender, RoutedEventArgs e)
         {
-
-            gridEditingTeams.Visibility = Visibility.Hidden;
-            gridBtnsToConfirmTeam.Visibility = Visibility.Hidden;
-            tbgetTeamName.Clear();
-            tbGetCity.Clear();
+            var selectedTeam = lvTeamsOutput.SelectedItem;
+            Teams team = selectedTeam as Teams;
+            BindingList<Teams> currentTeams = JsonPath.GetTeams();
+            if (!string.IsNullOrEmpty(tbGetCity.Text))
+            {
+                team.City = tbGetCity.Text;
+            }
+            if (!string.IsNullOrEmpty(tbgetTeamName.Text))
+            {
+                team.TeamName = tbgetTeamName.Text;
+            }
+            foreach (var item in currentTeams)
+            {
+                if (team.Logo == item.Logo)
+                {
+                    currentTeams.Remove(item);
+                    currentTeams.Add(team);
+                    break;
+                }
+            }
+            JsonPath.SaveData(currentTeams);
+            ClearTeamsInterface();
         }
 
-        private void btnDeclineTeam_Click(object sender, RoutedEventArgs e)
+        private void btnDeclineEditingTeam_Click(object sender, RoutedEventArgs e)
         {
-            gridEditingTeams.Visibility = Visibility.Hidden;
-            gridBtnsToConfirmTeam.Visibility = Visibility.Hidden;
-            tbgetTeamName.Clear();
-            tbGetCity.Clear();
+            ClearTeamsInterface();
         }
 
         private void lvPlayers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            gridEditingTeams.Visibility = Visibility.Hidden;
-            gridBtnsToConfirmTeam.Visibility = Visibility.Hidden;
-            gridEditingPlayers.Visibility = Visibility.Hidden;
-            gridBtnsToConfirmPlayers.Visibility = Visibility.Hidden;
-            tbGetAge.Clear();
-            tbGetName.Clear();
-            tbGetCareerAge.Clear();
-            tbGetHeight.Clear();
-            tbGetWeight.Clear();
-            tbGetTeam.Clear();
-            tbGetPosition.Clear();
+            ClearPlayersInterface();
+            ClearTeamsInterface();
+        }
+
+        private void btnAddPlayer_Click(object sender, RoutedEventArgs e)
+        {            
+            ClearPlayersInterface();
+            gridEditingPlayers.Visibility = Visibility.Visible;
+            gridBtnsToConfirmAddingPlayers.Visibility = Visibility.Visible;
+        }
+
+        private void btnConfirmAddingPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            BasketballPlayers player1 = new BasketballPlayers();
+            BindingList<BasketballPlayers> currentPlayers = JsonPath.GetBasketballPlayers();
+            if (!string.IsNullOrEmpty(tbGetTeam.Text))
+            {
+                player1.Current_team = tbGetTeam.Text;
+            }
+            if (!string.IsNullOrEmpty(tbGetName.Text))
+            {
+                player1.Name = tbGetName.Text;
+            }
+            if (!string.IsNullOrEmpty(tbGetAge.Text))
+            {
+                player1.Age = EditingInfo.ConvertNumber(tbGetAge.Text);
+            }
+            if (!string.IsNullOrEmpty(tbGetCareerAge.Text))
+            {
+                player1.Career_age = EditingInfo.ConvertNumber(tbGetCareerAge.Text);
+            }
+            if (!string.IsNullOrEmpty(tbGetHeight.Text))
+            {
+                player1.Height = EditingInfo.ConvertNumber(tbGetHeight.Text);
+            }
+            if (!string.IsNullOrEmpty(tbGetWeight.Text))
+            {
+                player1.Weight = EditingInfo.ConvertNumber(tbGetWeight.Text);
+            }
+            if (!string.IsNullOrEmpty(tbGetPosition.Text))
+            {
+                player1.Position = tbGetPosition.Text;
+            }
+            if (string.IsNullOrEmpty(tbGetTeam.Text) || string.IsNullOrEmpty(tbGetName.Text) || string.IsNullOrEmpty(tbGetAge.Text) || string.IsNullOrEmpty(tbGetCareerAge.Text) || string.IsNullOrEmpty(tbGetHeight.Text) || string.IsNullOrEmpty(tbGetWeight.Text) || string.IsNullOrEmpty(tbGetPosition.Text))
+            {
+                ClearPlayersInterface();
+                return;
+            }
+            currentPlayers.Add(player1);
+
+            JsonPath.SaveData(currentPlayers);
+
+            ClearPlayersInterface();
+        }
+
+        private void btnConfirmDeletingPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            var player = lvPlayers.SelectedValue;
+            BasketballPlayers player1 = player as BasketballPlayers;
+            BindingList<BasketballPlayers> currentPlayers = JsonPath.GetBasketballPlayers();
+            foreach (var item in currentPlayers)
+            {
+                if (player1.Picture == item.Picture && player1.Name == item.Name)
+                {
+                    currentPlayers.Remove(item);
+                    break;
+                }
+            }
+            JsonPath.SaveData(currentPlayers);
+            ClearPlayersInterface();
+        }
+
+        private void btnRemovePlayer_Click(object sender, RoutedEventArgs e)
+        {
+            ClearPlayersInterface();
+            ClearTeamsInterface();
+            gridBtnsToConfirmDeletingPlayers.Visibility = Visibility.Visible;
+        }
+
+        private void btnConfirmAddingTeam_Click(object sender, RoutedEventArgs e)
+        {
+            Teams team = new Teams();
+            BindingList<Teams> currentTeams = JsonPath.GetTeams();
+            if (!string.IsNullOrEmpty(tbGetCity.Text))
+            {
+                team.City = tbGetCity.Text;
+            }
+            if (!string.IsNullOrEmpty(tbgetTeamName.Text))
+            {
+                team.TeamName = tbgetTeamName.Text;
+            }
+
+            if (string.IsNullOrEmpty(tbGetCity.Text) || string.IsNullOrEmpty(tbgetTeamName.Text))
+            {
+                ClearTeamsInterface();
+                return;
+            }
+
+            currentTeams.Add(team);
+
+            JsonPath.SaveData(currentTeams);
+            ClearTeamsInterface();
+        }
+
+        private void btnConfirmDeletingTeam_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedTeam = lvTeamsOutput.SelectedItem;
+            Teams team = selectedTeam as Teams;
+            BindingList<Teams> currentTeams = JsonPath.GetTeams();
+
+            foreach (var item in currentTeams)
+            {
+                if(item.Logo == team.Logo && item.TeamName == team.TeamName && item.City == team.City)
+                {
+                    currentTeams.Remove(item);
+                    break;
+                }
+            }
+
+            JsonPath.SaveData(currentTeams);
+            ClearTeamsInterface();
 
         }
+
+        private void btnAddTeam_Click(object sender, RoutedEventArgs e)
+        {
+            ClearPlayersInterface();
+            ClearTeamsInterface();
+            gridEditingTeams.Visibility = Visibility.Visible;
+            gridBtnsToConfirmAddingTeam.Visibility = Visibility.Visible;
+        }
+
+        private void btnRemoveTeam_Click(object sender, RoutedEventArgs e)
+        {
+            ClearPlayersInterface();
+            ClearTeamsInterface();
+            gridBtnsToConfirmDeletingTeam.Visibility = Visibility.Visible;
+        }
+
 
 
 

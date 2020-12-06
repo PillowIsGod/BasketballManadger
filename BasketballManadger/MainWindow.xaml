@@ -83,10 +83,10 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnAddTeam" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1" >
+            <Button x:Name="btnAddTeam" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1" Click="btnAddTeam_Click">
                 <TextBlock Text= "Add" FontSize="14"></TextBlock>
             </Button>
-            <Button x:Name="btnRemoveTeam" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1">
+            <Button x:Name="btnRemoveTeam" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1" Click="btnRemoveTeam_Click">
                 <TextBlock Text="Remove" FontSize="14" ></TextBlock>
             </Button>
         </Grid>
@@ -96,10 +96,10 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnAddPlayer" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1">
+            <Button x:Name="btnAddPlayer" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1" Click="btnAddPlayer_Click">
                 <TextBlock Text="Add Player" FontSize="14"></TextBlock>
             </Button>
-            <Button x:Name="btnRemovePlayer" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1">
+            <Button x:Name="btnRemovePlayer" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1" Click="btnRemovePlayer_Click">
                 <TextBlock Text="Remove Player" FontSize="14" ></TextBlock>
             </Button>
         </Grid>
@@ -134,18 +134,45 @@
             <TextBlock Text="Position: " Grid.Column="0" Grid.Row="7"></TextBlock>
             <TextBox x:Name="tbGetPosition" Grid.Column="1" Grid.Row="7" IsReadOnly="False"></TextBox>
         </Grid>
-        <Grid x:Name="gridBtnsToConfirmPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+        <Grid x:Name="gridBtnsToConfirmEditingPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnConfirmPlayer" Grid.Column="0" Click="btnConfirmPlayer_Click">
+            <Button x:Name="btnConfirmEditingPlayer" Grid.Column="0" Click="btnConfirmEditingPlayer_Click">
                 <TextBlock Text="Confirm"></TextBlock>
         </Button>
-            <Button x:Name="btnDeclinePlayer" Grid.Column="1" Click="btnDeclinePlayer_Click">
+            <Button x:Name="btnDeclineEditingPlayer" Grid.Column="1" Click="btnDeclineEditingPlayer_Click">
                 <TextBlock Text="Decline"></TextBlock>
             </Button>
         </Grid>
+
+        <Grid x:Name="gridBtnsToConfirmAddingPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnConfirmAddingPlayer" Grid.Column="0" Click="btnConfirmAddingPlayer_Click">
+                <TextBlock Text="Confirm"></TextBlock>
+            </Button>
+            <Button x:Name="btnDeclineAddingPlayer" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
+                <TextBlock Text="Decline"></TextBlock>
+            </Button>
+        </Grid>
+
+        <Grid x:Name="gridBtnsToConfirmDeletingPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnConfirmDeletingPlayer" Grid.Column="0" Click ="btnConfirmDeletingPlayer_Click">
+                <TextBlock Text="Confirm"></TextBlock>
+            </Button>
+            <Button x:Name="btnDeclineDeletingPlayer" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
+                <TextBlock Text="Decline"></TextBlock>
+            </Button>
+        </Grid>
+
         <Grid x:Name="gridEditingTeams" Grid.Row="0" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="70"></ColumnDefinition>
@@ -162,15 +189,39 @@
             <TextBlock Text="Team Name: " Grid.Column="0" Grid.Row="2"></TextBlock>
             <TextBox x:Name ="tbgetTeamName" Grid.Column="1" Grid.Row="2"></TextBox>
         </Grid>
-        <Grid x:Name="gridBtnsToConfirmTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+        <Grid x:Name="gridBtnsToConfirmEditingTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnConfirmTeam" Grid.Column="0" Click="btnConfirmTeam_Click">
+            <Button x:Name="btnConfirmEditingTeam" Grid.Column="0" Click="btnConfirmEditingTeam_Click">
                 <TextBlock Text="Confirm"></TextBlock>
             </Button>
-            <Button x:Name="btnDeclineTeam" Grid.Column="1" Click="btnDeclineTeam_Click">
+            <Button x:Name="btnDeclineEditingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
+                <TextBlock Text="Decline"></TextBlock>
+            </Button>
+        </Grid>
+        <Grid x:Name="gridBtnsToConfirmAddingTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnConfirmAddingTeam" Grid.Column="0" Click="btnConfirmAddingTeam_Click">
+                <TextBlock Text="Confirm"></TextBlock>
+            </Button>
+            <Button x:Name="btnDeclineAddingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
+                <TextBlock Text="Decline"></TextBlock>
+            </Button>
+        </Grid>
+        <Grid x:Name="gridBtnsToConfirmDeletingTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnConfirmDeletingTeam" Grid.Column="0" Click="btnConfirmDeletingTeam_Click">
+                <TextBlock Text="Confirm"></TextBlock>
+            </Button>
+            <Button x:Name="btnDeclineDeletingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
                 <TextBlock Text="Decline"></TextBlock>
             </Button>
         </Grid>

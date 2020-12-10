@@ -9,12 +9,10 @@ using System.Text;
 
 namespace BasketballManadger
 {
-    public class JsonFileProcessing
+    public class JsonFileProcessing : DataProcessing
     {
-        public readonly string JsonPath;
-        public JsonFileProcessing(string jsonPath)
+        public JsonFileProcessing(string filePath) : base(filePath)
         {
-            JsonPath = jsonPath;
         }
         
         private BindingList<T> GetDataArray<T>() where T : new()
@@ -22,7 +20,7 @@ namespace BasketballManadger
             BindingList<T> result = new BindingList<T>();
 
 
-            string content = File.ReadAllText(JsonPath);
+            string content = File.ReadAllText(FilePath);
 
                 if (string.IsNullOrEmpty(content))
             {
@@ -64,7 +62,7 @@ namespace BasketballManadger
         }
 
 
-        public BindingList<BasketballPlayers> GetBasketballPlayers()
+        public override BindingList<BasketballPlayers> GetBasketballPlayers()
         {
             
             var result = GetDataArray<BasketballPlayers>();
@@ -72,39 +70,39 @@ namespace BasketballManadger
             return result;
 
         }
-        public BindingList<Teams> GetTeams()
+        public override BindingList<Teams> GetTeams()
         {
             var result = GetDataArray<Teams>();
 
             return result;
 
         }
-        public BindingList<Positions> GetPositions()
+        public override BindingList<Positions> GetPositions()
         {
             var result = GetDataArray<Positions>();
 
             return result;
         }
-        public void SaveData(BindingList<Teams> listToSave)
+        public override void SaveData(BindingList<Teams> listToSave)
         {
             var listPlayers = GetBasketballPlayers();
             var listPositions = GetPositions();
             var jObj = new { Teams = listToSave, Players = listPlayers, Positions = listPositions };
-            using (FileStream fs = new FileStream(JsonPath, FileMode.Truncate))
+            using (FileStream fs = new FileStream(FilePath, FileMode.Truncate))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 var str = JObject.FromObject(jObj).ToString();
                 sw.WriteLine(str);
             }
         }
-        public void SaveData(BindingList<BasketballPlayers> listToSave)
+        public override void SaveData(BindingList<BasketballPlayers> listToSave)
         {
             var listTeams = GetTeams();
             var listPositions = GetPositions();
             var jObj = new { Teams = listTeams, Players = listToSave, Positions = listPositions };
 
 
-            using (FileStream fs = new FileStream(JsonPath, FileMode.Truncate))
+            using (FileStream fs = new FileStream(FilePath, FileMode.Truncate))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 var str = JObject.FromObject(jObj).ToString();

@@ -21,13 +21,16 @@ namespace BasketballManadger
     /// </summary>
     public partial class MainWindow : Window
     {
-        static JsonFileProcessing JsonPath = new JsonFileProcessing(@"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\content.json");
+        private string _filePath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\content.json";
+        private DataProcessing FilePath;
+
         private BindingList<Teams> _teamsList;
         public MainWindow()
         {
             InitializeComponent();
-            var teams = JsonPath.GetTeams();
-            var players = JsonPath.GetBasketballPlayers();
+            FilePath = new JsonFileProcessing(_filePath);
+            var teams = FilePath.GetTeams();
+            var players = FilePath.GetBasketballPlayers();
             foreach (var item in teams)
             {
                 item.BasketballPlayers = players;
@@ -38,7 +41,7 @@ namespace BasketballManadger
                 item.BasketballPlayers = basketballPlayer.RelatePlayerToATeam(item, players); ;
             }
             _teamsList = teams;
-
+            
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -79,7 +82,7 @@ namespace BasketballManadger
         {
             var player = lvPlayers.SelectedValue;
             BasketballPlayers player1 = player as BasketballPlayers;
-            BindingList<BasketballPlayers> currentPlayers = JsonPath.GetBasketballPlayers();
+            BindingList<BasketballPlayers> currentPlayers = FilePath.GetBasketballPlayers();
             if (!string.IsNullOrEmpty(tbGetTeam.Text))
             {
                 player1.Current_team = tbGetTeam.Text;
@@ -117,7 +120,7 @@ namespace BasketballManadger
                     break;
                 }
             }
-            JsonPath.SaveData(currentPlayers);
+            FilePath.SaveData(currentPlayers);
 
             ClearPlayersInterface();
         }
@@ -158,7 +161,7 @@ namespace BasketballManadger
         {
             var selectedTeam = lvTeamsOutput.SelectedItem;
             Teams team = selectedTeam as Teams;
-            BindingList<Teams> currentTeams = JsonPath.GetTeams();
+            BindingList<Teams> currentTeams = FilePath.GetTeams();
             if (!string.IsNullOrEmpty(tbGetCity.Text))
             {
                 team.City = tbGetCity.Text;
@@ -176,7 +179,7 @@ namespace BasketballManadger
                     break;
                 }
             }
-            JsonPath.SaveData(currentTeams);
+            FilePath.SaveData(currentTeams);
             ClearTeamsInterface();
         }
 
@@ -201,7 +204,7 @@ namespace BasketballManadger
         private void btnConfirmAddingPlayer_Click(object sender, RoutedEventArgs e)
         {
             BasketballPlayers player1 = new BasketballPlayers();
-            BindingList<BasketballPlayers> currentPlayers = JsonPath.GetBasketballPlayers();
+            BindingList<BasketballPlayers> currentPlayers = FilePath.GetBasketballPlayers();
             if (!string.IsNullOrEmpty(tbGetTeam.Text))
             {
                 player1.Current_team = tbGetTeam.Text;
@@ -237,7 +240,7 @@ namespace BasketballManadger
             }
             currentPlayers.Add(player1);
 
-            JsonPath.SaveData(currentPlayers);
+            FilePath.SaveData(currentPlayers);
 
             ClearPlayersInterface();
         }
@@ -246,7 +249,7 @@ namespace BasketballManadger
         {
             var player = lvPlayers.SelectedValue;
             BasketballPlayers player1 = player as BasketballPlayers;
-            BindingList<BasketballPlayers> currentPlayers = JsonPath.GetBasketballPlayers();
+            BindingList<BasketballPlayers> currentPlayers = FilePath.GetBasketballPlayers();
             foreach (var item in currentPlayers)
             {
                 if (player1.Picture == item.Picture && player1.Name == item.Name)
@@ -255,7 +258,7 @@ namespace BasketballManadger
                     break;
                 }
             }
-            JsonPath.SaveData(currentPlayers);
+            FilePath.SaveData(currentPlayers);
             ClearPlayersInterface();
         }
 
@@ -269,7 +272,7 @@ namespace BasketballManadger
         private void btnConfirmAddingTeam_Click(object sender, RoutedEventArgs e)
         {
             Teams team = new Teams();
-            BindingList<Teams> currentTeams = JsonPath.GetTeams();
+            BindingList<Teams> currentTeams = FilePath.GetTeams();
             if (!string.IsNullOrEmpty(tbGetCity.Text))
             {
                 team.City = tbGetCity.Text;
@@ -287,7 +290,7 @@ namespace BasketballManadger
 
             currentTeams.Add(team);
 
-            JsonPath.SaveData(currentTeams);
+            FilePath.SaveData(currentTeams);
             ClearTeamsInterface();
         }
 
@@ -295,7 +298,7 @@ namespace BasketballManadger
         {
             var selectedTeam = lvTeamsOutput.SelectedItem;
             Teams team = selectedTeam as Teams;
-            BindingList<Teams> currentTeams = JsonPath.GetTeams();
+            BindingList<Teams> currentTeams = FilePath.GetTeams();
 
             foreach (var item in currentTeams)
             {
@@ -306,7 +309,7 @@ namespace BasketballManadger
                 }
             }
 
-            JsonPath.SaveData(currentTeams);
+            FilePath.SaveData(currentTeams);
             ClearTeamsInterface();
 
         }

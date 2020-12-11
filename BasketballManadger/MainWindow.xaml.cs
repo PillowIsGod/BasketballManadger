@@ -24,6 +24,9 @@ namespace BasketballManadger
         private string _filePath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\content.json";
         private DataProcessing FilePath;
 
+        private string _myConnectionString = "Database = basketballdata; Data Source = 127.0.0.1; User Id = root; Password = 7Bc145f606";
+        private DBProcessing Connection;
+
         private BindingList<Teams> _teamsList;
         public MainWindow()
         {
@@ -41,6 +44,7 @@ namespace BasketballManadger
                 item.BasketballPlayers = basketballPlayer.RelatePlayerToATeam(item, players); ;
             }
             _teamsList = teams;
+            Connection = new DBProcessing(_myConnectionString);         
             
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -50,6 +54,7 @@ namespace BasketballManadger
             var str = lvTeamsOutput.SelectedValue;
             Teams str1 = str as Teams;
             var players = str1.BasketballPlayers;
+            Connection.GetTeams();
             lvPlayers.ItemsSource = players;
             lvPlayers.Visibility = Visibility.Visible;
             gridPlayerButtons.Visibility = Visibility.Visible;

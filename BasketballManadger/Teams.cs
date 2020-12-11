@@ -11,6 +11,8 @@ namespace BasketballManadger
         [JsonIgnore]
         public BindingList<BasketballPlayers> BasketballPlayers { get; set; }
 
+        [JsonIgnore]
+        public int ID { get; set; }
         private string _teamName;
         private string _city;
         public string Logo { get; set; }

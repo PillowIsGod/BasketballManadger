@@ -10,38 +10,93 @@ using System.ComponentModel;
 
 namespace BasketballManadger
 {
-    class DBProcessing
+    public class DBProcessing : DataProcessing
     {
-        private string _myConnectionString = "Database = basketballdata; Data Source = 127.0.0.1; User Id = root; Password = 7Bc145f606";
         private MySqlConnection sqlConnection = null;
         private MySqlDataAdapter _mysqlDataAdapter = null;
         private DataSet _dataset = null;
-        public DBProcessing(string connectionString)
+        public DBProcessing(string filePath) : base (filePath)
         {
-            sqlConnection = new MySqlConnection(connectionString);
-        }
-
-
-        public void SaveData(BindingList<Teams> listToSave)
-        {
+            sqlConnection = new MySqlConnection(filePath);
 
         }
-        public void SaveData(BindingList<BasketballPlayers> listToSav)
+
+
+        public override void SaveData(BindingList<Teams> listToSave)
+        {
+            BindingList<BasketballPlayers> playersToSave = GetBasketballPlayers();
+            BindingList<Positions> currentPositions = GetPositions();
+
+            using (MySqlConnection connection = new MySqlConnection(FilePath))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand("DELETE FROM basketballplayers WHERE id <> 1", connection);
+                command.ExecuteNonQuery();
+
+            }
+            using (MySqlConnection connection = new MySqlConnection(FilePath))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand("DELETE FROM teams WHERE id <> 1", connection);
+                command.ExecuteNonQuery();
+            }
+            using (MySqlConnection connection = new MySqlConnection(FilePath))
+            {
+                int id_position = 0;
+                int id_team = 0;
+                connection.Open();
+                foreach (var item in listToSave)
+                {
+                    string sqlExpression = String.Format("INSERT INTO teams (team_name, city, logo) VALUES ('{0}', '{1}', '{2}')", item.TeamName, item.City, item.Logo.Replace(@"\", @"\\"));
+                    MySqlCommand command = new MySqlCommand(sqlExpression, connection);
+
+                    command.ExecuteNonQuery();
+                }
+                BindingList<Teams> teamsToUse = GetTeams();
+                foreach (var item0 in playersToSave)
+                {
+                    foreach (var item1 in teamsToUse)
+                    {
+
+                        if (item1.TeamName == item0.Current_team)
+                        {
+                            id_team = item1.ID;
+                            break;
+                        }
+                    }
+                    foreach (var item2 in currentPositions)
+                    {
+                        if (item2.Position == item0.Position)
+                        {
+                            id_position = item2.ID;
+                            break;
+                        }
+                    }
+                    string pictureConverter = String.Format("{0}",item0.Picture.Replace(@"\", @"\\"));
+
+                    string sqlExpression1 = String.Format("INSERT INTO basketballplayers (name,age, career_age, height, weight, id_team, id_position, picture)" +
+                        " VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')", item0.Name, item0.Age, item0.Career_age, item0.Height, item0.Weight, id_team, id_position, pictureConverter);
+                    MySqlCommand commandToInsert = new MySqlCommand(sqlExpression1, connection);
+                    commandToInsert.ExecuteNonQuery();
+                }
+            }
+        }
+        public override void SaveData(BindingList<BasketballPlayers> listToSav)
         {
 
         }
-        public BindingList<BasketballPlayers> GetBasketballPlayers()
+        public override BindingList<BasketballPlayers> GetBasketballPlayers()
         {
-            sqlConnection.Open();
             _mysqlDataAdapter = new MySqlDataAdapter("SELECT id, picture, name, age, career_age, height, weight, (SELECT team_name FROM teams WHERE ID = id_team) AS team," +
                 " (SELECT position FROM positions WHERE ID = id_position) AS position FROM basketballplayers", sqlConnection);
             BindingList<BasketballPlayers> playersToReturn = new BindingList<BasketballPlayers>();
-            BasketballPlayers player = new BasketballPlayers();
+           
             _dataset = new DataSet();
             _mysqlDataAdapter.Fill(_dataset);
             DataTable dt = _dataset.Tables[0];
             foreach (DataRow item in dt.Rows)
             {
+                BasketballPlayers player = new BasketballPlayers();
                 player.ID = Convert.ToInt32(item[0]);
                 player.Picture = Convert.ToString(item[1]);
                 player.Name = Convert.ToString(item[2]);
@@ -55,17 +110,16 @@ namespace BasketballManadger
             }
             return playersToReturn;
         }
-        public BindingList<Teams> GetTeams()
+        public override BindingList<Teams> GetTeams()
         {
-            sqlConnection.Open();
             _mysqlDataAdapter = new MySqlDataAdapter("SELECT id, logo, team_name, city FROM teams", sqlConnection);
             BindingList < Teams > teamsToReturn = new BindingList<Teams>();
-            Teams team = new Teams();
             _dataset = new DataSet();
             _mysqlDataAdapter.Fill(_dataset);
             DataTable dt = _dataset.Tables[0];
             foreach (DataRow item in dt.Rows)
             {
+                Teams team = new Teams();
                 team.ID = Convert.ToInt32(item[0]);
                 team.Logo = Convert.ToString(item[1]);
                 team.TeamName = Convert.ToString(item[2]);
@@ -74,19 +128,19 @@ namespace BasketballManadger
             }
             return teamsToReturn;
         }
-        public BindingList<Positions> GetPositions()
+        public override BindingList<Positions> GetPositions()
         {
-            sqlConnection.Open();
             _mysqlDataAdapter = new MySqlDataAdapter("SELECT id, position, role from positions", sqlConnection);
             BindingList<Positions> positionsToReturn = new BindingList<Positions>();
-            Positions position = new Positions();
+            _dataset = new DataSet();
             _mysqlDataAdapter.Fill(_dataset);
             DataTable dt = _dataset.Tables[0];
             foreach (DataRow item in dt.Rows)
             {
+                Positions position = new Positions();
                 position.ID = Convert.ToInt32(item[0]);
                 position.Position = Convert.ToString(item[1]);
-                position.Position = Convert.ToString(item[2]);
+                position.Role = Convert.ToString(item[2]);
                 positionsToReturn.Add(position);
             }
             return positionsToReturn;

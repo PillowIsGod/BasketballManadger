@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -25,13 +26,14 @@ namespace BasketballManadger
         private DataProcessing FilePath;
 
         private string _myConnectionString = "Database = basketballdata; Data Source = 127.0.0.1; User Id = root; Password = 7Bc145f606";
-        private DBProcessing Connection;
+        private MySqlConnection connection = null;
+
 
         private BindingList<Teams> _teamsList;
         public MainWindow()
         {
             InitializeComponent();
-            FilePath = new JsonFileProcessing(_filePath);
+            FilePath = new DBProcessing(_myConnectionString);
             var teams = FilePath.GetTeams();
             var players = FilePath.GetBasketballPlayers();
             foreach (var item in teams)
@@ -44,17 +46,18 @@ namespace BasketballManadger
                 item.BasketballPlayers = basketballPlayer.RelatePlayerToATeam(item, players); ;
             }
             _teamsList = teams;
-            Connection = new DBProcessing(_myConnectionString);         
+            connection = new MySqlConnection(_myConnectionString);
             
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            connection.Open();
             lvTeamsOutput.ItemsSource = _teamsList;
             lvTeamsOutput.SelectedIndex = 0;
             var str = lvTeamsOutput.SelectedValue;
             Teams str1 = str as Teams;
             var players = str1.BasketballPlayers;
-            Connection.GetTeams();
+            
             lvPlayers.ItemsSource = players;
             lvPlayers.Visibility = Visibility.Visible;
             gridPlayerButtons.Visibility = Visibility.Visible;

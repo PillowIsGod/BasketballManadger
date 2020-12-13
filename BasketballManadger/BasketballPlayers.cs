@@ -8,8 +8,9 @@ namespace BasketballManadger
 {
     public class BasketballPlayers 
     {
+        [JsonIgnore]
+        public int ID { get; set; }
         public string Picture { get; set; }
-
         public string Name { get; set; }
         public int Age { get; set; }
         public int Career_age { get; set; }
@@ -18,11 +19,6 @@ namespace BasketballManadger
         public int Weight { get; set; }
         public string Position { get; set; }
 
-        [JsonIgnore]
-        public string TipStat {
-            get {
-                return "Team: " + this.Current_team + " " + "\n" + "Position: " + this.Position;
-                } }
         public BindingList<BasketballPlayers> RelatePlayerToATeam(Teams team, BindingList<BasketballPlayers> players)
         {
             BindingList<BasketballPlayers> playersToReturn = new BindingList<BasketballPlayers>();

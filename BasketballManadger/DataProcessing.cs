@@ -13,6 +13,10 @@ namespace BasketballManadger
         public abstract BindingList<BasketballPlayers> GetBasketballPlayers();
         public abstract BindingList<Teams> GetTeams();
         public abstract BindingList<Positions> GetPositions();
+        public abstract void Delete(params BasketballPlayers[] playerToDelete);
+        public abstract void Delete(params Teams[] teamToDelete);
+        public abstract void Append(params BasketballPlayers[] playerToAdd);
+        public abstract void Append(params Teams[] teamToAdd);
         public DataProcessing(string filePath)
         {
             FilePath = filePath;

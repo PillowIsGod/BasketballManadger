@@ -18,8 +18,8 @@ namespace BasketballManadger
         public double Height { get; set; }
         public int Weight { get; set; }
         public string Position { get; set; }
-
-        public BindingList<BasketballPlayers> RelatePlayerToATeam(Teams team, BindingList<BasketballPlayers> players)
+       
+            public BindingList<BasketballPlayers> RelatePlayerToATeam(Teams team, BindingList<BasketballPlayers> players)
         {
             BindingList<BasketballPlayers> playersToReturn = new BindingList<BasketballPlayers>();
 

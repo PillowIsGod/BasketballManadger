@@ -150,3 +150,65 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
+
+
+
+
+
+
+
+
+            BindingList<BasketballPlayers> playersToSave = GetBasketballPlayers();
+            BindingList<Positions> currentPositions = GetPositions();
+
+            using (MySqlConnection connection = new MySqlConnection(FilePath))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand("DELETE FROM basketballplayers WHERE id <> 1", connection);
+                command.ExecuteNonQuery();
+
+            }
+            using (MySqlConnection connection = new MySqlConnection(FilePath))
+            {
+                connection.Open();
+                MySqlCommand command = new MySqlCommand("DELETE FROM teams WHERE id <> 1", connection);
+                command.ExecuteNonQuery();
+            }
+            using (MySqlConnection connection = new MySqlConnection(FilePath))
+            {
+                int id_position = 0;
+                int id_team = 0;
+                connection.Open();
+                foreach (var item in listToSave)
+                {
+                    string sqlExpression = String.Format("INSERT INTO teams (team_name, city, logo) VALUES ('{0}', '{1}', '{2}')", item.TeamName, item.City, item.Logo.Replace(@"\", @"\\"));
+                    MySqlCommand command = new MySqlCommand(sqlExpression, connection);
+
+                    command.ExecuteNonQuery();
+                }
+                BindingList<Teams> teamsToUse = GetTeams();
+                foreach (var item0 in playersToSave)
+                {
+                    foreach (var item1 in teamsToUse)
+                    {
+
+                        if (item1.TeamName == item0.Current_team)
+                        {
+                            id_team = item1.ID;
+                            break;
+                        }
+                    }
+                    foreach (var item2 in currentPositions)
+                    {
+                        if (item2.Position == item0.Position)
+                        {
+                            id_position = item2.ID;
+                            break;
+                        }
+                    }
+                    string pictureConverter = String.Format("{0}",item0.Picture.Replace(@"\", @"\\"));
+
+                    string sqlExpression1 = String.Format("INSERT INTO basketballplayers (name,age, career_age, height, weight, id_team, id_position, picture)" +
+                        " VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')", item0.Name, item0.Age, item0.Career_age, item0.Height, item0.Weight, id_team, id_position, pictureConverter);
+                    MySqlCommand commandToInsert = new MySqlCommand(sqlExpression1, connection);
+                    commandToInsert.ExecuteNonQuery();

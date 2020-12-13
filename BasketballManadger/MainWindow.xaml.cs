@@ -212,7 +212,6 @@ namespace BasketballManadger
         private void btnConfirmAddingPlayer_Click(object sender, RoutedEventArgs e)
         {
             BasketballPlayers player1 = new BasketballPlayers();
-            BindingList<BasketballPlayers> currentPlayers = FilePath.GetBasketballPlayers();
             if (!string.IsNullOrEmpty(tbGetTeam.Text))
             {
                 player1.Current_team = tbGetTeam.Text;
@@ -246,9 +245,7 @@ namespace BasketballManadger
                 ClearPlayersInterface();
                 return;
             }
-            currentPlayers.Add(player1);
-
-            FilePath.SaveData(currentPlayers);
+            FilePath.Append(player1);
 
             ClearPlayersInterface();
         }
@@ -257,16 +254,7 @@ namespace BasketballManadger
         {
             var player = lvPlayers.SelectedValue;
             BasketballPlayers player1 = player as BasketballPlayers;
-            BindingList<BasketballPlayers> currentPlayers = FilePath.GetBasketballPlayers();
-            foreach (var item in currentPlayers)
-            {
-                if (player1.Picture == item.Picture && player1.Name == item.Name)
-                {
-                    currentPlayers.Remove(item);
-                    break;
-                }
-            }
-            FilePath.SaveData(currentPlayers);
+            FilePath.Delete(player1);
             ClearPlayersInterface();
         }
 
@@ -280,7 +268,6 @@ namespace BasketballManadger
         private void btnConfirmAddingTeam_Click(object sender, RoutedEventArgs e)
         {
             Teams team = new Teams();
-            BindingList<Teams> currentTeams = FilePath.GetTeams();
             if (!string.IsNullOrEmpty(tbGetCity.Text))
             {
                 team.City = tbGetCity.Text;
@@ -295,10 +282,7 @@ namespace BasketballManadger
                 ClearTeamsInterface();
                 return;
             }
-
-            currentTeams.Add(team);
-
-            FilePath.SaveData(currentTeams);
+            FilePath.Append(team);
             ClearTeamsInterface();
         }
 
@@ -306,18 +290,7 @@ namespace BasketballManadger
         {
             var selectedTeam = lvTeamsOutput.SelectedItem;
             Teams team = selectedTeam as Teams;
-            BindingList<Teams> currentTeams = FilePath.GetTeams();
-
-            foreach (var item in currentTeams)
-            {
-                if(item.Logo == team.Logo && item.TeamName == team.TeamName && item.City == team.City)
-                {
-                    currentTeams.Remove(item);
-                    break;
-                }
-            }
-
-            FilePath.SaveData(currentTeams);
+            FilePath.Delete(team);
             ClearTeamsInterface();
 
         }

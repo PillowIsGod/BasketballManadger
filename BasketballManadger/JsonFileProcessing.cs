@@ -14,7 +14,64 @@ namespace BasketballManadger
         public JsonFileProcessing(string filePath) : base(filePath)
         {
         }
+
+
+        public override void Append(params BasketballPlayers[] playerToAdd)
+        {
+            var currentPlayers = GetBasketballPlayers();
+            foreach (var player in playerToAdd)
+            {
+                currentPlayers.Add(player);
+            }
+            SaveData(currentPlayers);
+        }
+        public override void Append(params Teams[] teamToAdd) {
+            var currentTeams = GetTeams();
+            foreach (var team in teamToAdd)
+            {
+                currentTeams.Add(team);
+
+            }
+            SaveData(currentTeams);
+        }
         
+
+        public override void Delete(params BasketballPlayers[] playerToDelete) 
+        {
+            var currentPlayers = GetBasketballPlayers();
+            foreach (var player in playerToDelete)
+            {
+                foreach (var item in currentPlayers)
+                {
+                    if (player.Age == item.Age && player.Career_age == item.Career_age && player.Name == item.Name && player.Picture == item.Picture)
+                    {
+                        currentPlayers.Remove(item);
+                        break;
+                    }
+                }
+                
+            }
+            SaveData(currentPlayers);
+
+
+        }
+        public override void Delete(params Teams[] teamToDelete) 
+        {
+
+            var currentTeams = GetTeams();
+            foreach (var team in teamToDelete)
+            {
+                foreach (var item in currentTeams)
+                {
+                    if(team.City == item.City && item.Logo == team.Logo && item.TeamName == team.TeamName)
+                    {
+                        currentTeams.Remove(item);
+                        break;
+                    }
+                }
+            }
+            SaveData(currentTeams);
+        }
         private BindingList<T> GetDataArray<T>() where T : new()
         {
             BindingList<T> result = new BindingList<T>();

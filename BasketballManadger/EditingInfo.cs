@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace BasketballManadger
 {
@@ -9,26 +10,35 @@ namespace BasketballManadger
         public static int ConvertNumber(string textToConvert)
         {
             bool check = false;
-            int number = 0;
+            int number = -1;
             check = int.TryParse(textToConvert, out number);
             if (check)
             {
                 return number;
             }
-        
-            return number;
+            else
+            {
+                number = -1;
+                return number;
+            }
         }
+
+
         public static double ConvertNumberToDouble(string textToConvert)
         {
             bool check = false;
-            double number = 0;
+            double number = -1;
             check = double.TryParse(textToConvert, out number);
             if (check)
             {
                 return number;
             }
 
-            return number;
+            else
+            {
+                number = -1;
+                return number;
+            }
         }
 
         public EditingInfo()

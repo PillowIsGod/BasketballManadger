@@ -31,6 +31,8 @@ namespace BasketballManadger
 
 
         private bool _toCompleteEvent = false;
+        private string _playerIMG;
+        private string _teamIMG;
 
         private BindingList<Teams> _teamsList;
         private BindingList<Positions> _positions;
@@ -45,6 +47,15 @@ namespace BasketballManadger
                 item.BasketballPlayers = players;
             }
             var basketballPlayer = new BasketballPlayers();
+            var team = new Teams();
+            foreach (var item in players)
+            {
+                basketballPlayer.CheckPlayerPicture(item);
+            }
+            foreach (var item in teams)
+            {
+                team.CheckTeamPicture(item);
+            }
             foreach (var item in teams)
             {
                 item.BasketballPlayers = basketballPlayer.RelatePlayerToATeam(item, players); ;
@@ -62,7 +73,7 @@ namespace BasketballManadger
             var str = lvTeamsOutput.SelectedValue;
             Teams str1 = str as Teams;
             var players = str1.BasketballPlayers;
-            
+
             lvPlayers.ItemsSource = players;
             lvPlayers.Visibility = Visibility.Visible;
             cbToEditOrAddTeams.ItemsSource = _teamsList;
@@ -80,6 +91,8 @@ namespace BasketballManadger
             tbGetCareerAge.Clear();
             tbGetHeight.Clear();
             tbGetWeight.Clear();
+            tbToShowPlayerPictureFilePath.Clear();
+            _playerIMG = null;
         }
         private void ClearTeamsInterface()
         {
@@ -89,6 +102,8 @@ namespace BasketballManadger
             gridBtnsToConfirmDeletingTeam.Visibility = Visibility.Hidden;
             tbgetTeamName.Clear();
             tbGetCity.Clear();
+            tbToShowTeamLogoFilePath.Clear();
+            _teamIMG = null;
         }
         private void UpdateInterface()
         {
@@ -146,14 +161,28 @@ namespace BasketballManadger
             {
                 player1.Position = position.Position;
             }
+            if(!string.IsNullOrEmpty(_playerIMG))
+            {
+                player1.Picture = _playerIMG;
+            }
             foreach (var item in currentPlayers)
             {
-                if (player1.Picture == item.Picture)
+                if (player1.ID == item.ID)
                 {
                     currentPlayers.Remove(item);
                     currentPlayers.Add(player1);
                     break;
                 }
+            }
+            if (player1.Age == -1 || player1.Career_age == -1 || player1.Height == -1 || player1.Weight == -1)
+            {
+                MessageBox.Show("Please, enter the number", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (player1.PlayerAdequacyCheck(player1))
+            {
+                MessageBox.Show("The parameters you've entered can not exist", "Error",  MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             FilePath.SaveData(currentPlayers);
 
@@ -206,7 +235,7 @@ namespace BasketballManadger
                     teamNameIndex = i;
                 }
             }
-            for (int i = 0; i < _teamsList.Count; i++)
+            for (int i = 0; i < _positions.Count; i++)
             {
                 if (player.Position == _positions[i].Position)
                 {
@@ -243,9 +272,17 @@ namespace BasketballManadger
             {
                 team.TeamName = tbgetTeamName.Text;
             }
+            if (!string.IsNullOrEmpty(_teamIMG))
+            {
+                team.Logo = _teamIMG;
+            }
+
+            team.CheckTeamPicture(team);
+
+
             foreach (var item in currentTeams)
             {
-                if (team.Logo == item.Logo)
+                if (team.ID == item.ID)
                 {
                     currentTeams.Remove(item);
                     currentTeams.Add(team);
@@ -277,6 +314,8 @@ namespace BasketballManadger
 
         private void btnConfirmAddingPlayer_Click(object sender, RoutedEventArgs e)
         {
+            ClearTeamsInterface();
+            
             var selectedTeam = cbToEditOrAddTeams.SelectedItem;
             var selectedPosition = cbToEditOrAddPositions.SelectedItem;
             Positions position = selectedPosition as Positions;
@@ -310,12 +349,28 @@ namespace BasketballManadger
             {
                 player1.Position = position.Position;
             }
+            if (!string.IsNullOrEmpty(_playerIMG))
+            {
+                player1.Picture = _playerIMG;
+            }
+            player1.CheckPlayerPicture(player1);
             if (string.IsNullOrEmpty(position.Position) || string.IsNullOrEmpty(tbGetName.Text) || string.IsNullOrEmpty(tbGetAge.Text) ||
                 string.IsNullOrEmpty(tbGetCareerAge.Text) || string.IsNullOrEmpty(tbGetHeight.Text) || string.IsNullOrEmpty(tbGetWeight.Text) || string.IsNullOrEmpty(position.Position))
             {
                 ClearPlayersInterface();
                 return;
             }
+            if(player1.Age == -1 || player1.Career_age == -1 || player1.Height == -1|| player1.Weight == -1)
+            {
+                    MessageBox.Show("Please, enter the number", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+            }
+            if (player1.PlayerAdequacyCheck(player1))
+            {
+                MessageBox.Show("The parameters you've entered can not exist", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             FilePath.Append(player1);
 
             UpdateInterface();
@@ -355,6 +410,11 @@ namespace BasketballManadger
                 ClearTeamsInterface();
                 return;
             }
+            if (!string.IsNullOrEmpty(_teamIMG))
+            {
+                team.Logo = _teamIMG;
+            }
+            team.CheckTeamPicture(team);
             FilePath.Append(team);
             UpdateInterface();
             ClearTeamsInterface();
@@ -392,9 +452,23 @@ namespace BasketballManadger
             Nullable<bool> result = openFileDialog.ShowDialog();
             if (result == true)
             {
-                tbToShowFilePath.Text = openFileDialog.FileName;
+                _playerIMG = openFileDialog.FileName;
+                tbToShowPlayerPictureFilePath.Text = openFileDialog.FileName;
             }
         }
+
+        private void btnLogoSelector_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG";
+            Nullable<bool> result = openFileDialog.ShowDialog();
+            if (result == true)
+            {
+                _teamIMG = openFileDialog.FileName;
+                tbToShowTeamLogoFilePath.Text = openFileDialog.FileName;
+            }
+        }
+
 
 
 

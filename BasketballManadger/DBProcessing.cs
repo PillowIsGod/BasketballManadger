@@ -91,8 +91,8 @@ namespace BasketballManadger
                     int id_team = GetPlayersTeamID(player);
                     int id_position = GetPlayersPositionID(player);
 
-                    string sqlExpression = String.Format("INSERT INTO basketballplayers (name,age, career_age, height, weight, id_team, id_position) VALUES ('{0}','{1}','{2}','{3}'," +
-                        "'{4}','{5}','{6}')", player.Name, player.Age, player.Career_age, player.Height, player.Weight, id_team, id_position);
+                    string sqlExpression = String.Format("INSERT INTO basketballplayers (name,age, career_age, height, weight, id_team, id_position, picture) VALUES ('{0}','{1}','{2}','{3}'," +
+                        "'{4}','{5}','{6}', '{7}')", player.Name, player.Age, player.Career_age, player.Height, player.Weight, id_team, id_position, player.Picture.Replace(@"\", @"\\"));
 
 
                     MySqlCommand command = new MySqlCommand(sqlExpression, connection);
@@ -111,7 +111,7 @@ namespace BasketballManadger
                 {
                     connection.Open();
 
-                    string sqlExpression = String.Format("INSERT INTO teams (team_name, city) VALUES ('{0}', '{1}')", team.TeamName, team.City);
+                    string sqlExpression = String.Format("INSERT INTO teams (team_name, city, logo) VALUES ('{0}', '{1}', '{2}')", team.TeamName, team.City, team.Logo.Replace(@"\", @"\\"));
 
                     MySqlCommand command = new MySqlCommand(sqlExpression, connection);
                     command.ExecuteNonQuery();

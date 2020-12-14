@@ -19,6 +19,34 @@ namespace BasketballManadger
         public int Weight { get; set; }
         public string Position { get; set; }
        
+
+        public void CheckPlayerPicture(BasketballPlayers player)
+        {
+            if (string.IsNullOrEmpty(player.Picture))
+            {
+                player.Picture = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\NullPicture.png";
+            }
+        }
+        public bool PlayerAdequacyCheck(BasketballPlayers player)
+        {
+            if(player.Age > 45 || player.Age < 19)
+            {
+                return true;
+            }
+            if(player.Career_age > 20 || player.Career_age < 0)
+            {
+                return true;
+            }
+            if(player.Height > 2.5 || player.Height < 1.50)
+            {
+                return true;
+            }
+            if(player.Weight > 200 || player.Weight < 50)
+            {
+                return true;
+            }
+            return false;
+        }
             public BindingList<BasketballPlayers> RelatePlayerToATeam(Teams team, BindingList<BasketballPlayers> players)
         {
             BindingList<BasketballPlayers> playersToReturn = new BindingList<BasketballPlayers>();

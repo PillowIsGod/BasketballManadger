@@ -50,7 +50,13 @@ namespace BasketballManadger
         {
             
         }
-
+        public void CheckTeamPicture(Teams team)
+        {
+            if (string.IsNullOrEmpty(team.Logo))
+            {
+                team.Logo = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\NullPicture.png";
+            }
+        }
         protected void OnPropertyChanged(string propertyname = "")
         {
             if (PropertyChanged != null)

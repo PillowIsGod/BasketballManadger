@@ -192,7 +192,7 @@ namespace BasketballManadger
                 player.Name = Convert.ToString(item[2]);
                 player.Age = Convert.ToInt32(item[3]);
                 player.Career_age = Convert.ToInt32(item[4]);
-                player.Height = Convert.ToInt32(item[5]);
+                player.Height = Convert.ToDouble(item[5]);
                 player.Weight = Convert.ToInt32(item[6]);
                 player.Current_team = Convert.ToString(item[7]);
                 player.Position = Convert.ToString(item[8]);

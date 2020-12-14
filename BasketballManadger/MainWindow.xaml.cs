@@ -30,6 +30,7 @@ namespace BasketballManadger
 
 
         private BindingList<Teams> _teamsList;
+        private BindingList<Positions> _positions;
         public MainWindow()
         {
             InitializeComponent();
@@ -47,6 +48,7 @@ namespace BasketballManadger
             }
             _teamsList = teams;
             connection = new MySqlConnection(_myConnectionString);
+            _positions = FilePath.GetPositions();
             
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -60,6 +62,8 @@ namespace BasketballManadger
             
             lvPlayers.ItemsSource = players;
             lvPlayers.Visibility = Visibility.Visible;
+            cbToEditOrAddTeams.ItemsSource = _teamsList;
+            cbToEditOrAddPositions.ItemsSource = _positions;
             gridPlayerButtons.Visibility = Visibility.Visible;
         }
         private void ClearPlayersInterface()
@@ -73,8 +77,6 @@ namespace BasketballManadger
             tbGetCareerAge.Clear();
             tbGetHeight.Clear();
             tbGetWeight.Clear();
-            tbGetTeam.Clear();
-            tbGetPosition.Clear();
         }
         private void ClearTeamsInterface()
         {
@@ -88,12 +90,16 @@ namespace BasketballManadger
 
         private void btnConfirmEditingPlayer_Click(object sender, RoutedEventArgs e)
         {
+            var selectedTeam = cbToEditOrAddTeams.SelectedItem;
+            var selectedPosition = cbToEditOrAddPositions.SelectedItem;
+            Positions position = selectedPosition as Positions;
+            Teams team = selectedTeam as Teams;
             var player = lvPlayers.SelectedValue;
             BasketballPlayers player1 = player as BasketballPlayers;
             BindingList<BasketballPlayers> currentPlayers = FilePath.GetBasketballPlayers();
-            if (!string.IsNullOrEmpty(tbGetTeam.Text))
+            if (!string.IsNullOrEmpty(team.TeamName))
             {
-                player1.Current_team = tbGetTeam.Text;
+                player1.Current_team = team.TeamName;
             }
             if (!string.IsNullOrEmpty(tbGetName.Text))
             {
@@ -109,15 +115,15 @@ namespace BasketballManadger
             }
             if (!string.IsNullOrEmpty(tbGetHeight.Text))
             {
-                player1.Height = EditingInfo.ConvertNumber(tbGetHeight.Text);
+                player1.Height = EditingInfo.ConvertNumberToDouble(tbGetHeight.Text);
             }
             if (!string.IsNullOrEmpty(tbGetWeight.Text))
             {
                 player1.Weight = EditingInfo.ConvertNumber(tbGetWeight.Text);
             }
-            if (!string.IsNullOrEmpty(tbGetPosition.Text))
+            if (!string.IsNullOrEmpty(position.Position))
             {
-                player1.Position = tbGetPosition.Text;
+                player1.Position = position.Position;
             }
             foreach (var item in currentPlayers)
             {
@@ -154,6 +160,31 @@ namespace BasketballManadger
         private void lvPlayers_MouseDoubleClickEditing(object sender, MouseButtonEventArgs e)
         {
             ClearTeamsInterface();
+            var selectedPlayer = lvPlayers.SelectedItem;
+            BasketballPlayers player = selectedPlayer as BasketballPlayers;
+            tbGetAge.Text = player.Age.ToString();
+            tbGetCareerAge.Text = player.Career_age.ToString();
+            tbGetHeight.Text = player.Height.ToString();
+            tbGetWeight.Text = player.Weight.ToString();
+            tbGetName.Text = player.Name;
+            int teamNameIndex = 0;
+            int positionIndex = 0;
+            for (int i = 0; i < _teamsList.Count; i++)
+            {
+                if (player.Current_team == _teamsList[i].TeamName)
+                {
+                    teamNameIndex = i;
+                }
+            }
+            for (int i = 0; i < _teamsList.Count; i++)
+            {
+                if (player.Position == _positions[i].Position)
+                {
+                    positionIndex = i;
+                }
+            }
+            cbToEditOrAddPositions.SelectedIndex = positionIndex;
+            cbToEditOrAddTeams.SelectedIndex = teamNameIndex;
             gridEditingPlayers.Visibility = Visibility.Visible;
             gridBtnsToConfirmEditingPlayers.Visibility = Visibility.Visible;
         }
@@ -211,10 +242,14 @@ namespace BasketballManadger
 
         private void btnConfirmAddingPlayer_Click(object sender, RoutedEventArgs e)
         {
+            var selectedTeam = cbToEditOrAddTeams.SelectedItem;
+            var selectedPosition = cbToEditOrAddPositions.SelectedItem;
+            Positions position = selectedPosition as Positions;
+            Teams team = selectedTeam as Teams;
             BasketballPlayers player1 = new BasketballPlayers();
-            if (!string.IsNullOrEmpty(tbGetTeam.Text))
+            if (!string.IsNullOrEmpty(team.TeamName))
             {
-                player1.Current_team = tbGetTeam.Text;
+                player1.Current_team = team.TeamName;
             }
             if (!string.IsNullOrEmpty(tbGetName.Text))
             {
@@ -230,17 +265,18 @@ namespace BasketballManadger
             }
             if (!string.IsNullOrEmpty(tbGetHeight.Text))
             {
-                player1.Height = EditingInfo.ConvertNumber(tbGetHeight.Text);
+                player1.Height = EditingInfo.ConvertNumberToDouble(tbGetHeight.Text);
             }
             if (!string.IsNullOrEmpty(tbGetWeight.Text))
             {
                 player1.Weight = EditingInfo.ConvertNumber(tbGetWeight.Text);
             }
-            if (!string.IsNullOrEmpty(tbGetPosition.Text))
+            if (!string.IsNullOrEmpty(position.Position))
             {
-                player1.Position = tbGetPosition.Text;
+                player1.Position = position.Position;
             }
-            if (string.IsNullOrEmpty(tbGetTeam.Text) || string.IsNullOrEmpty(tbGetName.Text) || string.IsNullOrEmpty(tbGetAge.Text) || string.IsNullOrEmpty(tbGetCareerAge.Text) || string.IsNullOrEmpty(tbGetHeight.Text) || string.IsNullOrEmpty(tbGetWeight.Text) || string.IsNullOrEmpty(tbGetPosition.Text))
+            if (string.IsNullOrEmpty(position.Position) || string.IsNullOrEmpty(tbGetName.Text) || string.IsNullOrEmpty(tbGetAge.Text) ||
+                string.IsNullOrEmpty(tbGetCareerAge.Text) || string.IsNullOrEmpty(tbGetHeight.Text) || string.IsNullOrEmpty(tbGetWeight.Text) || string.IsNullOrEmpty(position.Position))
             {
                 ClearPlayersInterface();
                 return;

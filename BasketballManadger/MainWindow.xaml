@@ -73,6 +73,7 @@
                             <TextBlock Text="{Binding Path = Weight}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14"  Grid.Row="5"></TextBlock>
                             <TextBlock Text="Position: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="6"></TextBlock>
                             <TextBlock Text="{Binding Path = Position}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Grid.Row="6"></TextBlock>
+                            
                         </Grid>
                     </StackPanel>
                 </DataTemplate>
@@ -103,9 +104,9 @@
                 <TextBlock Text="Remove Player" FontSize="14" ></TextBlock>
             </Button>
         </Grid>
-        <Grid x:Name="gridEditingPlayers" Grid.Column="2" Grid.Row="0" Height="150" VerticalAlignment="Top" Visibility="Hidden">
+        <Grid x:Name="gridEditingPlayers"  Grid.Column="2" Grid.Row="0" Height="400" VerticalAlignment="Top" Visibility="Hidden">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="80"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -119,20 +120,36 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock Text="Please, enter new characteristics: " Grid.ColumnSpan="2" Grid.Row="0"></TextBlock>
-            <TextBlock Text="Team: " Grid.Column="0" Grid.Row="1"></TextBlock>
-            <TextBox x:Name="tbGetTeam" Grid.Column="1" Grid.Row="1" IsReadOnly="False"></TextBox>
-            <TextBlock Text="Name: " Grid.Column="0" Grid.Row="2"></TextBlock>
-            <TextBox x:Name="tbGetName" Grid.Column="1" Grid.Row="2" IsReadOnly="False"></TextBox>
-            <TextBlock Text="Age: " Grid.Column="0" Grid.Row="3"></TextBlock>
-            <TextBox x:Name="tbGetAge" Grid.Column="1" Grid.Row="3" IsReadOnly="False"></TextBox>
-            <TextBlock Text="Career Age: " Grid.Column="0" Grid.Row="4"></TextBlock>
-            <TextBox  x:Name="tbGetCareerAge" Grid.Column="1" Grid.Row="4" IsReadOnly="False"></TextBox>
-            <TextBlock Text="Height: " Grid.Column="0" Grid.Row="5"></TextBlock>
-            <TextBox x:Name="tbGetHeight" Grid.Column="1" Grid.Row="5" IsReadOnly="False"></TextBox>
-            <TextBlock Text="Weight: " Grid.Column="0" Grid.Row="6" ></TextBlock>
-            <TextBox x:Name="tbGetWeight" Grid.Column="1" Grid.Row="6" IsReadOnly="False"></TextBox>
-            <TextBlock Text="Position: " Grid.Column="0" Grid.Row="7"></TextBlock>
-            <TextBox x:Name="tbGetPosition" Grid.Column="1" Grid.Row="7" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Name: " Grid.Column="0" Grid.Row="1"></TextBlock>
+            <TextBox x:Name="tbGetName" Text = "{Binding Path=Name}" Grid.Column="1" Grid.Row="1" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Age: " Grid.Column="0" Grid.Row="2"></TextBlock>
+            <TextBox x:Name="tbGetAge" Text ="{Binding Path=Age}" Grid.Column="1" Grid.Row="2" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Career Age: "   Grid.Column="0" Grid.Row="3"></TextBlock>
+            <TextBox  x:Name="tbGetCareerAge"  Text ="{Binding Path=Career_Age}" Grid.Column="1" Grid.Row="3" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Height: " Grid.Column="0" Grid.Row="4"></TextBlock>
+            <TextBox x:Name="tbGetHeight" Text ="{Binding Path=Height}" Grid.Column="1" Grid.Row="4" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Weight: " Grid.Column="0" Grid.Row="5" ></TextBlock>
+            <TextBox x:Name="tbGetWeight" Text ="{Binding Path=Weight}" Grid.Column="1" Grid.Row="5" IsReadOnly="False"></TextBox>
+            <TextBlock Text="Choose team: " Grid.Column="0" Grid.Row="6"></TextBlock>
+            <ComboBox x:Name="cbToEditOrAddTeams" Text="Choose a team" Grid.Column="1" Grid.Row="6" Height="auto" Width="auto">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Path=Logo}" Width="75" ></Image>
+                                <TextBlock Text="{Binding Path= TeamName}" Width="auto"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox x:Name="cbToEditOrAddPositions" Text="Choose a position" Grid.Column="1" Grid.Row="7" Height="auto" Width="auto">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Path= Position}" Width="auto"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </Grid>
         <Grid x:Name="gridBtnsToConfirmEditingPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
             <Grid.ColumnDefinitions>

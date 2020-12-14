@@ -18,6 +18,18 @@ namespace BasketballManadger
         
             return number;
         }
+        public static double ConvertNumberToDouble(string textToConvert)
+        {
+            bool check = false;
+            double number = 0;
+            check = double.TryParse(textToConvert, out number);
+            if (check)
+            {
+                return number;
+            }
+
+            return number;
+        }
 
         public EditingInfo()
         {

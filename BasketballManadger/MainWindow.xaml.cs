@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +29,8 @@ namespace BasketballManadger
         private string _myConnectionString = "Database = basketballdata; Data Source = 127.0.0.1; User Id = root; Password = 7Bc145f606";
         private MySqlConnection connection = null;
 
+
+        private bool _toCompleteEvent = false;
 
         private BindingList<Teams> _teamsList;
         private BindingList<Positions> _positions;
@@ -87,6 +90,24 @@ namespace BasketballManadger
             tbgetTeamName.Clear();
             tbGetCity.Clear();
         }
+        private void UpdateInterface()
+        {
+            _toCompleteEvent = true;
+            var teams = FilePath.GetTeams();
+            var players = FilePath.GetBasketballPlayers();
+            foreach (var item in teams)
+            {
+                item.BasketballPlayers = players;
+            }
+            var basketballPlayer = new BasketballPlayers();
+            foreach (var item in teams)
+            {
+                item.BasketballPlayers = basketballPlayer.RelatePlayerToATeam(item, players); ;
+            }
+            lvTeamsOutput.ItemsSource = null;
+            lvTeamsOutput.ItemsSource = teams;
+            _toCompleteEvent = false;
+        }
 
         private void btnConfirmEditingPlayer_Click(object sender, RoutedEventArgs e)
         {
@@ -136,6 +157,9 @@ namespace BasketballManadger
             }
             FilePath.SaveData(currentPlayers);
 
+
+            UpdateInterface();
+
             ClearPlayersInterface();
         }
 
@@ -146,14 +170,20 @@ namespace BasketballManadger
 
         private void lvTeamsOutput_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            var str = lvTeamsOutput.SelectedValue;
-            Teams str1 = str as Teams;
-            var players = str1.BasketballPlayers;
-            lvPlayers.ItemsSource = players;
-            lvPlayers.Visibility = Visibility.Visible;
-            gridPlayerButtons.Visibility = Visibility.Visible;
-            ClearPlayersInterface();
-            ClearTeamsInterface();
+            if (_toCompleteEvent) {
+                return;
+            }
+                var str = lvTeamsOutput.SelectedValue;
+                Teams str1 = str as Teams;
+                var players = str1.BasketballPlayers;
+                lvPlayers.ItemsSource = players;
+
+                lvPlayers.Visibility = Visibility.Visible;
+                gridPlayerButtons.Visibility = Visibility.Visible;
+                ClearPlayersInterface();
+                ClearTeamsInterface();
+
+
         }
 
 
@@ -192,6 +222,10 @@ namespace BasketballManadger
         private void lvTeamsOutput_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ClearPlayersInterface();
+            var selectedTeam = lvTeamsOutput.SelectedItem;
+            Teams team = selectedTeam as Teams;
+            tbGetCity.Text = team.City;
+            tbgetTeamName.Text = team.TeamName;
             gridEditingTeams.Visibility = Visibility.Visible;
             gridBtnsToConfirmEditingTeam.Visibility = Visibility.Visible;
         }
@@ -219,6 +253,7 @@ namespace BasketballManadger
                 }
             }
             FilePath.SaveData(currentTeams);
+            UpdateInterface();
             ClearTeamsInterface();
         }
 
@@ -283,6 +318,8 @@ namespace BasketballManadger
             }
             FilePath.Append(player1);
 
+            UpdateInterface();
+
             ClearPlayersInterface();
         }
 
@@ -319,6 +356,7 @@ namespace BasketballManadger
                 return;
             }
             FilePath.Append(team);
+            UpdateInterface();
             ClearTeamsInterface();
         }
 
@@ -327,6 +365,7 @@ namespace BasketballManadger
             var selectedTeam = lvTeamsOutput.SelectedItem;
             Teams team = selectedTeam as Teams;
             FilePath.Delete(team);
+            UpdateInterface();
             ClearTeamsInterface();
 
         }
@@ -344,6 +383,17 @@ namespace BasketballManadger
             ClearPlayersInterface();
             ClearTeamsInterface();
             gridBtnsToConfirmDeletingTeam.Visibility = Visibility.Visible;
+        }
+
+        private void btnPictureSelector_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG";
+            Nullable<bool> result = openFileDialog.ShowDialog();
+            if (result == true)
+            {
+                tbToShowFilePath.Text = openFileDialog.FileName;
+            }
         }
 
 

@@ -7,7 +7,110 @@
         mc:Ignorable="d"
         Title="BasketballManager" Height="800" Width="1200" Loaded="Window_Loaded">
 
-    <Grid x:Name="gridMain">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Control.FontFamily" Value="Calibri" />
+            <Setter Property="Control.Background" Value="#FF767575" />
+            <Setter Property="Control.Foreground" Value="White" />
+            <Setter Property="Control.Margin" Value="5,5,5,0" />
+            <Setter Property="Control.FontSize" Value="12" />
+            <Setter Property="Control.BorderBrush" Value="AntiqueWhite"/>
+            <Setter Property="Control.BorderThickness" Value="1.5"/>
+            <Setter Property="Control.Width" Value="100"/>
+            <!--<Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Button.IsFouced" Value="True">
+                                <Setter Property="Background" Value="#FF767575"></Setter>
+                                <Setter Property="Foreground" Value="AntiqueWhite"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>-->
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="BorderThickness" Value="0.5"/>
+            <Setter Property="BorderBrush" Value="AntiqueWhite"/>
+            <Setter Property="Background" Value="#FF767575"/>
+            <Setter Property="Foreground" Value="AntiqueWhite"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="FontFamily" Value="Calibry"></Setter>
+        </Style>
+     
+        <Style TargetType="ScrollBar">
+            <Setter Property="Background" Value="AntiqueWhite"/>
+            <Setter Property="Foreground" Value="AntiqueWhite"/>
+        </Style>
+        <Style TargetType="ScrollViewer">
+            <Setter Property="Background" Value="#FF767575"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FF767575"/>
+            <Setter Property="Foreground" Value="AntiqueWhite"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="FontFamily" Value="Calibry"></Setter>
+            <Setter Property="BorderThickness" Value="0.5"/>
+            <Setter Property="BorderBrush" Value="AntiqueWhite"/>
+
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Background" Value="#FF767575"/>
+            <Setter Property="Foreground" Value="AntiqueWhite"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="FontFamily" Value="Calibry"></Setter>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#FF767575"></Setter>
+            <Setter Property="Foreground" Value="AntiqueWhite"></Setter>
+            <Setter Property="FontSize" Value="14"></Setter>
+            <Setter Property="FontFamily" Value="Calibry"></Setter>
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Grid.Column="2" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" >
+                                <ToggleButton.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="5*" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border x:Name="Border"  Grid.ColumnSpan="2" CornerRadius="5" Background="#FF767575" BorderBrush="Black" BorderThickness="1" />
+                                            <Border Grid.Column="0" CornerRadius="5,0,0,5"  Margin="1"  Background="#FF767575"  BorderBrush="Black" BorderThickness="0,0,1,0" />
+                                            <Path x:Name="Arrow" Grid.Column="1"  Fill="AntiqueWhite" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                                                <Setter TargetName="Border" Property="Background" Value="AntiqueWhite" />
+                                            </Trigger>
+                                            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                                                <Setter TargetName="Border" Property="Background" Value="AntiqueWhite" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3"  />
+                            <TextBox x:Name="PART_EditableTextBox" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True"  Focusable="False" PopupAnimation="Slide">
+                                <Grid  Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="Blue" />
+                                    <ScrollViewer SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid x:Name="gridMain" Background="#FF767575">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -15,9 +118,9 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="lvTeamsOutput" Grid.Column = "0" Grid.Row="0" SelectionChanged="lvTeamsOutput_SelectionChanged" MouseDoubleClick="lvTeamsOutput_MouseDoubleClick" ToolTip="Double click to edit">
+        <ListView x:Name="lvTeamsOutput" Grid.Column = "0" Grid.Row="0" SelectionChanged="lvTeamsOutput_SelectionChanged" MouseDoubleClick="lvTeamsOutput_MouseDoubleClick" ToolTip="Double click to edit" Background="#FF767575">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -39,11 +142,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView x:Name="lvPlayers" Grid.Column="1" Grid.Row="0" Visibility="Hidden" MouseDoubleClick="lvPlayers_MouseDoubleClickEditing" SelectionChanged="lvPlayers_SelectionChanged" ToolTip="Double click to edit" Width="auto">
+        <ListView x:Name="lvPlayers" Grid.Column="1" Grid.Row="0" Visibility="Hidden" MouseDoubleClick="lvPlayers_MouseDoubleClickEditing" SelectionChanged="lvPlayers_SelectionChanged" ToolTip="Double click to edit" Width="auto" Background="#FF767575">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <Grid>
+                        <Grid Margin="10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
@@ -58,7 +161,7 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Image Source="{Binding Path=Picture}" Width="120" Grid.Column="0" HorizontalAlignment="Center" Grid.RowSpan="7"></Image>
+                            <Image Source="{Binding Path=Picture}" Width="150" Grid.Column="0" HorizontalAlignment="Center" Grid.RowSpan="7"></Image>
                             <TextBlock Text="Team: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="0"></TextBlock>
                             <TextBlock Text="{Binding Path=Current_team}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Grid.Row="0"></TextBlock>
                             <TextBlock Text="Name: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="1"></TextBlock>
@@ -73,12 +176,13 @@
                             <TextBlock Text="{Binding Path = Weight}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14"  Grid.Row="5"></TextBlock>
                             <TextBlock Text="Position: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="6"></TextBlock>
                             <TextBlock Text="{Binding Path = Position}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Grid.Row="6"></TextBlock>
-                            
+
                         </Grid>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        
         <Grid Grid.Row="1" Height="30" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -87,27 +191,27 @@
             <Button x:Name="btnAddTeam" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1" Click="btnAddTeam_Click">
                 <TextBlock Text= "Add" FontSize="14"></TextBlock>
             </Button>
-            <Button x:Name="btnRemoveTeam" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1" Click="btnRemoveTeam_Click">
+            <Button x:Name="btnRemoveTeam" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1" Click="btnRemoveTeam_Click" Margin="5, 5, 5, 0">
                 <TextBlock Text="Remove" FontSize="14" ></TextBlock>
             </Button>
         </Grid>
-
+        
         <Grid x:Name="gridPlayerButtons" Grid.Column="1" Grid.Row="1" Height="30" VerticalAlignment="Bottom" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnAddPlayer" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1" Click="btnAddPlayer_Click">
+            <Button x:Name="btnAddPlayer" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1" Click="btnAddPlayer_Click" Margin="5, 5, 5, 0">
                 <TextBlock Text="Add Player" FontSize="14"></TextBlock>
             </Button>
-            <Button x:Name="btnRemovePlayer" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1" Click="btnRemovePlayer_Click">
+            <Button x:Name="btnRemovePlayer" Grid.Column="1"  VerticalAlignment="Bottom" Grid.Row="1" Click="btnRemovePlayer_Click" Margin="5, 5, 5, 0">
                 <TextBlock Text="Remove Player" FontSize="14" ></TextBlock>
             </Button>
         </Grid>
         <Grid x:Name="gridEditingPlayers"  Grid.Column="2" Grid.Row="0" Height="400" VerticalAlignment="Top" Visibility="Hidden">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="250"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -132,75 +236,82 @@
             <TextBlock Text="Weight: " Grid.Column="0" Grid.Row="5" ToolTip="Weight must be from 50 to 200"></TextBlock>
             <TextBox x:Name="tbGetWeight" Text ="{Binding Path=Weight}" Grid.Column="1" Grid.Row="5" IsReadOnly="False"></TextBox>
             <TextBlock Text="Choose team: " Grid.Column="0" Grid.Row="6"></TextBlock>
-            <ComboBox x:Name="cbToEditOrAddTeams" Text="Choose a team" Grid.Column="1" Grid.Row="6" Height="auto" Width="auto">
+            <ComboBox x:Name="cbToEditOrAddTeams" Text="Choose a team" Grid.Column="1" Grid.Row="6" Height="auto" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="{Binding Path=Logo}" Width="75" ></Image>
-                                <TextBlock Text="{Binding Path= TeamName}" Width="auto"></TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Path=Logo}" Width="100" HorizontalAlignment="Center"></Image>
+                            <TextBlock Text="{Binding Path= TeamName}" Width="auto" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ComboBox x:Name="cbToEditOrAddPositions" Text="Choose a position" Grid.Column="1" Grid.Row="7" Height="auto" Width="auto">
+            <ComboBox x:Name="cbToEditOrAddPositions" Text="Choose a position" Grid.Column="1" Grid.Row="7" Height="auto" Width="200" HorizontalAlignment="Left">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Text="{Binding Path= Position}" Width="auto"></TextBlock>
+                            <TextBlock Text="{Binding Path= Position}" Width="auto" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBlock Text="Choose position: " Grid.Column="0" Grid.Row="7"></TextBlock>
-            <Button x:Name="btnPictureSelector" Grid.Column="0" Grid.Row="8" Click="btnPictureSelector_Click">
-                <TextBlock Text="Select picture from your files"></TextBlock>
+            <Button x:Name="btnPictureSelector" Grid.Column="0" Grid.Row="8" Click="btnPictureSelector_Click" Width="auto" Height="35">
+                <TextBlock Text="Browse Images: "></TextBlock>
             </Button>
             <TextBox x:Name="tbToShowPlayerPictureFilePath" Grid.Row="8" Grid.Column="1" IsReadOnly="True"></TextBox>
-            
+
         </Grid>
-        <Grid x:Name="gridBtnsToConfirmEditingPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+
+        <Grid x:Name="gridBtnsToConfirmEditingPlayers" Grid.Row="1" Grid.Column="2" Height="30" Visibility="Hidden" VerticalAlignment="Bottom" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button x:Name="btnConfirmEditingPlayer" Grid.Column="0" Click="btnConfirmEditingPlayer_Click">
                 <TextBlock Text="Confirm"></TextBlock>
-        </Button>
+            </Button>
             <Button x:Name="btnDeclineEditingPlayer" Grid.Column="1" Click="btnDeclineEditingPlayer_Click">
                 <TextBlock Text="Decline"></TextBlock>
             </Button>
         </Grid>
 
-        <Grid x:Name="gridBtnsToConfirmAddingPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+        <Grid x:Name="gridBtnsToConfirmAddingPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" Height="30" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnConfirmAddingPlayer" Grid.Column="0" Click="btnConfirmAddingPlayer_Click">
+            <Button x:Name="btnConfirmAddingPlayer" Grid.Column="0" Click="btnConfirmAddingPlayer_Click" Margin="5, 5, 5, 0">
                 <TextBlock Text="Confirm"></TextBlock>
             </Button>
-            <Button x:Name="btnDeclineAddingPlayer" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
+            <Button x:Name="btnDeclineAddingPlayer" Grid.Column="1" Click="btnDeclineEditingTeam_Click" Margin="5, 5, 5, 0">
                 <TextBlock Text="Decline"></TextBlock>
             </Button>
         </Grid>
 
-        <Grid x:Name="gridBtnsToConfirmDeletingPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+        <Grid x:Name="gridBtnsToConfirmDeletingPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" Height="60" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnConfirmDeletingPlayer" Grid.Column="0" Click ="btnConfirmDeletingPlayer_Click">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30">
+                </RowDefinition>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Are you sure you want to delete the Player" Grid.ColumnSpan="2" Grid.Row="0" Height="25"></TextBlock>
+            <Button x:Name="btnConfirmDeletingPlayer" Grid.Column="0" Click ="btnConfirmDeletingPlayer_Click" Margin="5, 5, 5, 0" Grid.Row="1">
                 <TextBlock Text="Confirm"></TextBlock>
             </Button>
-            <Button x:Name="btnDeclineDeletingPlayer" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
+            <Button x:Name="btnDeclineDeletingPlayer" Grid.Column="1" Click="btnDeclineEditingTeam_Click" Margin="5, 5, 5, 0" Grid.Row="1">
                 <TextBlock Text="Decline"></TextBlock>
             </Button>
         </Grid>
 
         <Grid x:Name="gridEditingTeams" Grid.Row="0" Height ="250" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="250"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -208,49 +319,55 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Please, enter new value: " Grid.ColumnSpan="2" Grid.Row="0"></TextBlock>
-            <TextBlock Text="City: " Grid.Column="0" Grid.Row="1"></TextBlock>
-            <TextBox x:Name="tbGetCity" Grid.Column="1" Grid.Row="1"></TextBox>
-            <TextBlock Text="Team Name: " Grid.Column="0" Grid.Row="2"></TextBlock>
-            <TextBox x:Name ="tbgetTeamName" Grid.Column="1" Grid.Row="2"></TextBox>
-            <Button x:Name="btnLogoSelector" Grid.Column="0" Grid.Row="3" Click="btnLogoSelector_Click">
-                <TextBlock Text="Select picture from your files"></TextBlock>
+            <TextBlock Text="Please, enter new value: " Grid.ColumnSpan="2" Grid.Row="0" Height="35"></TextBlock>
+            <TextBlock Text="City: " Grid.Column="0" Grid.Row="1" Height="35"></TextBlock>
+            <TextBox x:Name="tbGetCity" Grid.Column="1" Grid.Row="1" Height="35"></TextBox>
+            <TextBlock Text="Team Name: " Grid.Column="0" Grid.Row="2" Height="35"></TextBlock>
+            <TextBox x:Name ="tbgetTeamName" Grid.Column="1" Grid.Row="2" Height="35"></TextBox>
+            <Button x:Name="btnLogoSelector" Grid.Column="0" Grid.Row="3" Click="btnLogoSelector_Click" Width="auto" Height="35">
+                <TextBlock Text="Browse Images: "></TextBlock>
             </Button>
-            <TextBox x:Name="tbToShowTeamLogoFilePath" Grid.Row="3" Grid.Column="1" IsReadOnly="True"></TextBox>
+            <TextBox x:Name="tbToShowTeamLogoFilePath" Grid.Row="3" Grid.Column="1" IsReadOnly="True" Height="35"></TextBox>
         </Grid>
-        <Grid x:Name="gridBtnsToConfirmEditingTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+        <Grid x:Name="gridBtnsToConfirmEditingTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" Height="30" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnConfirmEditingTeam" Grid.Column="0" Click="btnConfirmEditingTeam_Click">
+            <Button x:Name="btnConfirmEditingTeam" Grid.Column="0" Click="btnConfirmEditingTeam_Click" Margin="5, 5, 5, 0">
                 <TextBlock Text="Confirm"></TextBlock>
             </Button>
-            <Button x:Name="btnDeclineEditingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
+            <Button x:Name="btnDeclineEditingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click" Margin="5, 5, 5, 0">
                 <TextBlock Text="Decline"></TextBlock>
             </Button>
         </Grid>
-        <Grid x:Name="gridBtnsToConfirmAddingTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+        <Grid x:Name="gridBtnsToConfirmAddingTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" Height="30" VerticalAlignment="Bottom" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnConfirmAddingTeam" Grid.Column="0" Click="btnConfirmAddingTeam_Click">
+            <Button x:Name="btnConfirmAddingTeam" Grid.Column="0" Click="btnConfirmAddingTeam_Click" Margin="5, 5, 5, 0">
                 <TextBlock Text="Confirm"></TextBlock>
             </Button>
-            <Button x:Name="btnDeclineAddingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
+            <Button x:Name="btnDeclineAddingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click" Margin="5, 5, 5, 0">
                 <TextBlock Text="Decline"></TextBlock>
             </Button>
         </Grid>
-        <Grid x:Name="gridBtnsToConfirmDeletingTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" >
+        <Grid x:Name="gridBtnsToConfirmDeletingTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" Height="60">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnConfirmDeletingTeam" Grid.Column="0" Click="btnConfirmDeletingTeam_Click">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30">
+                </RowDefinition>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Are you sure you want to delete selected team?" Grid.ColumnSpan="2" Grid.Row="0" Height="25"></TextBlock>
+            <Button x:Name="btnConfirmDeletingTeam" Grid.Column="0" Click="btnConfirmDeletingTeam_Click" Margin="5, 5, 5, 0" Grid.Row="1">
                 <TextBlock Text="Confirm"></TextBlock>
             </Button>
-            <Button x:Name="btnDeclineDeletingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
+            <Button x:Name="btnDeclineDeletingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click" Margin="5, 5, 5, 0" Grid.Row="1">
                 <TextBlock Text="Decline"></TextBlock>
             </Button>
         </Grid>

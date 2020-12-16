@@ -202,7 +202,9 @@ namespace BasketballManadger
             if (_toCompleteEvent) {
                 return;
             }
+            
                 var str = lvTeamsOutput.SelectedValue;
+            
                 Teams str1 = str as Teams;
                 var players = str1.BasketballPlayers;
                 lvPlayers.ItemsSource = players;

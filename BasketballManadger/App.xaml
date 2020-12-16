@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:BasketballManadger"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="TextStyle" TargetType="{x:Type Control}">
+            <Setter Property="Foreground" Value="AntiqueWhite" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="Calibry" />
+            <Setter Property="FontStyle" Value="Normal" />
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

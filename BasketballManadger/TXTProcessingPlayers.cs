@@ -6,23 +6,21 @@ using System.Text;
 
 namespace BasketballManadger
 {
-    class TXTProcessingPlayers
+    public class TXTProcessingPlayers : FileTypesProcessing
     {
-        public string TxtFilePathPlayers;
-        public TXTProcessingPlayers(string txtFilePathPlayers)
+        public TXTProcessingPlayers(string filePath) : base (filePath)
         {
-            TxtFilePathPlayers = txtFilePathPlayers;
         }
 
 
 
-        public void ImportPlayersDataFromDB(BindingList<BasketballPlayers> playersToImport)
+        public override void ImportPlayersData(BindingList<BasketballPlayers> playersToImport)
         {
             string line;
             foreach (var item in playersToImport)
             {
                 line = item.ID.ToString() + "," + item.Name + "," + item.Current_team + "," + item.Picture + "," + item.Age.ToString() + "," + item.Career_age.ToString() + "," + item.Height.ToString() + "," + item.Weight.ToString() + "," + item.Position;
-                using (FileStream fs = new FileStream(TxtFilePathPlayers, FileMode.Truncate))
+                using (FileStream fs = new FileStream(FileProcessingPath, FileMode.Truncate))
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     sw.WriteLine(line);
@@ -33,11 +31,11 @@ namespace BasketballManadger
 
 
 
-        public BindingList<BasketballPlayers> GetPlayersFromTXT()
+        public override BindingList<BasketballPlayers> GetPlayersFromFile()
         {
             BindingList<BasketballPlayers> players = new BindingList<BasketballPlayers>();
             List<string> fileContent = new List<string>();
-            using (StreamReader sr = new StreamReader(TxtFilePathPlayers))
+            using (StreamReader sr = new StreamReader(FileProcessingPath))
             {
                 string line = null;
                 while ((line = sr.ReadLine()) != null)
@@ -65,6 +63,16 @@ namespace BasketballManadger
                 players.Add(player);
             }
             return players;
+        }
+
+        public override void ImportTeamData(BindingList<Teams> teamsToImport)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override BindingList<Teams> GetTeamFromFIle()
+        {
+            throw new NotImplementedException();
         }
     }
 }

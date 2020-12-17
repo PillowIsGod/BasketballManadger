@@ -429,6 +429,8 @@
             </Button>
         </Grid>
 
+        <Button x:Name="btnTest" Grid.Column="2" Grid.Row="1" Click="btnTest_Click"></Button>
+
     </Grid>
 
 </Window>

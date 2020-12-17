@@ -6,23 +6,33 @@ using System.Text;
 
 namespace BasketballManadger
 {
-    class TXTProcessingTeams
+   public class TXTProcessingTeams : FileTypesProcessing
     {
-        public string TxtFilePathTeams;
-        public TXTProcessingTeams(string txtFilePathTeams)
+
+        public TXTProcessingTeams(string filePath) : base (filePath)
         {
-            TxtFilePathTeams = txtFilePathTeams;
         }
 
 
 
-        public void ImportTeamDataFrom(BindingList<Teams> teamsToImport)
+
+        public override BindingList<BasketballPlayers> GetPlayersFromFile()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ImportPlayersData(BindingList<BasketballPlayers> playersToImport)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void ImportTeamData(BindingList<Teams> teamsToImport)
         {
             string line;
             foreach (var item in teamsToImport)
             {
                 line = item.ID.ToString() + "," + item.City + "," + item.TeamName + "," + item.Logo;
-                using (FileStream fs = new FileStream(TxtFilePathTeams, FileMode.Truncate))
+                using (FileStream fs = new FileStream(FileProcessingPath, FileMode.Truncate))
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
                     sw.WriteLine(line);
@@ -31,13 +41,11 @@ namespace BasketballManadger
             }
         }
 
-
-
-        public BindingList<Teams> GetTeamsFromTXT()
+        public override BindingList<Teams> GetTeamFromFIle()
         {
             BindingList<Teams> teams = new BindingList<Teams>();
             List<string> fileContent = new List<string>();
-                using(StreamReader sr = new StreamReader(TxtFilePathTeams))
+            using (StreamReader sr = new StreamReader(FileProcessingPath))
             {
                 string line = null;
                 while ((line = sr.ReadLine()) != null)
@@ -49,7 +57,7 @@ namespace BasketballManadger
                     fileContent.Add(line);
                 }
             }
-            foreach (var item in fileContent) 
+            foreach (var item in fileContent)
             {
                 var array = item.Split(",");
                 Teams team = new Teams();
@@ -61,6 +69,5 @@ namespace BasketballManadger
             }
             return teams;
         }
-
     }
 }

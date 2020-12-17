@@ -37,3 +37,8 @@ C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\net
 C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\obj\Debug\netcoreapp3.1\App.baml
+C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\netcoreapp3.1\NPOI.OOXML.dll
+C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\netcoreapp3.1\NPOI.OpenXml4Net.dll
+C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\netcoreapp3.1\NPOI.OpenXmlFormats.dll
+C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\netcoreapp3.1\NPOI.dll
+C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\netcoreapp3.1\ICSharpCode.SharpZipLib.dll

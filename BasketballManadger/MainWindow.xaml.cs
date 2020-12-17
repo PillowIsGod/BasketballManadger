@@ -471,6 +471,12 @@ namespace BasketballManadger
             }
         }
 
+        private void btnTest_Click(object sender, RoutedEventArgs e)
+        {
+            ImpExpDB.DataStorage = FileTypeEnum.ExcellTeams;
+            ImpExpDB.ImportTeamDataToDB();
+        }
+
 
 
 

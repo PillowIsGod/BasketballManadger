@@ -12,7 +12,9 @@ namespace BasketballManadger
         XMLPlayers = 3,
         XMLTeams = 4,
         JsonPlayers = 5,
-        JsonTeams = 6
+        JsonTeams = 6,
+        ExcellPlayers = 7,
+        ExcellTeams = 8
 
 
     }

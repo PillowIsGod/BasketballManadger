@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using BasketballManadger.ClassesImportExport;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,6 +25,8 @@ namespace BasketballManadger
         private static string _jsonTeamsPath { get; set; }
         private static string _excellPlayersPath { get; set; }
         private static string _excellTeamsPath { get; set; }
+        private static string _csvPlayersPath { get; set; }
+        private static string _csvTeamsPath { get; set; }
 
         //TxtPlayers = 1,
         //TxtTeams = 2,
@@ -45,6 +48,16 @@ namespace BasketballManadger
             {
                 _storageType = value;
                 _excellTeamsPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\ExcellTeams.xlsx";
+                _excellPlayersPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\ExcellPlayers.xlsx";
+                _xmlPlayersPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\XMLPlayers.xml";
+                _xmlTeamsPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\XMLTeams.xml";
+                _jsonPlayersPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\JsonPlayers.json";
+                _jsonTeamsPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\JsonTeams.json";
+                _txtPlayersPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\TXTPlayers.txt";
+                _txtTeamsPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\TXTTeams.txt";
+                _csvTeamsPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\CSVTeamStorage.csv";
+                _csvPlayersPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\CSVPlayerStorage.csv";
+
                 switch (_storageType)
                 {
                     case FileTypeEnum.TxtPlayers:
@@ -70,6 +83,12 @@ namespace BasketballManadger
                         break;
                     case FileTypeEnum.ExcellTeams:
                         _storage = new ExcellTeamsProcessing(_excellTeamsPath);
+                        break;
+                    case FileTypeEnum.CSVPlayers:
+                        _storage = new CSVPlayersProcessing(_csvPlayersPath);
+                        break;
+                    case FileTypeEnum.CSVTeams:
+                        _storage = new CSVTeamsProcessing(_csvTeamsPath);
                         break;
                     default:
                         break;
@@ -135,9 +154,9 @@ namespace BasketballManadger
 
         public static void ExportPlayerDataFromDB()
         {
-            BindingList<Teams> playerToExport = DBPath.GetTeams();
+            BindingList<BasketballPlayers> playersToExport = DBPath.GetBasketballPlayers();
 
-            _storage.ImportTeamData(playerToExport);
+            _storage.ImportPlayersData(playersToExport);
         }
 
 

@@ -14,7 +14,9 @@ namespace BasketballManadger
         JsonPlayers = 5,
         JsonTeams = 6,
         ExcellPlayers = 7,
-        ExcellTeams = 8
+        ExcellTeams = 8,
+        CSVTeams = 9,
+        CSVPlayers = 10
 
 
     }

@@ -48,7 +48,7 @@ namespace BasketballManadger
                     if (node.Name == "career_age")
                     { player.Career_age = Convert.ToInt32(node.InnerText); }
                     if (node.Name == "height")
-                    { player.Height = Convert.ToInt32(node.InnerText); }
+                    { player.Height = Convert.ToDouble(node.InnerText); }
                     if (node.Name == "weight")
                     { player.Weight = Convert.ToInt32(node.InnerText); }
 

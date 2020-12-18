@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[18.0.0, )"
+            },
             "MySql.Data": {
               "target": "Package",
               "version": "[8.0.22, )"

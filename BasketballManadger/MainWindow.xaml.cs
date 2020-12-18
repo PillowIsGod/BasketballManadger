@@ -36,12 +36,14 @@ namespace BasketballManadger
 
         private BindingList<Teams> _teamsList;
         private BindingList<Positions> _positions;
+        private BindingList<MenuImagesProcessing> _menuImages;
         public MainWindow()
         {
             InitializeComponent();
             FilePath = new DBProcessing(_myConnectionString);
             var teams = FilePath.GetTeams();
             var players = FilePath.GetBasketballPlayers();
+            var image = new MenuImagesProcessing();
             foreach (var item in teams)
             {
                 item.BasketballPlayers = players;
@@ -63,7 +65,8 @@ namespace BasketballManadger
             _teamsList = teams;
             connection = new MySqlConnection(_myConnectionString);
             _positions = FilePath.GetPositions();
-            
+            _menuImages = image.GetImagesFromFile();
+
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -73,7 +76,6 @@ namespace BasketballManadger
             var str = lvTeamsOutput.SelectedValue;
             Teams str1 = str as Teams;
             var players = str1.BasketballPlayers;
-
             lvPlayers.ItemsSource = players;
             lvPlayers.Visibility = Visibility.Visible;
             cbToEditOrAddTeams.ItemsSource = _teamsList;
@@ -174,6 +176,13 @@ namespace BasketballManadger
                     break;
                 }
             }
+            if (string.IsNullOrEmpty(position.Position) || string.IsNullOrEmpty(tbGetName.Text) || string.IsNullOrEmpty(tbGetAge.Text) ||
+                string.IsNullOrEmpty(tbGetCareerAge.Text) || string.IsNullOrEmpty(tbGetHeight.Text) || string.IsNullOrEmpty(tbGetWeight.Text) || string.IsNullOrEmpty(position.Position))
+            {
+                MessageBox.Show("You can't successfully edit player with empty parameter", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ClearPlayersInterface();
+                return;
+            }
             if (player1.Age == -1 || player1.Career_age == -1 || player1.Height == -1 || player1.Weight == -1)
             {
                 MessageBox.Show("Please, enter the number", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -188,6 +197,7 @@ namespace BasketballManadger
 
 
             UpdateInterface();
+            MessageBox.Show("Player was successfully edited", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
             ClearPlayersInterface();
         }
@@ -281,6 +291,12 @@ namespace BasketballManadger
 
             team.CheckTeamPicture(team);
 
+            if (string.IsNullOrEmpty(tbGetCity.Text) || string.IsNullOrEmpty(tbgetTeamName.Text))
+            {
+                MessageBox.Show("You can't successfully edit team without parameters", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ClearTeamsInterface();
+                return;
+            }
 
             foreach (var item in currentTeams)
             {
@@ -293,6 +309,7 @@ namespace BasketballManadger
             }
             FilePath.SaveData(currentTeams);
             UpdateInterface();
+            MessageBox.Show("Team was successfully edited", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             ClearTeamsInterface();
         }
 
@@ -359,6 +376,7 @@ namespace BasketballManadger
             if (string.IsNullOrEmpty(position.Position) || string.IsNullOrEmpty(tbGetName.Text) || string.IsNullOrEmpty(tbGetAge.Text) ||
                 string.IsNullOrEmpty(tbGetCareerAge.Text) || string.IsNullOrEmpty(tbGetHeight.Text) || string.IsNullOrEmpty(tbGetWeight.Text) || string.IsNullOrEmpty(position.Position))
             {
+                MessageBox.Show("You can't add player with empty parameter", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 ClearPlayersInterface();
                 return;
             }
@@ -376,6 +394,7 @@ namespace BasketballManadger
             FilePath.Append(player1);
 
             UpdateInterface();
+            MessageBox.Show("Player was successfully added", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
             ClearPlayersInterface();
         }
@@ -385,6 +404,8 @@ namespace BasketballManadger
             var player = lvPlayers.SelectedValue;
             BasketballPlayers player1 = player as BasketballPlayers;
             FilePath.Delete(player1);
+            UpdateInterface();
+            MessageBox.Show("Player was successfully added", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             ClearPlayersInterface();
         }
 
@@ -409,6 +430,7 @@ namespace BasketballManadger
 
             if (string.IsNullOrEmpty(tbGetCity.Text) || string.IsNullOrEmpty(tbgetTeamName.Text))
             {
+                MessageBox.Show("You can't add team without parameters", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 ClearTeamsInterface();
                 return;
             }
@@ -416,9 +438,11 @@ namespace BasketballManadger
             {
                 team.Logo = _teamIMG;
             }
+            
             team.CheckTeamPicture(team);
             FilePath.Append(team);
             UpdateInterface();
+            MessageBox.Show("Team was successfully added","Success", MessageBoxButton.OK, MessageBoxImage.Information);
             ClearTeamsInterface();
         }
 
@@ -428,6 +452,7 @@ namespace BasketballManadger
             Teams team = selectedTeam as Teams;
             FilePath.Delete(team);
             UpdateInterface();
+            MessageBox.Show("Team was successfully deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             ClearTeamsInterface();
 
         }
@@ -471,10 +496,334 @@ namespace BasketballManadger
             }
         }
 
-        private void btnTest_Click(object sender, RoutedEventArgs e)
+        private void miTXTimportTeams_Click(object sender, RoutedEventArgs e)
         {
+            var teams = FilePath.GetTeams();
+            ImpExpDB.DataStorage = FileTypeEnum.TxtTeams;
+            ImpExpDB.StorageTeamsEmptinessCheck();
+            if (teams.Count <= 0)
+            {
+                ImpExpDB.ImportTeamDataToDB(true, false);
+                MessageBox.Show("Team data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                ImpExpDB.ImportTeamDataToDB(false, true);
+                MessageBox.Show("Database team data was updated", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void miCSVimportTeams_Click(object sender, RoutedEventArgs e)
+        {
+            var teams = FilePath.GetTeams();
+            ImpExpDB.DataStorage = FileTypeEnum.CSVTeams;
+            ImpExpDB.StorageTeamsEmptinessCheck();
+            if (teams.Count <= 0)
+            {
+                ImpExpDB.ImportTeamDataToDB(true, false);
+                MessageBox.Show("Team data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                ImpExpDB.ImportTeamDataToDB(false, true);
+                MessageBox.Show("Database team data was updated", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void miJSONimportTeams_Click(object sender, RoutedEventArgs e)
+        {
+            var teams = FilePath.GetTeams();
+            ImpExpDB.DataStorage = FileTypeEnum.JsonTeams;
+            ImpExpDB.StorageTeamsEmptinessCheck();
+            if (teams.Count <= 0)
+            {
+                ImpExpDB.ImportTeamDataToDB(true, false);
+                MessageBox.Show("Team data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                ImpExpDB.ImportTeamDataToDB(false, true);
+                MessageBox.Show("Database team data was updated", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void miXMLimporTeamst_Click(object sender, RoutedEventArgs e)
+        {
+            var teams = FilePath.GetTeams();
+            ImpExpDB.DataStorage = FileTypeEnum.XMLTeams;
+            ImpExpDB.StorageTeamsEmptinessCheck();
+            if (teams.Count <= 0)
+            {
+                ImpExpDB.ImportTeamDataToDB(true, false);
+                MessageBox.Show("Team data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                ImpExpDB.ImportTeamDataToDB(false, true);
+                MessageBox.Show("Database team data was updated", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void miXLSXimportTeams_Click(object sender, RoutedEventArgs e)
+        {
+            var teams = FilePath.GetTeams();
+            ImpExpDB.DataStorage = FileTypeEnum.ExcellTeams;
+            ImpExpDB.StorageTeamsEmptinessCheck();
+            if (teams.Count <= 0)
+            {
+                ImpExpDB.ImportTeamDataToDB(true, false);
+                
+            }
+            else
+            {
+                ImpExpDB.ImportTeamDataToDB(false, true);
+                MessageBox.Show("DataBase team data was updated", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void miTXTexportTeams_Click(object sender, RoutedEventArgs e)
+        {
+            var teams = FilePath.GetTeams();
+            ImpExpDB.DataStorage = FileTypeEnum.TxtTeams;
+
+            if (teams.Count > 0)
+            {
+                ImpExpDB.ExportTeamDataFromDB();
+                MessageBox.Show("Team data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+        }
+
+        private void miCSVexportTeams_Click(object sender, RoutedEventArgs e)
+        {
+            var teams = FilePath.GetTeams();
+            ImpExpDB.DataStorage = FileTypeEnum.CSVTeams;
+
+            if (teams.Count > 0)
+            {
+                ImpExpDB.ExportTeamDataFromDB();
+                MessageBox.Show("Team data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void miJSONexportTeams_Click(object sender, RoutedEventArgs e)
+        {
+            var teams = FilePath.GetTeams();
+            ImpExpDB.DataStorage = FileTypeEnum.JsonTeams;
+
+            if (teams.Count > 0)
+            {
+                ImpExpDB.ExportTeamDataFromDB();
+                MessageBox.Show("Team data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void miXMLexportTeams_Click(object sender, RoutedEventArgs e)
+        {
+            var teams = FilePath.GetTeams();
+            ImpExpDB.DataStorage = FileTypeEnum.XMLTeams;
+
+            if (teams.Count > 0)
+            {
+                ImpExpDB.ExportTeamDataFromDB();
+                MessageBox.Show("Team data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void miXLSXexportTeams_Click(object sender, RoutedEventArgs e)
+        {
+            var teams = FilePath.GetTeams();
+            ImpExpDB.DataStorage = FileTypeEnum.ExcellTeams;
+
+            if (teams.Count > 0)
+            {
+                ImpExpDB.ExportTeamDataFromDB();
+                MessageBox.Show("Team data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void miTXTimportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            var players = FilePath.GetBasketballPlayers();
             ImpExpDB.DataStorage = FileTypeEnum.TxtPlayers;
-            ImpExpDB.ImportPlayerDataToDB();
+            ImpExpDB.StoragePlayersEmptinessCheck();
+            if(players.Count <= 0)
+            {
+                ImpExpDB.ImportPlayerDataToDB(true, false);
+                MessageBox.Show("Basketball players data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                ImpExpDB.ImportPlayerDataToDB(false, true);
+                MessageBox.Show("Database was updated with basketball players", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void miCSVimportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            var players = FilePath.GetBasketballPlayers();
+            ImpExpDB.DataStorage = FileTypeEnum.CSVPlayers;
+            ImpExpDB.StoragePlayersEmptinessCheck();
+            if (players.Count <= 0)
+            {
+                ImpExpDB.ImportPlayerDataToDB(true, false);
+                MessageBox.Show("Basketball players data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                ImpExpDB.ImportPlayerDataToDB(false, true);
+                MessageBox.Show("Database was updated with basketball players", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void miJSONimportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            var players = FilePath.GetBasketballPlayers();
+            ImpExpDB.DataStorage = FileTypeEnum.JsonPlayers;
+            ImpExpDB.StoragePlayersEmptinessCheck();
+            if (players.Count <= 0)
+            {
+                ImpExpDB.ImportPlayerDataToDB(true, false);
+                MessageBox.Show("Basketball players data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                ImpExpDB.ImportPlayerDataToDB(false, true);
+                MessageBox.Show("Database was updated with basketball players", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void miXMLimportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            var players = FilePath.GetBasketballPlayers();
+            ImpExpDB.DataStorage = FileTypeEnum.XMLPlayers;
+            ImpExpDB.StoragePlayersEmptinessCheck();
+            if (players.Count <= 0)
+            {
+                ImpExpDB.ImportPlayerDataToDB(true, false);
+                MessageBox.Show("Basketball players data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                ImpExpDB.ImportPlayerDataToDB(false, true);
+                MessageBox.Show("Database was updated with basketball players", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void miXLSXimportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            var players = FilePath.GetBasketballPlayers();
+            ImpExpDB.DataStorage = FileTypeEnum.ExcellPlayers;
+            ImpExpDB.StoragePlayersEmptinessCheck();
+            if (players.Count <= 0)
+            {
+                ImpExpDB.ImportPlayerDataToDB(true, false);
+                MessageBox.Show("Basketball players data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                ImpExpDB.ImportPlayerDataToDB(false, true);
+                MessageBox.Show("Database was updated with basketball players", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void miTXTexportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            var players = FilePath.GetBasketballPlayers();
+            ImpExpDB.DataStorage = FileTypeEnum.TxtPlayers;
+            if (players.Count > 0)
+            {
+                ImpExpDB.ExportPlayerDataFromDB();
+                MessageBox.Show("Basketball players data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void miCSVexportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            var players = FilePath.GetBasketballPlayers();
+            ImpExpDB.DataStorage = FileTypeEnum.CSVPlayers;
+            if (players.Count > 0)
+            {
+                ImpExpDB.ExportPlayerDataFromDB();
+                MessageBox.Show("Basketball players data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void miJSONexportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            var players = FilePath.GetBasketballPlayers();
+            ImpExpDB.DataStorage = FileTypeEnum.JsonPlayers;
+            if (players.Count > 0)
+            {
+                ImpExpDB.ExportPlayerDataFromDB();
+                MessageBox.Show("Basketball players data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void miXMLexportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            var players = FilePath.GetBasketballPlayers();
+            ImpExpDB.DataStorage = FileTypeEnum.XMLPlayers;
+            if (players.Count > 0)
+            {
+                ImpExpDB.ExportPlayerDataFromDB();
+                MessageBox.Show("Basketball players data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void miXLSXexportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            var players = FilePath.GetBasketballPlayers();
+            ImpExpDB.DataStorage = FileTypeEnum.ExcellPlayers;
+            if (players.Count > 0)
+            {
+                ImpExpDB.ExportPlayerDataFromDB();
+                MessageBox.Show("Basketball players data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
 

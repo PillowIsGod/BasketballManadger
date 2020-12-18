@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BasketballManadger"
         mc:Ignorable="d"
-        Title="BasketballManager" Height="800" Width="1300" Loaded="Window_Loaded" Style="{StaticResource TextStyle}">
+        Title="BasketballManager" Height="800" Width="1500" Loaded="Window_Loaded" Style="{StaticResource TextStyle}">
 
     <Window.Resources>
         <Style TargetType="Button">
@@ -92,7 +92,8 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="AntiqueWhite"/>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
-
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Padding" Value="3"></Setter>
         </Style>
         <Style TargetType="TextBlock">
             <Setter Property="Background" Value="#FF767575"/>
@@ -100,6 +101,7 @@
             <Setter Property="FontSize" Value="14"></Setter>
             <Setter Property="FontFamily" Value="Calibry"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Padding" Value="3"/>
             <Setter Property="Margin" Value="10, 3, 3, 3"/>
         </Style>
         <Style TargetType="ComboBox">
@@ -154,8 +156,33 @@
         <Style TargetType="Image">
             <Setter Property="Margin" Value="10"></Setter>
         </Style>
+        <Style TargetType="Menu">
+            <Setter Property="Background" Value="#FF767575"></Setter>
+            <Setter Property="Foreground" Value="AntiqueWhite"></Setter>
+            <Setter Property="BorderBrush" Value="#FF767575"></Setter>
+        </Style>
+        <Style TargetType="MenuItem">
+            <Setter Property="Background" Value="#FF767575"></Setter>
+            <Setter Property="Foreground" Value="AntiqueWhite"></Setter>
+            <Setter Property="BorderBrush" Value="#FF767575"></Setter>
+            <Setter Property="Width" Value="150"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="#FF767575"></Setter>
+            <Setter Property="BorderBrush" Value="#FF767575"></Setter>
+        </Style>
+        
     </Window.Resources>
 
+        
+        
+        
+        
+        
+        
     <Grid x:Name="gridMain" Background="#FF767575" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -163,10 +190,126 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="lvTeamsOutput" Grid.Column = "0" Grid.Row="0" SelectionChanged="lvTeamsOutput_SelectionChanged" MouseDoubleClick="lvTeamsOutput_MouseDoubleClick" ToolTip="Double click to edit" Background="#FF767575">
+        <Menu x:Name="menu">
+            <MenuItem Header="Import Team Data" Width="110" x:Name="menuImportTeams">
+
+                <MenuItem Header="From .txt" x:Name="miTXTimportTeams" Click="miTXTimportTeams_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageTXT}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Header="From .csv" x:Name="miCSVimportTeams" Click="miCSVimportTeams_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageCSV}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="From .json" x:Name="miJSONimportTeams" Click="miJSONimportTeams_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageJSON}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="From .xml" x:Name="miXMLimporTeamst" Click="miXMLimporTeamst_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageXML}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="From .xlsx" x:Name="miXLSXimportTeams" Click="miXLSXimportTeams_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageXLSX}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Export Team Data" Width="110" x:Name="menuExportTeams">
+                <MenuItem Header="To .txt" x:Name="miTXTexportTeams" Click="miTXTexportTeams_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageTXT}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="To .csv" x:Name="miCSVexportTeams" Click="miCSVexportTeams_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageCSV}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="To .json" x:Name="miJSONexportTeams" Click="miJSONexportTeams_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageJSON}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="To .xml" x:Name="miXMLexportTeams" Click="miXMLexportTeams_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageXML}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="To .xlsx" x:Name="miXLSXexportTeams" Click="miXLSXexportTeams_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageXLSX}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Import Team Data" Width="110" x:Name="menuImportPlayers">
+
+                <MenuItem Header="From .txt" x:Name="miTXTimportPlayers" Click="miTXTimportPlayers_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageTXT}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+
+                <MenuItem Header="From .csv" x:Name="miCSVimportPlayers" Click="miCSVimportPlayers_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageCSV}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="From .json" x:Name="miJSONimportPlayers" Click="miJSONimportPlayers_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageJSON}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="From .xml" x:Name="miXMLimportPlayers" Click="miXMLimportPlayers_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageXML}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="From .xlsx" x:Name="miXLSXimportPlayers" Click="miXLSXimportPlayers_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageXLSX}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Export Player Data" Width="110" x:Name="menuExportPlayers">
+                <MenuItem Header="To .txt" x:Name="miTXTexportPlayers" Click="miTXTexportPlayers_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageTXT}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="To .csv" x:Name="miCSVexportPlayers" Click="miCSVexportPlayers_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageCSV}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="To .json" x:Name="miJSONexportPlayers" Click="miJSONexportPlayers_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageJSON}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="To .xml" x:Name="miXMLexportPlayers" Click="miXMLexportPlayers_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageXML}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="To .xlsx" x:Name="miXLSXexportPlayers" Click="miXLSXexportPlayers_Click">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding Path= ImageXLSX}"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+
+        </Menu>
+        <ListView x:Name="lvTeamsOutput" Grid.Column = "0" Grid.Row="1" SelectionChanged="lvTeamsOutput_SelectionChanged" MouseDoubleClick="lvTeamsOutput_MouseDoubleClick" ToolTip="Double click to edit" Background="#FF767575">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -188,7 +331,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView x:Name="lvPlayers" Grid.Column="1" Grid.Row="0" Visibility="Hidden" MouseDoubleClick="lvPlayers_MouseDoubleClickEditing" SelectionChanged="lvPlayers_SelectionChanged" ToolTip="Double click to edit" Width="auto" Background="#FF767575">
+        <ListView x:Name="lvPlayers" Grid.Column="1" Grid.Row="1" Visibility="Hidden" MouseDoubleClick="lvPlayers_MouseDoubleClickEditing" SelectionChanged="lvPlayers_SelectionChanged" ToolTip="Double click to edit" Width="auto" Background="#FF767575">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -208,19 +351,19 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Image Source="{Binding Path=Picture}" Width="150" Grid.Column="0" HorizontalAlignment="Center" Grid.RowSpan="7"></Image>
-                            <TextBlock Text="Team: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="0" Margin="5"></TextBlock>
+                            <TextBlock Text="Team: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="0" Margin="15, 5, 5, 5"></TextBlock>
                             <TextBlock Text="{Binding Path=Current_team}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Grid.Row="0" Margin="5"></TextBlock>
-                            <TextBlock Text="Name: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="1" Margin="5"></TextBlock>
+                            <TextBlock Text="Name: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="1" Margin="15, 5, 5, 5"></TextBlock>
                             <TextBlock Text="{Binding Path = Name}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Grid.Row="1" Margin="5"></TextBlock>
-                            <TextBlock Text="Age: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="2" Margin="5" ></TextBlock>
+                            <TextBlock Text="Age: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="2" Margin="15, 5, 5, 5" ></TextBlock>
                             <TextBlock Text="{Binding Path = Age}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Grid.Row="2" Margin="5"></TextBlock>
-                            <TextBlock Text="Career Age: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="3" Margin="5" ></TextBlock>
+                            <TextBlock Text="Career Age: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="3" Margin="15, 5, 5, 5" ></TextBlock>
                             <TextBlock Text="{Binding Path = Career_age}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Grid.Row="3" Margin="5"></TextBlock>
-                            <TextBlock Text="Height: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="4" Margin="5" ></TextBlock>
+                            <TextBlock Text="Height: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="4" Margin="15, 5, 5, 5" ></TextBlock>
                             <TextBlock Text="{Binding Path = Height}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Grid.Row="4" Margin="5"></TextBlock>
-                            <TextBlock Text="Weight: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14"  Grid.Row="5"  Margin="5"></TextBlock>
+                            <TextBlock Text="Weight: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14"  Grid.Row="5"  Margin="15, 5, 5, 5"></TextBlock>
                             <TextBlock Text="{Binding Path = Weight}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14"  Grid.Row="5" Margin="5"></TextBlock>
-                            <TextBlock Text="Position: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="6" Margin="5"></TextBlock>
+                            <TextBlock Text="Position: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="6" Margin="15, 5, 5, 5"></TextBlock>
                             <TextBlock Text="{Binding Path = Position}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Grid.Row="6" Margin="5"></TextBlock>
 
                         </Grid>
@@ -229,32 +372,32 @@
             </ListView.ItemTemplate>
         </ListView>
         
-        <Grid Grid.Row="1" Height="30">
+        <Grid Grid.Row="2" Height="30">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button x:Name="btnAddTeam" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1" Click="btnAddTeam_Click">
-                <TextBlock Text= "Add" FontSize="14"></TextBlock>
+                <TextBlock Text= "Add" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
             </Button>
             <Button x:Name="btnRemoveTeam" Grid.Column="1" VerticalAlignment="Bottom" Grid.Row="1" Click="btnRemoveTeam_Click">
-                <TextBlock Text="Remove" FontSize="14" ></TextBlock>
+                <TextBlock Text="Remove" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" ></TextBlock>
             </Button>
         </Grid>
         
-        <Grid x:Name="gridPlayerButtons" Grid.Column="1" Grid.Row="1" Height="30" Visibility="Hidden">
+        <Grid x:Name="gridPlayerButtons" Grid.Column="1" Grid.Row="2" Height="30" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button x:Name="btnAddPlayer" Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="1" Click="btnAddPlayer_Click">
-                <TextBlock Text="Add Player" FontSize="14"></TextBlock>
+                <TextBlock Text="Add Player" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
             </Button>
             <Button x:Name="btnRemovePlayer" Grid.Column="1"  VerticalAlignment="Bottom" Grid.Row="1" Click="btnRemovePlayer_Click">
-                <TextBlock Text="Remove Player" FontSize="14" ></TextBlock>
+                <TextBlock Text="Remove Player" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" ></TextBlock>
             </Button>
         </Grid>
-        <Grid x:Name="gridEditingPlayers"  Grid.Column="2" Grid.Row="0" Height="400" VerticalAlignment="Top" Visibility="Hidden">
+        <Grid x:Name="gridEditingPlayers"  Grid.Column="2" Grid.Row="1" Height="400" VerticalAlignment="Top" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="300"/>
@@ -309,7 +452,7 @@
             </ComboBox>
             <TextBlock Text="Choose position: " Grid.Column="0" Grid.Row="7"></TextBlock>
             <Button x:Name="btnPictureSelector" Grid.Column="0" Grid.Row="8" Click="btnPictureSelector_Click">
-                <TextBlock Text="Browse Images"></TextBlock>
+                <TextBlock Text="Browse Images" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3"></TextBlock>
             </Button>
             <TextBox x:Name="tbToShowPlayerPictureFilePath" Grid.Row="8" Grid.Column="1" IsReadOnly="True"  HorizontalAlignment="Center" Width="250"></TextBox>
             <Grid x:Name="gridBtnsToConfirmEditingPlayers" Grid.Row="10" Grid.ColumnSpan="2" Height="30" Visibility="Hidden" VerticalAlignment="Bottom" >
@@ -318,10 +461,10 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="btnConfirmEditingPlayer" Grid.Column="0" Click="btnConfirmEditingPlayer_Click">
-                    <TextBlock Text="Confirm"></TextBlock>
+                    <TextBlock Text="Confirm" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
                 </Button>
                 <Button x:Name="btnDeclineEditingPlayer" Grid.Column="1" Click="btnDeclineEditingPlayer_Click">
-                    <TextBlock Text="Decline"></TextBlock>
+                    <TextBlock Text="Decline" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
                 </Button>
             </Grid>
             <Grid x:Name="gridBtnsToConfirmAddingPlayers" Grid.Row="10" Grid.ColumnSpan="2" Visibility="Hidden" Height="30" VerticalAlignment="Bottom">
@@ -330,16 +473,16 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="btnConfirmAddingPlayer" Grid.Column="0" Click="btnConfirmAddingPlayer_Click">
-                    <TextBlock Text="Confirm"></TextBlock>
+                    <TextBlock Text="Confirm" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
                 </Button>
                 <Button x:Name="btnDeclineAddingPlayer" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
-                    <TextBlock Text="Decline"></TextBlock>
+                    <TextBlock Text="Decline" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
                 </Button>
             </Grid>
            
         </Grid>
 
-        <Grid x:Name="gridBtnsToConfirmDeletingPlayers" Grid.Row="0" Grid.Column="2" Visibility="Hidden" Height="60" >
+        <Grid x:Name="gridBtnsToConfirmDeletingPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" Height="60" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -351,10 +494,10 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Are you sure you want to delete selected Player?" Grid.ColumnSpan="2" Grid.Row="0" Height="25" HorizontalAlignment="Center"></TextBlock>
             <Button x:Name="btnConfirmDeletingPlayer" Grid.Column="0" Click ="btnConfirmDeletingPlayer_Click" Grid.Row="1">
-                <TextBlock Text="Confirm"></TextBlock>
+                <TextBlock Text="Confirm" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
             </Button>
             <Button x:Name="btnDeclineDeletingPlayer" Grid.Column="1" Click="btnDeclineEditingTeam_Click" Grid.Row="1">
-                <TextBlock Text="Decline"></TextBlock>
+                <TextBlock Text="Decline" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
             </Button>
         </Grid>
 
@@ -362,7 +505,7 @@
 
 
 
-        <Grid x:Name="gridEditingTeams" Grid.Row="0" Height ="250" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Top">
+        <Grid x:Name="gridEditingTeams" Grid.Row="1" Height ="250" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"></ColumnDefinition>
                 <ColumnDefinition Width="300"></ColumnDefinition>
@@ -380,7 +523,7 @@
             <TextBlock Text="Team Name: " Grid.Column="0" Grid.Row="2" ></TextBlock>
             <TextBox x:Name ="tbgetTeamName" Grid.Column="1" Grid.Row="2" Width="250" ></TextBox>
             <Button x:Name="btnLogoSelector" Grid.Column="0" Grid.Row="3" Click="btnLogoSelector_Click">
-                <TextBlock Text="Browse Images"></TextBlock>
+                <TextBlock Text="Browse Images" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3"></TextBlock>
             </Button>
             <TextBox x:Name="tbToShowTeamLogoFilePath" Grid.Row="3" Grid.Column="1" IsReadOnly="True" Width="250"></TextBox>
             <Grid x:Name="gridBtnsToConfirmEditingTeam" Grid.Row="4" Grid.ColumnSpan="2" Visibility="Hidden" Height="30" VerticalAlignment="Bottom">
@@ -389,10 +532,10 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="btnConfirmEditingTeam" Grid.Column="0" Click="btnConfirmEditingTeam_Click">
-                    <TextBlock Text="Confirm"></TextBlock>
+                    <TextBlock Text="Confirm" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
                 </Button>
                 <Button x:Name="btnDeclineEditingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
-                    <TextBlock Text="Decline"></TextBlock>
+                    <TextBlock Text="Decline" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
                 </Button>
             </Grid>
             <Grid x:Name="gridBtnsToConfirmAddingTeam" Grid.Row="4" Grid.ColumnSpan="2" Visibility="Hidden" Height="30" VerticalAlignment="Bottom" >
@@ -401,16 +544,16 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="btnConfirmAddingTeam" Grid.Column="0" Click="btnConfirmAddingTeam_Click">
-                    <TextBlock Text="Confirm"></TextBlock>
+                    <TextBlock Text="Confirm" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
                 </Button>
                 <Button x:Name="btnDeclineAddingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
-                    <TextBlock Text="Decline"></TextBlock>
+                    <TextBlock Text="Decline" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
                 </Button>
             </Grid>
            
         </Grid>
 
-        <Grid x:Name="gridBtnsToConfirmDeletingTeam" Grid.Row="0" Grid.Column="2" Visibility="Hidden" Height="60">
+        <Grid x:Name="gridBtnsToConfirmDeletingTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" Height="60">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -422,14 +565,13 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Are you sure you want to delete selected team?" Grid.ColumnSpan="2" Grid.Row="0" Height="25" HorizontalAlignment="Center"></TextBlock>
             <Button x:Name="btnConfirmDeletingTeam" Grid.Column="0" Click="btnConfirmDeletingTeam_Click" Grid.Row="1">
-                <TextBlock Text="Confirm"></TextBlock>
+                <TextBlock Text="Confirm" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
             </Button>
             <Button x:Name="btnDeclineDeletingTeam" Grid.Column="1" Click="btnDeclineEditingTeam_Click" Grid.Row="1">
-                <TextBlock Text="Decline"></TextBlock>
+                <TextBlock Text="Decline" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
             </Button>
         </Grid>
 
-        <Button x:Name="btnTest" Grid.Column="2" Grid.Row="1" Click="btnTest_Click"></Button>
 
     </Grid>
 

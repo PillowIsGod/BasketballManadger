@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 
 namespace BasketballManadger
 {
@@ -141,7 +142,28 @@ namespace BasketballManadger
 
 
 
+        public static void StorageTeamsEmptinessCheck()
+        {
+            BindingList<Teams> teams = _storage.GetTeamFromFIle();
+            if (teams.Count <= 0)
+            {
+                MessageBox.Show("File is empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            return;
+        }
 
+        public static void StoragePlayersEmptinessCheck()
+        {
+            BindingList<BasketballPlayers> players = _storage.GetPlayersFromFile();
+            if (players.Count <= 0)
+            {
+                    MessageBox.Show("File is empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+                
+            }
+            return;
+        }
 
         public static void ExportTeamDataFromDB()
         {

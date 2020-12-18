@@ -1,0 +1,7 @@
+67,Golden-State,Warriors,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\Warriors.png
+68,Los-Angeles,Clippers,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\312c6d65630d08a85549bd5dee6dd7c6.png
+69,Los-Angeles,Lakers,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\Lakers.png
+70,Brooklyn,Nets,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\Nets.png
+74,Los-Santos,Vagos,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\maxresdefault.jpg
+75,Milwaukee,Bucks,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\Bucks.png
+78,Коллекция,Жигирь,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\koo43w4brJo.jpg

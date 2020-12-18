@@ -1,0 +1,26 @@
+228,Stephen Curry,Warriors,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Stephen_Curry.png,32,11,1.91,86,Point Guard
+229,Klay Thompson,Warriors,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Klay_Thompson.png,30,20,2,98,Shooting Guard
+230,Draymond Green,Warriors,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Draymond_Green.png,30,10,1.7,98,Power Forward
+234,LeBron James,Lakers,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\LeBron_James.png,35,15,2,113,Small Forward
+235,Anthony Davis,Lakers,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Anthony_Davis.png,27,7,2,115,Center
+236,Kyle Kuzma,Lakers,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kyle_Kuzma.png,25,4,2,100,Power Forward
+237,Kevin Durant,Nets,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kevin_Durant.png,32,11,2,109,Small Forward
+238,Kyrie Irving,Nets,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kyrie_Irving.png,28,7,2,88,Point Guard
+239,Spencer Dinwiddie,Nets,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Spencer_Dinwiddie.png,27,6,2,98,Shooting Guard
+240,Kawhi,Clippers,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kawhi_Leonard.png,29,8,2,104,Small Forward
+241,Paul George,Clippers,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Paul_George.png,30,9,2,128,Power Forward
+242,Patrick Beverley,Clippers,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Patrick_Beverley.png,32,11,2,84,Point Guard
+249,Sergey Petrovich,Vagos,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\unnamed.jpg,18,15,190,100,Point Guard
+250,Little Yoda,Vagos,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\300px-Малыш_Йода_пьёт_суп_шаблон.jpg,200,15,75,15,Power Forward
+252,Pozhiloy Povelitel Kolca,Vagos,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\Valakas.jpg,54,54,120,200,Power Forward
+253,Giannis Antetokounmpo,Bucks,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Giannis.png,25,5,2.11,110,Power Forward
+254,Khris Middleton,Bucks,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Khris_Middleton.png,29,9,2.01,101,Small Forward
+255,Brook Lopez,Bucks,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Brook_Lopez.png,32,11,2.13,128,Center
+256,Dianka,Vagos,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\e5f1ccca-d4f1-4cf7-9906-7a64450c0b9f.jpg,21,5,1.73,57,Point Guard
+257,Veterinar Donbassa,Vagos,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\OOKQCkV5I_U.jpg,20,1,1.5,50,Small Forward
+259,Женечка Решала,Vagos,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\IMG_3566.jpg,23,20,1.5,130,Center
+267,Спортивный,Жигирь,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\bcc86ae2-ae84-405a-8549-5a004385f75f.jpg,35,20,1.5,200,Center
+268,Пьющий,Жигирь,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\Zhygyr.png,35,20,1.5,200,Center
+269,Отдыхающий,Жигирь,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\76c86ca3-1438-415d-a852-ff5163a55642.jpg,35,20,1.5,200,Center
+270,Модный,Жигирь,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\60a76a2f-412e-42e2-8c4c-705baddb62bf.jpg,35,20,1.5,200,Center
+271,Удушающий,Жигирь,C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\d9cfbcb2-dc75-4839-b120-42cc515368b4.jpg,35,20,1.5,200,Center

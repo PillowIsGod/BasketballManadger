@@ -27,9 +27,10 @@ namespace BasketballManadger
 
             foreach (XmlNode item in root)
             {
+                Teams team = new Teams();
                 foreach (XmlNode node in item.ChildNodes)
                 {
-                    Teams team = new Teams();
+                   
                     if (node.Name == "teamname")
                     {
                         team.TeamName = node.InnerText;
@@ -45,8 +46,9 @@ namespace BasketballManadger
                         team.Logo = node.InnerText;
                     }
 
-                    teamsToReturn.Add(team);
+                    
                 }
+                teamsToReturn.Add(team);
             }
             return teamsToReturn;
         }
@@ -59,7 +61,7 @@ namespace BasketballManadger
         public override void ImportTeamData(BindingList<Teams> teamsToImport)
         {
             XmlDocument xdoc = new XmlDocument();
-            XmlElement xmlTeam = xdoc.CreateElement("team");
+            XmlElement xmlTeam = xdoc.CreateElement("teams");
             xdoc.AppendChild(xmlTeam);
             foreach (var item in teamsToImport)
             {

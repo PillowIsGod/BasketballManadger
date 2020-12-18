@@ -28,7 +28,11 @@ namespace BasketballManadger
             {
                 return teamToReturn;
             }
-            teamToReturn = JsonConvert.DeserializeObject<BindingList<Teams>>(content);
+            var text = JsonConvert.DeserializeObject<JsonRootModel>(content);
+            foreach (var item in text.Teams)
+            {
+                teamToReturn.Add(item);
+            }
             return teamToReturn;
         }
 

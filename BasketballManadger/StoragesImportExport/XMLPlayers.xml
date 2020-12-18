@@ -1,4 +1,4 @@
-<player>
+<players>
   <player>
     <id>228</id>
     <position>Point Guard</position>
@@ -285,4 +285,4 @@
     <weight>200</weight>
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\d9cfbcb2-dc75-4839-b120-42cc515368b4.jpg</picture>
   </player>
-</player>
+</players>

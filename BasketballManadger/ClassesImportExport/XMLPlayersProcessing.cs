@@ -22,9 +22,10 @@ namespace BasketballManadger
 
             foreach (XmlNode item in root)
             {
+                BasketballPlayers player = new BasketballPlayers();
                 foreach (XmlNode node in item.ChildNodes)
                 {
-                    BasketballPlayers player = new BasketballPlayers();
+                    
                     if (node.Name == "name")
                     {
                         player.Name = node.InnerText;
@@ -54,8 +55,9 @@ namespace BasketballManadger
 
 
 
-                    playerToReturn.Add(player);
+                   
                 }
+                playerToReturn.Add(player);
             }
             return playerToReturn;
         }
@@ -68,7 +70,7 @@ namespace BasketballManadger
         public override void ImportPlayersData(BindingList<BasketballPlayers> playersToImport)
         {
             XmlDocument xdoc = new XmlDocument();
-            XmlElement xmlPlayer = xdoc.CreateElement("player");
+            XmlElement xmlPlayer = xdoc.CreateElement("players");
             xdoc.AppendChild(xmlPlayer);
             foreach (var item in playersToImport)
             {

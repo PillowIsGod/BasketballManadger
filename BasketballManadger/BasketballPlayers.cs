@@ -8,7 +8,6 @@ namespace BasketballManadger
 {
     public class BasketballPlayers 
     {
-        [JsonIgnore]
         public int ID { get; set; }
         public string Picture { get; set; }
         public string Name { get; set; }

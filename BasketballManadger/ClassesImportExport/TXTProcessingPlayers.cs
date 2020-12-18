@@ -17,15 +17,17 @@ namespace BasketballManadger
         public override void ImportPlayersData(BindingList<BasketballPlayers> playersToImport)
         {
             string line;
-            foreach (var item in playersToImport)
+            using (FileStream fs = new FileStream(FileProcessingPath, FileMode.Truncate))
+            using (StreamWriter sw = new StreamWriter(fs))
+            {
+                foreach (var item in playersToImport)
             {
                 line = item.ID.ToString() + "," + item.Name + "," + item.Current_team + "," + item.Picture + "," + item.Age.ToString() + "," + item.Career_age.ToString() + "," + item.Height.ToString() + "," + item.Weight.ToString() + "," + item.Position;
-                using (FileStream fs = new FileStream(FileProcessingPath, FileMode.Truncate))
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
+               
                     sw.WriteLine(line);
-                }
+                
                 line = null;
+            }
             }
         }
 
@@ -57,7 +59,7 @@ namespace BasketballManadger
                 player.Picture = array[3];
                 player.Age = Convert.ToInt32(array[4]);
                 player.Career_age = Convert.ToInt32(array[5]);
-                player.Height = Convert.ToInt32(array[6]);
+                player.Height = Convert.ToDouble(array[6]);
                 player.Weight = Convert.ToInt32(array[7]);
                 player.Position = array[8];
                 players.Add(player);

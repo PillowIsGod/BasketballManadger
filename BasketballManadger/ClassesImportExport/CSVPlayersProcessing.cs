@@ -18,7 +18,7 @@ namespace BasketballManadger.ClassesImportExport
         {
             BindingList<BasketballPlayers> playerToOutput = new BindingList<BasketballPlayers>();
             using var streamReader = File.OpenText(FileProcessingPath);
-            using var csvReader = new CsvReader(streamReader, CultureInfo.CurrentCulture);
+            using var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture);
 
             var users = csvReader.GetRecords<BasketballPlayers>();
 
@@ -38,9 +38,9 @@ namespace BasketballManadger.ClassesImportExport
         public override void ImportPlayersData(BindingList<BasketballPlayers> playersToImport)
         {
             using (FileStream fs = new FileStream(FileProcessingPath, FileMode.Truncate, FileAccess.ReadWrite))
-            using (StreamWriter sw = new StreamWriter(fs))
+            using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
             {
-                using (CsvWriter cwriter = new CsvWriter(sw, CultureInfo.CurrentCulture))
+                using (CsvWriter cwriter = new CsvWriter(sw, CultureInfo.InvariantCulture))
                 {
                     cwriter.WriteField("ID");
                     cwriter.WriteField("Picture");

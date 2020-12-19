@@ -165,7 +165,7 @@
             <Setter Property="Background" Value="#FF767575"></Setter>
             <Setter Property="Foreground" Value="AntiqueWhite"></Setter>
             <Setter Property="BorderBrush" Value="#FF767575"></Setter>
-            <Setter Property="Width" Value="150"></Setter>
+            <Setter Property="Width" Value="170"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             <Setter Property="Padding" Value="5"></Setter>
@@ -195,7 +195,7 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Menu x:Name="menu">
-            <MenuItem Header="Import Team Data" Width="110" x:Name="menuImportTeams">
+            <MenuItem Header="Import Team Data" Width="110" x:Name="menuImportTeams" ToolTip="Get team data from selected file to current Database">
 
                 <MenuItem Header="From .txt" x:Name="miTXTimportTeams" Click="miTXTimportTeams_Click">
                     <MenuItem.Icon>
@@ -224,7 +224,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Export Team Data" Width="110" x:Name="menuExportTeams">
+            <MenuItem Header="Export Team Data" Width="110" x:Name="menuExportTeams" ToolTip="Export team data from current database to the chosen file type">
                 <MenuItem Header="To .txt" x:Name="miTXTexportTeams" Click="miTXTexportTeams_Click">
                     <MenuItem.Icon>
                         <Image Source="{Binding Path= ImageTXT}"></Image>
@@ -251,7 +251,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Import Team Data" Width="110" x:Name="menuImportPlayers">
+            <MenuItem Header="Import Player Data" Width="110" x:Name="menuImportPlayers" ToolTip="Get player data from selected file to current Database">
 
                 <MenuItem Header="From .txt" x:Name="miTXTimportPlayers" Click="miTXTimportPlayers_Click">
                     <MenuItem.Icon>
@@ -280,7 +280,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Export Player Data" Width="110" x:Name="menuExportPlayers">
+            <MenuItem Header="Export Player Data" Width="110" x:Name="menuExportPlayers" ToolTip="Export player data from current database to the chosen file type">
                 <MenuItem Header="To .txt" x:Name="miTXTexportPlayers" Click="miTXTexportPlayers_Click">
                     <MenuItem.Icon>
                         <Image Source="{Binding Path= ImageTXT}"></Image>

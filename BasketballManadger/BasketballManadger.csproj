@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Icons8-Ios7-Sports-Basketball.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

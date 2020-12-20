@@ -40,17 +40,9 @@ namespace BasketballManadger
                 Teams team = new Teams();
                 if (sheet.GetRow(row) != null)
                 {
-                    if (int.TryParse(sheet.GetRow(row).GetCell(0).ToString(), out number)) 
-                    {
-                        team.ID = number;
-                    }
-                    else
-                    {
-                        return teamsToOutput;
-                    }
-                    team.Logo = sheet.GetRow(row).GetCell(1).ToString();
-                    team.TeamName = sheet.GetRow(row).GetCell(2).ToString();
-                    team.City = sheet.GetRow(row).GetCell(3).ToString();
+                    team.Logo = sheet.GetRow(row).GetCell(0).ToString();
+                    team.TeamName = sheet.GetRow(row).GetCell(1).ToString();
+                    team.City = sheet.GetRow(row).GetCell(2).ToString();
 
                     teamsToOutput.Add(team);
                 } 
@@ -77,16 +69,12 @@ namespace BasketballManadger
                     IRow newRow = worksheet.CreateRow(row);
 
                     ICell cell = newRow.CreateCell(0, CellType.String);
-                    cell.SetCellValue(item.ID);
-
-
-                    cell = newRow.CreateCell(1, CellType.String);
                     cell.SetCellValue(item.Logo);
 
-                    cell = newRow.CreateCell(2, CellType.String);
+                    cell = newRow.CreateCell(1, CellType.String);
                     cell.SetCellValue(item.TeamName);
 
-                    cell = newRow.CreateCell(3, CellType.String);
+                    cell = newRow.CreateCell(2, CellType.String);
                     cell.SetCellValue(item.City);
 
 

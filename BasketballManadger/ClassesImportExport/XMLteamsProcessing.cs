@@ -31,12 +31,10 @@ namespace BasketballManadger
                 foreach (XmlNode node in item.ChildNodes)
                 {
                    
-                    if (node.Name == "teamname")
+                    if (node.Name == "teamName")
                     {
                         team.TeamName = node.InnerText;
                     }
-                    if (node.Name == "id")
-                    { team.ID = Convert.ToInt32(node.InnerText); }
                     if (node.Name == "city")
                     {
                         team.City = node.InnerText;
@@ -75,8 +73,7 @@ namespace BasketballManadger
         {
             XmlElement xmlTeam = xdoc.CreateElement("team");
 
-            XmlElement idElem = xdoc.CreateElement("id");
-            xmlTeam.AppendChild(idElem);
+
             XmlElement cityElem = xdoc.CreateElement("city");
             xmlTeam.AppendChild(cityElem);
             XmlElement nameElem = xdoc.CreateElement("teamName");
@@ -86,12 +83,12 @@ namespace BasketballManadger
             xmlTeam.AppendChild(logoElem);
           
 
-            XmlText idText = xdoc.CreateTextNode(team.ID.ToString());
+
             XmlText cityText = xdoc.CreateTextNode(team.City);
             XmlText nameText = xdoc.CreateTextNode(team.TeamName);
             XmlText logoText = xdoc.CreateTextNode(team.Logo);
-            idElem.AppendChild(idText);
-            cityText.AppendChild(cityText);
+
+            cityElem.AppendChild(cityText);
             nameElem.AppendChild(nameText);
             logoElem.AppendChild(logoText);
 

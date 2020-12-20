@@ -35,53 +35,23 @@ namespace BasketballManadger
                 BasketballPlayers player = new BasketballPlayers();
                 if (sheet.GetRow(row) != null)
                 {
-                    if (int.TryParse(sheet.GetRow(row).GetCell(0).ToString(), out number))
-                    {
-                        player.ID = number;
-                    }
-                    else
-                    {
-                        return playersToOutput;
-                    }
-                    player.Picture = sheet.GetRow(row).GetCell(1).ToString();
-                    player.Name = sheet.GetRow(row).GetCell(2).ToString();
-                    player.Position = sheet.GetRow(row).GetCell(3).ToString();
-                
+                    player.Picture = sheet.GetRow(row).GetCell(0).ToString();
+                    player.Name = sheet.GetRow(row).GetCell(1).ToString();
+                    player.Position = sheet.GetRow(row).GetCell(2).ToString();
+
+
+                    player.Age = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(3).ToString());
+   
+                        player.Career_age = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(4).ToString());
+
+                        player.Height =  EditingInfo.ConvertNumberToDouble(sheet.GetRow(row).GetCell(5).ToString()); 
+    
+                        player.Weight = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(6).ToString());
+
+                       player.Current_team = sheet.GetRow(row).GetCell(7).ToString();
+
 
                     playersToOutput.Add(player);
-                    if (int.TryParse(sheet.GetRow(row).GetCell(4).ToString(), out number))
-                    {
-                        player.Age = number;
-                    }
-                    else
-                    {
-                        return playersToOutput;
-                    }
-                    if (int.TryParse(sheet.GetRow(row).GetCell(5).ToString(), out number))
-                    {
-                        player.Career_age = number;
-                    }
-                    else
-                    {
-                        return playersToOutput;
-                    }
-                    if (int.TryParse(sheet.GetRow(row).GetCell(6).ToString(), out number))
-                    {
-                        player.Height = number;
-                    }
-                    else
-                    {
-                        return playersToOutput;
-                    }
-                    if (int.TryParse(sheet.GetRow(row).GetCell(7).ToString(), out number))
-                    {
-                        player.Weight = number;
-                    }
-                    else
-                    {
-                        return playersToOutput;
-                    }
-                    player.Current_team = sheet.GetRow(row).GetCell(8).ToString();
                 }
             }
             return playersToOutput;
@@ -106,31 +76,27 @@ namespace BasketballManadger
                     IRow newRow = worksheet.CreateRow(row);
 
                     ICell cell = newRow.CreateCell(0, CellType.String);
-                    cell.SetCellValue(item.ID);
-
-
-                    cell = newRow.CreateCell(1, CellType.String);
                     cell.SetCellValue(item.Picture);
 
-                    cell = newRow.CreateCell(2, CellType.String);
+                    cell = newRow.CreateCell(1, CellType.String);
                     cell.SetCellValue(item.Name);
 
-                    cell = newRow.CreateCell(3, CellType.String);
+                    cell = newRow.CreateCell(2, CellType.String);
                     cell.SetCellValue(item.Position);
 
-                    cell = newRow.CreateCell(4, CellType.String);
+                    cell = newRow.CreateCell(3, CellType.String);
                     cell.SetCellValue(item.Age);
 
-                    cell = newRow.CreateCell(5, CellType.String);
+                    cell = newRow.CreateCell(4, CellType.String);
                     cell.SetCellValue(item.Career_age);
 
-                    cell = newRow.CreateCell(6, CellType.String);
+                    cell = newRow.CreateCell(5, CellType.String);
                     cell.SetCellValue(item.Height);
 
-                    cell = newRow.CreateCell(7, CellType.String);
+                    cell = newRow.CreateCell(6, CellType.String);
                     cell.SetCellValue(item.Weight);
 
-                    cell = newRow.CreateCell(8, CellType.String);
+                    cell = newRow.CreateCell(7, CellType.String);
                     cell.SetCellValue(item.Current_team);
 
 

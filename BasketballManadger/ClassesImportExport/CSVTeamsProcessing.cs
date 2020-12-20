@@ -23,8 +23,10 @@ namespace BasketballManadger.ClassesImportExport
         public override BindingList<Teams> GetTeamFromFIle()
         {
             BindingList<Teams> teamsToOutput = new BindingList<Teams>();
+            Teams team = new Teams();
             using var streamReader = File.OpenText(FileProcessingPath);
             using var csvReader = new CsvReader(streamReader, CultureInfo.CurrentCulture);
+            //csvReader.Configuration.MissingFieldFound(null);
 
             var users = csvReader.GetRecords<Teams>();
 
@@ -48,14 +50,12 @@ namespace BasketballManadger.ClassesImportExport
             {
                 using (CsvWriter cwriter = new CsvWriter(sw, CultureInfo.CurrentCulture))
                 {
-                    cwriter.WriteField("ID");
                     cwriter.WriteField("Logo");
                     cwriter.WriteField("City");
                     cwriter.WriteField("TeamName");
                     cwriter.NextRecord();
                     foreach (var item in teamsToImport)
                     {
-                        cwriter.WriteField(item.ID);
                         cwriter.WriteField(item.Logo);
                         cwriter.WriteField(item.City);
                         cwriter.WriteField(item.TeamName);

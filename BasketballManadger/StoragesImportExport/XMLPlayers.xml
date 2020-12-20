@@ -1,6 +1,5 @@
 <players>
   <player>
-    <id>228</id>
     <position>Point Guard</position>
     <teamName>Stephen Curry</teamName>
     <current_team>Warriors</current_team>
@@ -11,7 +10,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Stephen_Curry.png</picture>
   </player>
   <player>
-    <id>229</id>
     <position>Shooting Guard</position>
     <teamName>Klay Thompson</teamName>
     <current_team>Warriors</current_team>
@@ -22,7 +20,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Klay_Thompson.png</picture>
   </player>
   <player>
-    <id>230</id>
     <position>Power Forward</position>
     <teamName>Draymond Green</teamName>
     <current_team>Warriors</current_team>
@@ -33,7 +30,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Draymond_Green.png</picture>
   </player>
   <player>
-    <id>234</id>
     <position>Small Forward</position>
     <teamName>LeBron James</teamName>
     <current_team>Lakers</current_team>
@@ -44,7 +40,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\LeBron_James.png</picture>
   </player>
   <player>
-    <id>235</id>
     <position>Center</position>
     <teamName>Anthony Davis</teamName>
     <current_team>Lakers</current_team>
@@ -55,7 +50,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Anthony_Davis.png</picture>
   </player>
   <player>
-    <id>236</id>
     <position>Power Forward</position>
     <teamName>Kyle Kuzma</teamName>
     <current_team>Lakers</current_team>
@@ -66,7 +60,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kyle_Kuzma.png</picture>
   </player>
   <player>
-    <id>237</id>
     <position>Small Forward</position>
     <teamName>Kevin Durant</teamName>
     <current_team>Nets</current_team>
@@ -77,7 +70,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kevin_Durant.png</picture>
   </player>
   <player>
-    <id>238</id>
     <position>Point Guard</position>
     <teamName>Kyrie Irving</teamName>
     <current_team>Nets</current_team>
@@ -88,7 +80,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kyrie_Irving.png</picture>
   </player>
   <player>
-    <id>239</id>
     <position>Shooting Guard</position>
     <teamName>Spencer Dinwiddie</teamName>
     <current_team>Nets</current_team>
@@ -99,7 +90,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Spencer_Dinwiddie.png</picture>
   </player>
   <player>
-    <id>240</id>
     <position>Small Forward</position>
     <teamName>Kawhi</teamName>
     <current_team>Clippers</current_team>
@@ -110,7 +100,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kawhi_Leonard.png</picture>
   </player>
   <player>
-    <id>241</id>
     <position>Power Forward</position>
     <teamName>Paul George</teamName>
     <current_team>Clippers</current_team>
@@ -121,7 +110,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Paul_George.png</picture>
   </player>
   <player>
-    <id>242</id>
     <position>Point Guard</position>
     <teamName>Patrick Beverley</teamName>
     <current_team>Clippers</current_team>
@@ -132,7 +120,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Patrick_Beverley.png</picture>
   </player>
   <player>
-    <id>249</id>
     <position>Point Guard</position>
     <teamName>Sergey Petrovich</teamName>
     <current_team>Vagos</current_team>
@@ -143,18 +130,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\unnamed.jpg</picture>
   </player>
   <player>
-    <id>250</id>
-    <position>Power Forward</position>
-    <teamName>Little Yoda</teamName>
-    <current_team>Vagos</current_team>
-    <age>200</age>
-    <career_age>15</career_age>
-    <height>75</height>
-    <weight>15</weight>
-    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\300px-Малыш_Йода_пьёт_суп_шаблон.jpg</picture>
-  </player>
-  <player>
-    <id>252</id>
     <position>Power Forward</position>
     <teamName>Pozhiloy Povelitel Kolca</teamName>
     <current_team>Vagos</current_team>
@@ -165,7 +140,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\Valakas.jpg</picture>
   </player>
   <player>
-    <id>253</id>
     <position>Power Forward</position>
     <teamName>Giannis Antetokounmpo</teamName>
     <current_team>Bucks</current_team>
@@ -176,7 +150,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Giannis.png</picture>
   </player>
   <player>
-    <id>254</id>
     <position>Small Forward</position>
     <teamName>Khris Middleton</teamName>
     <current_team>Bucks</current_team>
@@ -187,7 +160,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Khris_Middleton.png</picture>
   </player>
   <player>
-    <id>255</id>
     <position>Center</position>
     <teamName>Brook Lopez</teamName>
     <current_team>Bucks</current_team>
@@ -198,7 +170,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Brook_Lopez.png</picture>
   </player>
   <player>
-    <id>256</id>
     <position>Point Guard</position>
     <teamName>Dianka</teamName>
     <current_team>Vagos</current_team>
@@ -209,29 +180,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\e5f1ccca-d4f1-4cf7-9906-7a64450c0b9f.jpg</picture>
   </player>
   <player>
-    <id>257</id>
-    <position>Small Forward</position>
-    <teamName>Veterinar Donbassa</teamName>
-    <current_team>Vagos</current_team>
-    <age>20</age>
-    <career_age>1</career_age>
-    <height>1.5</height>
-    <weight>50</weight>
-    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\OOKQCkV5I_U.jpg</picture>
-  </player>
-  <player>
-    <id>259</id>
-    <position>Center</position>
-    <teamName>Женечка Решала</teamName>
-    <current_team>Vagos</current_team>
-    <age>23</age>
-    <career_age>20</career_age>
-    <height>1.5</height>
-    <weight>130</weight>
-    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\IMG_3566.jpg</picture>
-  </player>
-  <player>
-    <id>267</id>
     <position>Center</position>
     <teamName>Спортивный</teamName>
     <current_team>Жигирь</current_team>
@@ -242,7 +190,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\bcc86ae2-ae84-405a-8549-5a004385f75f.jpg</picture>
   </player>
   <player>
-    <id>268</id>
     <position>Center</position>
     <teamName>Пьющий</teamName>
     <current_team>Жигирь</current_team>
@@ -253,7 +200,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\Zhygyr.png</picture>
   </player>
   <player>
-    <id>269</id>
     <position>Center</position>
     <teamName>Отдыхающий</teamName>
     <current_team>Жигирь</current_team>
@@ -264,7 +210,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\76c86ca3-1438-415d-a852-ff5163a55642.jpg</picture>
   </player>
   <player>
-    <id>270</id>
     <position>Center</position>
     <teamName>Модный</teamName>
     <current_team>Жигирь</current_team>
@@ -275,7 +220,6 @@
     <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\60a76a2f-412e-42e2-8c4c-705baddb62bf.jpg</picture>
   </player>
   <player>
-    <id>271</id>
     <position>Center</position>
     <teamName>Удушающий</teamName>
     <current_team>Жигирь</current_team>

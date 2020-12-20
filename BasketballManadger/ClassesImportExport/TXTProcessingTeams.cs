@@ -34,7 +34,7 @@ namespace BasketballManadger
             {
                 foreach (var item in teamsToImport)
             {
-                line = item.ID.ToString() + "," + item.City + "," + item.TeamName + "," + item.Logo;
+                line = item.City + "," + item.TeamName + "," + item.Logo;
                 
                     sw.WriteLine(line);
                
@@ -63,10 +63,9 @@ namespace BasketballManadger
             {
                 var array = item.Split(",");
                 Teams team = new Teams();
-                team.ID = Convert.ToInt32(array[0]);
-                team.City = array[1];
-                team.TeamName = array[2];
-                team.Logo = array[3];
+                team.City = array[0];
+                team.TeamName = array[1];
+                team.Logo = array[2];
                 teams.Add(team);
             }
             return teams;

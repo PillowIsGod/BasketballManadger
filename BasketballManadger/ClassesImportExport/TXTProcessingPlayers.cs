@@ -22,7 +22,7 @@ namespace BasketballManadger
             {
                 foreach (var item in playersToImport)
             {
-                line = item.ID.ToString() + "," + item.Name + "," + item.Current_team + "," + item.Picture + "," + item.Age.ToString() + "," + item.Career_age.ToString() + "," + item.Height.ToString() + "," + item.Weight.ToString() + "," + item.Position;
+                line = item.Name + "," + item.Current_team + "," + item.Picture + "," + item.Age.ToString() + "," + item.Career_age.ToString() + "," + item.Height.ToString() + "," + item.Weight.ToString() + "," + item.Position;
                
                     sw.WriteLine(line);
                 
@@ -53,15 +53,14 @@ namespace BasketballManadger
             {
                 var array = item.Split(",");
                 BasketballPlayers player = new BasketballPlayers();
-                player.ID = Convert.ToInt32(array[0]);
-                player.Name = array[1];
-                player.Current_team = array[2];
-                player.Picture = array[3];
-                player.Age = Convert.ToInt32(array[4]);
-                player.Career_age = Convert.ToInt32(array[5]);
-                player.Height = Convert.ToDouble(array[6]);
-                player.Weight = Convert.ToInt32(array[7]);
-                player.Position = array[8];
+                player.Name = array[0];
+                player.Current_team = array[1];
+                player.Picture = array[2];
+                player.Age = Convert.ToInt32(array[3]);
+                player.Career_age = Convert.ToInt32(array[4]);
+                player.Height = Convert.ToDouble(array[5]);
+                player.Weight = Convert.ToInt32(array[6]);
+                player.Position = array[7];
                 players.Add(player);
             }
             return players;

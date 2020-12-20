@@ -42,7 +42,6 @@ namespace BasketballManadger.ClassesImportExport
             {
                 using (CsvWriter cwriter = new CsvWriter(sw, CultureInfo.InvariantCulture))
                 {
-                    cwriter.WriteField("ID");
                     cwriter.WriteField("Picture");
                     cwriter.WriteField("Name");
                     cwriter.WriteField("Current_team");
@@ -54,7 +53,6 @@ namespace BasketballManadger.ClassesImportExport
                     cwriter.NextRecord();
                     foreach (var item in playersToImport)
                     {
-                        cwriter.WriteField(item.ID);
                         cwriter.WriteField(item.Picture);
                         cwriter.WriteField(item.Name);
                         cwriter.WriteField(item.Current_team);

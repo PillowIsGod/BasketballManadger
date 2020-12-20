@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,6 +68,9 @@ namespace BasketballManadger
             _positions = FilePath.GetPositions();
             _menuImages = image.GetImagesFromFile();
 
+
+            var exportFileName = $"TXTPlayers____{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss", CultureInfo.InvariantCulture)}.txt";
+
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -75,7 +79,7 @@ namespace BasketballManadger
             {
                 item.CheckTeamPicture(item);
             }
-            
+
             lvTeamsOutput.ItemsSource = _teamsList;
             lvTeamsOutput.SelectedIndex = 0;
             var str = lvTeamsOutput.SelectedValue;
@@ -135,59 +139,86 @@ namespace BasketballManadger
             _toCompleteEvent = false;
         }
 
-        private BasketballPlayers CheckPlayer(BasketballPlayers player, Teams team, Positions position)
+        private BasketballPlayers GetPlayerFromForm(BasketballPlayers player, Teams team, Positions position)
         {
-            if (!string.IsNullOrEmpty(team.TeamName))
+            //if (!string.IsNullOrEmpty(team.TeamName))
+            //{
+            player.Current_team = team.TeamName;
+            //}
+            //if (!string.IsNullOrEmpty(tbGetName.Text))
+            //{
+            player.Name = tbGetName.Text;
+            //}
+            //if (!string.IsNullOrEmpty(tbGetAge.Text))
+            //{
+            player.Age = EditingInfo.ConvertNumber(tbGetAge.Text);
+            //}
+            //if (!string.IsNullOrEmpty(tbGetCareerAge.Text))
+            //{
+            player.Career_age = EditingInfo.ConvertNumber(tbGetCareerAge.Text);
+            //}
+            //if (!string.IsNullOrEmpty(tbGetHeight.Text))
+            //{
+            player.Height = EditingInfo.ConvertNumberToDouble(tbGetHeight.Text);
+            //}
+            //if (!string.IsNullOrEmpty(tbGetWeight.Text))
+            //{
+            player.Weight = EditingInfo.ConvertNumber(tbGetWeight.Text);
+            //}
+            //if (!string.IsNullOrEmpty(position.Position))
+            //{
+            player.Position = position.Position;
+            //}
+            //if (!string.IsNullOrEmpty(_playerIMG))
+            //{
+            player.Picture = _playerIMG;
+            //}
+
+            return player;
+        }
+
+        private void UAErrorCallback(Control control)
+        {
+            control.BorderBrush = Brushes.Red;
+            control.Focus();
+        }
+
+
+        private string CombinedPlayerCheck(BasketballPlayers player)
+        {
+            string check = null;
+
+            if (string.IsNullOrEmpty(player.Name))
             {
-                player.Current_team = team.TeamName;
+                UAErrorCallback(tbGetName);
+
+                check = "Enter NAME, please!";
+                return check;
             }
-            if (!string.IsNullOrEmpty(tbGetName.Text))
+
+
+
+            if (string.IsNullOrEmpty(player.Position) || string.IsNullOrEmpty(player.Name) || string.IsNullOrEmpty(tbGetAge.Text) ||
+               string.IsNullOrEmpty(tbGetCareerAge.Text) || string.IsNullOrEmpty(tbGetHeight.Text) || string.IsNullOrEmpty(tbGetWeight.Text))
             {
-                player.Name = tbGetName.Text;
-            }
-            if (!string.IsNullOrEmpty(tbGetAge.Text))
-            {
-                player.Age = EditingInfo.ConvertNumber(tbGetAge.Text);
-            }
-            if (!string.IsNullOrEmpty(tbGetCareerAge.Text))
-            {
-                player.Career_age = EditingInfo.ConvertNumber(tbGetCareerAge.Text);
-            }
-            if (!string.IsNullOrEmpty(tbGetHeight.Text))
-            {
-                player.Height = EditingInfo.ConvertNumberToDouble(tbGetHeight.Text);
-            }
-            if (!string.IsNullOrEmpty(tbGetWeight.Text))
-            {
-                player.Weight = EditingInfo.ConvertNumber(tbGetWeight.Text);
-            }
-            if (!string.IsNullOrEmpty(position.Position))
-            {
-                player.Position = position.Position;
-            }
-            if (!string.IsNullOrEmpty(_playerIMG))
-            {
-                player.Picture = _playerIMG;
+                check = "You can't successfully add player with empty parameter";
+                return check;
             }
             if (player.Age == -1 || player.Career_age == -1 || player.Height == -1 || player.Weight == -1)
             {
-                MessageBox.Show("Please, enter the number", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                player.Name = "AlbertoDelRio";
-                player.Picture = null;
+                check = "Please, enter the number";
                 ClearPlayersInterface();
-                return player;
+                return check;
             }
             if (player.PlayerAdequacyCheck(player))
             {
-                MessageBox.Show("The parameters you've entered can not exist", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                check = "The parameters you've entered can not exist";
                 ClearPlayersInterface();
-                player.Name = "AlbertoDelRio";
-                player.Picture = null;
-                return player;
+                return check;
             }
-            return player;            
-        }
 
+            return check;
+        }
         private Teams CheckTeam(Teams team)
         {
             if (!string.IsNullOrEmpty(tbGetCity.Text))
@@ -216,18 +247,21 @@ namespace BasketballManadger
             var player = lvPlayers.SelectedValue;
             BasketballPlayers player1 = player as BasketballPlayers;
             BindingList<BasketballPlayers> currentPlayers = FilePath.GetBasketballPlayers();
-            CheckPlayer(player1, team, position);
-            if (player1.Name == "AlbertoDelRio")
+            GetPlayerFromForm(player1, team, position);
+
+
+            var errMsg = CombinedPlayerCheck(player1);
+
+            if (!string.IsNullOrEmpty(errMsg))
             {
-                return;
-            }
-            if (string.IsNullOrEmpty(player1.Position) || string.IsNullOrEmpty(player1.Name) || string.IsNullOrEmpty(tbGetAge.Text) ||
-                string.IsNullOrEmpty(tbGetCareerAge.Text) || string.IsNullOrEmpty(tbGetHeight.Text) || string.IsNullOrEmpty(tbGetWeight.Text))
-            {
-                MessageBox.Show("You can't successfully add player with empty parameter", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(errMsg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+
                 ClearPlayersInterface();
+                UpdateInterface();
                 return;
             }
+
             foreach (var item in currentPlayers)
             {
                 if (player1.ID == item.ID)
@@ -237,7 +271,7 @@ namespace BasketballManadger
                     break;
                 }
             }
-                    
+
             FilePath.SaveData(currentPlayers);
 
             UpdateInterface();
@@ -253,20 +287,21 @@ namespace BasketballManadger
 
         private void lvTeamsOutput_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            if (_toCompleteEvent) {
+            if (_toCompleteEvent)
+            {
                 return;
             }
-            
-                var str = lvTeamsOutput.SelectedValue;
-            
-                Teams str1 = str as Teams;
-                var players = str1.BasketballPlayers;
-                lvPlayers.ItemsSource = players;
 
-                lvPlayers.Visibility = Visibility.Visible;
-                gridPlayerButtons.Visibility = Visibility.Visible;
-                ClearPlayersInterface();
-                ClearTeamsInterface();
+            var str = lvTeamsOutput.SelectedValue;
+
+            Teams str1 = str as Teams;
+            var players = str1.BasketballPlayers;
+            lvPlayers.ItemsSource = players;
+
+            lvPlayers.Visibility = Visibility.Visible;
+            gridPlayerButtons.Visibility = Visibility.Visible;
+            ClearPlayersInterface();
+            ClearTeamsInterface();
 
 
         }
@@ -358,7 +393,7 @@ namespace BasketballManadger
         }
 
         private void btnAddPlayer_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             ClearPlayersInterface();
             ClearTeamsInterface();
             gridEditingPlayers.Visibility = Visibility.Visible;
@@ -368,27 +403,25 @@ namespace BasketballManadger
         private void btnConfirmAddingPlayer_Click(object sender, RoutedEventArgs e)
         {
             ClearTeamsInterface();
-            
+
             var selectedTeam = cbToEditOrAddTeams.SelectedItem;
             var selectedPosition = cbToEditOrAddPositions.SelectedItem;
             Positions position = selectedPosition as Positions;
             Teams team = selectedTeam as Teams;
             BasketballPlayers player1 = new BasketballPlayers();
-            CheckPlayer(player1, team, position);
-            if (player1.Name == "AlbertoDelRio")
-            {
-                return;
-            }
-            player1.CheckPlayerPicture(player1);
+            GetPlayerFromForm(player1, team, position);
 
-            if (string.IsNullOrEmpty(player1.Position) || string.IsNullOrEmpty(player1.Name) || string.IsNullOrEmpty(tbGetAge.Text) ||
-                string.IsNullOrEmpty(tbGetCareerAge.Text) || string.IsNullOrEmpty(tbGetHeight.Text) || string.IsNullOrEmpty(tbGetWeight.Text))
+            var errMsg = CombinedPlayerCheck(player1);
+
+            if (!string.IsNullOrEmpty(errMsg))
             {
-                MessageBox.Show("You can't successfully add player with empty parameter", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(errMsg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+
                 ClearPlayersInterface();
+                UpdateInterface();
                 return;
             }
-
 
             FilePath.Append(player1);
 
@@ -425,12 +458,12 @@ namespace BasketballManadger
                 ClearTeamsInterface();
                 return;
             }
-           
-            
+
+
             team.CheckTeamPicture(team);
             FilePath.Append(team);
             UpdateInterface();
-            MessageBox.Show("Team was successfully added","Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Team was successfully added", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             ClearTeamsInterface();
         }
 
@@ -489,17 +522,29 @@ namespace BasketballManadger
             var teams = FilePath.GetTeams();
             ImpExpDB.DataStorage = storageEnum;
             ImpExpDB.StorageTeamsEmptinessCheck();
-            if (teams.Count <= 0)
-            {
-                ImpExpDB.ImportTeamDataToDB(true, false);
-                MessageBox.Show("Team data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                ImpExpDB.ImportTeamDataToDB(false, true);
-                MessageBox.Show("Database team data was updated", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+                ImpExpDB.ImportTeamDataToDB();
+                ToLog("Team data was inserted to database", MessageBoxImage.Information);
         }
+
+        public void ToLog(string message, MessageBoxImage messageBoxImage = MessageBoxImage.Error)
+        {
+            switch (messageBoxImage)
+            {
+                case MessageBoxImage.None:
+                    break;
+                case MessageBoxImage.Error:
+                    MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    break;
+                case MessageBoxImage.Information:
+                    MessageBox.Show(message, "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+
         private void ExportTeams(FileTypeEnum storageEnum)
         {
             var teams = FilePath.GetTeams();
@@ -508,30 +553,23 @@ namespace BasketballManadger
             if (teams.Count > 0)
             {
                 ImpExpDB.ExportTeamDataFromDB();
-                MessageBox.Show("Team data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+                ToLog("Team data was inserted from database",MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ToLog("Database is empty", MessageBoxImage.Error);
             }
-        }      
-        private void ImportPlayers (FileTypeEnum storageEnum)
+        }
+        private void ImportPlayers(FileTypeEnum storageEnum)
         {
             var players = FilePath.GetBasketballPlayers();
             ImpExpDB.DataStorage = storageEnum;
             ImpExpDB.StoragePlayersEmptinessCheck();
-            if (players.Count <= 0)
-            {
-                ImpExpDB.ImportPlayerDataToDB(true, false);
+
+                ImpExpDB.ImportPlayerDataToDB();
                 MessageBox.Show("Basketball players data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            else
-            {
-                ImpExpDB.ImportPlayerDataToDB(false, true);
-                MessageBox.Show("Database was updated with basketball players", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
         }
-        private void ExportPlayers (FileTypeEnum storageEnum)
+        private void ExportPlayers(FileTypeEnum storageEnum)
         {
             var players = FilePath.GetBasketballPlayers();
             ImpExpDB.DataStorage = storageEnum;
@@ -548,7 +586,11 @@ namespace BasketballManadger
 
         private void miTXTimportTeams_Click(object sender, RoutedEventArgs e)
         {
-            ImportTeams(FileTypeEnum.TxtPlayers);
+            var sdadsa = (Control)sender;
+
+            if(sdadsa.Name.Contains("Txt", StringComparison.OrdinalIgnoreCase))
+
+                ImportTeams(FileTypeEnum.TxtTeams);
         }
 
         private void miCSVimportTeams_Click(object sender, RoutedEventArgs e)
@@ -573,7 +615,7 @@ namespace BasketballManadger
 
         private void miTXTexportTeams_Click(object sender, RoutedEventArgs e)
         {
-            ExportTeams(FileTypeEnum.TxtTeams);         
+            ExportTeams(FileTypeEnum.TxtTeams);
         }
 
         private void miCSVexportTeams_Click(object sender, RoutedEventArgs e)

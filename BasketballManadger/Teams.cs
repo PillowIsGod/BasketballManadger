@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CsvHelper.Configuration.Attributes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,8 @@ namespace BasketballManadger
         [JsonIgnore]
         public BindingList<BasketballPlayers> BasketballPlayers { get; set; }
 
+        [JsonIgnore]
+        [IgnoreAttribute]
         public int ID { get; set; }
         private string _teamName;
         private string _city;
@@ -47,7 +50,6 @@ namespace BasketballManadger
             } }
         public Teams()
         {
-            
         }
         public void CheckTeamPicture(Teams team)
         {

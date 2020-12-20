@@ -196,8 +196,8 @@
         </Grid.RowDefinitions>
         <Menu x:Name="menu">
             <MenuItem Header="Import Team Data" Width="110" x:Name="menuImportTeams" ToolTip="Get team data from selected file to current Database">
-
-                <MenuItem Header="From .txt" x:Name="miTXTimportTeams" Click="miTXTimportTeams_Click">
+                <!--x:Name="miTXTimportTeams"-->
+                <MenuItem Header="From .txt"   x:Name="btnImportTxt" Click="miTXTimportTeams_Click">
                     <MenuItem.Icon>
                         <Image Source="{Binding Path= ImageTXT}"></Image>
                     </MenuItem.Icon>

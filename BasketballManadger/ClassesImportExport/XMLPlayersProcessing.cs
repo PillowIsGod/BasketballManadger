@@ -30,8 +30,6 @@ namespace BasketballManadger
                     {
                         player.Name = node.InnerText;
                     }
-                    if (node.Name == "id")
-                    { player.ID = Convert.ToInt32(node.InnerText); }
                     if (node.Name == "position")
                     {
                         player.Position = node.InnerText;
@@ -89,9 +87,6 @@ namespace BasketballManadger
         {
             XmlElement xmlPlayer = xdoc.CreateElement("player");
 
-            XmlElement idElem = xdoc.CreateElement("id");
-            xmlPlayer.AppendChild(idElem);
-
             XmlElement positionElem = xdoc.CreateElement("position");
             xmlPlayer.AppendChild(positionElem);
 
@@ -117,7 +112,6 @@ namespace BasketballManadger
             xmlPlayer.AppendChild(pictureElem);
 
 
-            XmlText idText = xdoc.CreateTextNode(player.ID.ToString());
             XmlText positionText = xdoc.CreateTextNode(player.Position);
             XmlText nameText = xdoc.CreateTextNode(player.Name);
             XmlText teamText = xdoc.CreateTextNode(player.Current_team);
@@ -128,8 +122,6 @@ namespace BasketballManadger
             XmlText pictureText = xdoc.CreateTextNode(player.Picture);
 
 
-
-            idElem.AppendChild(idText);
             positionElem.AppendChild(positionText);
             nameElem.AppendChild(nameText);
             teamElem.AppendChild(teamText);

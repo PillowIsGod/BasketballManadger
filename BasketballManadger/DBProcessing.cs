@@ -92,7 +92,7 @@ namespace BasketballManadger
                     int id_position = GetPlayersPositionID(player);
 
                     string sqlExpression = String.Format("INSERT INTO basketballplayers (name,age, career_age, height, weight, id_team, id_position, picture) VALUES ('{0}','{1}','{2}','{3}'," +
-                        "'{4}','{5}','{6}', '{7}')", player.Name, player.Age, player.Career_age, player.Height, player.Weight, id_team, id_position, player.Picture.Replace(@"\", @"\\"));
+                        "'{4}','{5}','{6}','{7}')", player.Name, player.Age, player.Career_age, player.Height, player.Weight, id_team, id_position, player.Picture.Replace(@"\", @"\\"));
 
 
                     MySqlCommand command = new MySqlCommand(sqlExpression, connection);

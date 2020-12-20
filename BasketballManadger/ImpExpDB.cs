@@ -106,38 +106,23 @@ namespace BasketballManadger
         }
 
 
-        public static void ImportTeamDataToDB(bool insert = false, bool update = false)
+        public static void ImportTeamDataToDB()
         {
             BindingList<Teams> teamsToImport = _storage.GetTeamFromFIle();
 
             _connection.Open();
-            if (insert)
-            {
                 DBPath.Append(teamsToImport.ToArray());
-            }
-            if (update)
-            {
-                DBPath.SaveData(teamsToImport);
-            }
-
+            _connection.Close();
 
         }
 
-        public static void ImportPlayerDataToDB(bool insert = false, bool update = false)
+        public static void ImportPlayerDataToDB()
         {
             BindingList<BasketballPlayers> playersToImport = _storage.GetPlayersFromFile();
 
             _connection.Open();
-            if (insert)
-            {
                 DBPath.Append(playersToImport.ToArray());
-            }
-            if (update)
-            {
-                DBPath.SaveData(playersToImport);
-            }
-
-
+            _connection.Close();
         }
 
 

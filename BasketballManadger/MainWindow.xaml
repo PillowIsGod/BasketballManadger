@@ -325,7 +325,27 @@
                             </Grid.RowDefinitions>
                             <Image Source="{Binding Path=Logo}" Width="150" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" Height="150"></Image>
                             <TextBlock Text="{Binding Path=City}" Width="120" Grid.Column="1" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="0" Margin="10, 0, 0, 0"></TextBlock>
-                            <TextBlock Text="{Binding Path = TeamName}" Width="120" Grid.Column="2" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="0"></TextBlock>
+                            <TextBlock Text="{Binding Path = TeamName}" Width="120" Grid.Column="2" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="0">
+                                <TextBlock.ToolTip>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="Team members: " Grid.Column="0" Grid.Row="0"></TextBlock>
+                                        <TextBlock Text="{Binding Path=AmountOfTeamMembers}" Grid.Column="1" Grid.Row="0"></TextBlock>
+                                        <TextBlock Text="Average team height: " Grid.Column="0" Grid.Row="1"></TextBlock>
+                                        <TextBlock Text="{Binding Path=AvgTeamHeight}" Grid.Column="1" Grid.Row="1"></TextBlock>
+                                        <TextBlock Text="Average team age" Grid.Column="0" Grid.Row="2"></TextBlock>
+                                        <TextBlock Text="{Binding Path=AvgTeamAge}" Grid.Column="1" Grid.Row="2"></TextBlock>
+                                    </Grid>
+                                </TextBlock.ToolTip>
+                            </TextBlock>
                         </Grid>
                     </StackPanel>
                 </DataTemplate>
@@ -419,13 +439,13 @@
             <TextBlock Text="Name: " Grid.Column="0" Grid.Row="1"></TextBlock>
             <TextBox x:Name="tbGetName" Text = "{Binding Path=Name}" Grid.Column="1" Grid.Row="1" IsReadOnly="False" Width="250" ></TextBox>
             <TextBlock Text="Age: " Grid.Column="0" Grid.Row="2" ToolTip="Age must be from 19 to 45"></TextBlock>
-            <TextBox x:Name="tbGetAge" Text ="{Binding Path=Age}" Grid.Column="1" Grid.Row="2" IsReadOnly="False" Width="250" ></TextBox>
+            <TextBox x:Name="tbGetAge" Text ="{Binding Path=Age}" Grid.Column="1" Grid.Row="2" IsReadOnly="False" Width="250" PreviewTextInput="InputNumbersOnly" DataObject.Pasting="TextBoxPasting"></TextBox>
             <TextBlock Text="Career Age: "   Grid.Column="0" Grid.Row="3" ToolTip="Career age must be from 0 to 20"></TextBlock>
-            <TextBox  x:Name="tbGetCareerAge"  Text ="{Binding Path=Career_Age}" Grid.Column="1" Grid.Row="3" IsReadOnly="False" Width="250"></TextBox>
+            <TextBox  x:Name="tbGetCareerAge"  Text ="{Binding Path=Career_Age}" Grid.Column="1" Grid.Row="3" IsReadOnly="False" Width="250" PreviewTextInput="InputNumbersOnly" DataObject.Pasting="TextBoxPasting"></TextBox>
             <TextBlock Text="Height: " Grid.Column="0" Grid.Row="4" ToolTip="Height must be from 1.5 to 2.5"></TextBlock>
-            <TextBox x:Name="tbGetHeight" Text ="{Binding Path=Height}" Grid.Column="1" Grid.Row="4" IsReadOnly="False" Width="250"></TextBox>
+            <TextBox x:Name="tbGetHeight" Text ="{Binding Path=Height}" Grid.Column="1" Grid.Row="4" IsReadOnly="False" Width="250" PreviewTextInput="InputNumbersOnly" DataObject.Pasting="TextBoxPasting"></TextBox>
             <TextBlock Text="Weight: " Grid.Column="0" Grid.Row="5" ToolTip="Weight must be from 50 to 200"></TextBlock>
-            <TextBox x:Name="tbGetWeight" Text ="{Binding Path=Weight}" Grid.Column="1" Grid.Row="5" IsReadOnly="False" Width="250"> </TextBox>
+            <TextBox x:Name="tbGetWeight" Text ="{Binding Path=Weight}" Grid.Column="1" Grid.Row="5" IsReadOnly="False" Width="250" PreviewTextInput="InputNumbersOnly" DataObject.Pasting="TextBoxPasting"> </TextBox>
             <TextBlock Text="Choose team: " Grid.Column="0" Grid.Row="6"></TextBlock>
             <ComboBox x:Name="cbToEditOrAddTeams" Text="Choose a team" Grid.Column="1" Grid.Row="6" Height="auto" Width="250" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <ComboBox.ItemTemplate>
@@ -475,7 +495,7 @@
                 <Button x:Name="btnConfirmAddingPlayer" Grid.Column="0" Click="btnConfirmAddingPlayer_Click">
                     <TextBlock Text="Confirm" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
                 </Button>
-                <Button x:Name="btnDeclineAddingPlayer" Grid.Column="1" Click="btnDeclineEditingTeam_Click">
+                <Button x:Name="btnDeclineAddingPlayer" Grid.Column="1" Click="btnDeclineEditingPlayer_Click">
                     <TextBlock Text="Decline" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
                 </Button>
             </Grid>
@@ -492,11 +512,11 @@
                 </RowDefinition>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Are you sure you want to delete selected Player?" Grid.ColumnSpan="2" Grid.Row="0" Height="25" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock x:Name ="tbRemovePlayer" Text="Are you sure you want to delete selected Player?" Grid.ColumnSpan="2" Grid.Row="0" Height="25" HorizontalAlignment="Center"></TextBlock>
             <Button x:Name="btnConfirmDeletingPlayer" Grid.Column="0" Click ="btnConfirmDeletingPlayer_Click" Grid.Row="1">
                 <TextBlock Text="Confirm" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
             </Button>
-            <Button x:Name="btnDeclineDeletingPlayer" Grid.Column="1" Click="btnDeclineEditingTeam_Click" Grid.Row="1">
+            <Button x:Name="btnDeclineDeletingPlayer" Grid.Column="1" Click="btnDeclineEditingPlayer_Click" Grid.Row="1">
                 <TextBlock Text="Decline" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
             </Button>
         </Grid>
@@ -563,7 +583,7 @@
                 </RowDefinition>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="Are you sure you want to delete selected team?" Grid.ColumnSpan="2" Grid.Row="0" Height="25" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock x:Name = "tbRemoveTeam" Text="Are you sure you want to delete selected team?" Grid.ColumnSpan="2" Grid.Row="0" Height="25" HorizontalAlignment="Center"></TextBlock>
             <Button x:Name="btnConfirmDeletingTeam" Grid.Column="0" Click="btnConfirmDeletingTeam_Click" Grid.Row="1">
                 <TextBlock Text="Confirm" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
             </Button>

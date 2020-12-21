@@ -11,7 +11,7 @@ namespace BasketballManadger
     {
         [JsonIgnore]
         public BindingList<BasketballPlayers> BasketballPlayers { get; set; }
-
+        
         [JsonIgnore]
         [IgnoreAttribute]
         public int ID { get; set; }
@@ -48,8 +48,47 @@ namespace BasketballManadger
             {
                 return this.City + " " + this.TeamName;
             } }
+
+
+        public double AvgTeamHeight { get
+            {
+                return GetAvgTeamHeight(this.BasketballPlayers);
+            } }
+        public double AvgTeamAge { get
+            {
+                return GetAvgTeamAge(this.BasketballPlayers);
+            }
+            }
+        
+        public int AmountOfTeamMembers { get {
+                return this.BasketballPlayers.Count;
+            } }
         public Teams()
         {
+        }
+        private double GetAvgTeamHeight(BindingList< BasketballPlayers> basketballPlayers)
+        {
+            double num = 0;
+            double avgToReturn = 0;
+            foreach (var item in basketballPlayers)
+            {
+                num += item.Height;
+            }
+            avgToReturn = num / basketballPlayers.Count;
+            var avg = Math.Round(avgToReturn, 2);
+            return avg;
+        }
+        private double GetAvgTeamAge(BindingList<BasketballPlayers> basketballPlayers)
+        {
+            double num = 0;
+            double avgToReturn = 0;
+            foreach (var item in basketballPlayers)
+            {
+                num += item.Age;
+            }
+            avgToReturn = num / basketballPlayers.Count;
+            var avg = Math.Round(avgToReturn, 2);
+            return avg;
         }
         public void CheckTeamPicture(Teams team)
         {

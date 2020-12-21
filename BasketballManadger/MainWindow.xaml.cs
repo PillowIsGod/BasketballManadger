@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,6 +30,7 @@ namespace BasketballManadger
 
         private string _myConnectionString = "Database = basketballdata; Data Source = 127.0.0.1; User Id = root; Password = 7Bc145f606";
         private MySqlConnection connection = null;
+
 
 
         private bool _toCompleteEvent = false;
@@ -72,6 +74,7 @@ namespace BasketballManadger
             var exportFileName = $"TXTPlayers____{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss", CultureInfo.InvariantCulture)}.txt";
 
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             connection.Open();
@@ -247,6 +250,7 @@ namespace BasketballManadger
             var player = lvPlayers.SelectedValue;
             BasketballPlayers player1 = player as BasketballPlayers;
             BindingList<BasketballPlayers> currentPlayers = FilePath.GetBasketballPlayers();
+            string message = player1.Name;
             GetPlayerFromForm(player1, team, position);
 
 
@@ -275,7 +279,7 @@ namespace BasketballManadger
             FilePath.SaveData(currentPlayers);
 
             UpdateInterface();
-            MessageBox.Show("Player was successfully edited", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            ToLog($"{message} was successfully edited", MessageBoxImage.Information);
 
             ClearPlayersInterface();
         }
@@ -317,6 +321,8 @@ namespace BasketballManadger
             tbGetHeight.Text = player.Height.ToString();
             tbGetWeight.Text = player.Weight.ToString();
             tbGetName.Text = player.Name;
+            tbToShowPlayerPictureFilePath.Text = player.Picture;
+            _playerIMG = player.Picture;
             int teamNameIndex = 0;
             int positionIndex = 0;
             for (int i = 0; i < _teamsList.Count; i++)
@@ -346,6 +352,8 @@ namespace BasketballManadger
             Teams team = selectedTeam as Teams;
             tbGetCity.Text = team.City;
             tbgetTeamName.Text = team.TeamName;
+            tbToShowTeamLogoFilePath.Text = team.Logo;
+            _teamIMG = team.Logo;
             gridEditingTeams.Visibility = Visibility.Visible;
             gridBtnsToConfirmEditingTeam.Visibility = Visibility.Visible;
         }
@@ -355,6 +363,7 @@ namespace BasketballManadger
             var selectedTeam = lvTeamsOutput.SelectedItem;
             Teams team = selectedTeam as Teams;
             BindingList<Teams> currentTeams = FilePath.GetTeams();
+            string message = team.TeamName;
             CheckTeam(team);
 
             team.CheckTeamPicture(team);
@@ -377,7 +386,7 @@ namespace BasketballManadger
             }
             FilePath.SaveData(currentTeams);
             UpdateInterface();
-            MessageBox.Show("Team was successfully edited", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            ToLog($"{message} was successfully edited", MessageBoxImage.Information);
             ClearTeamsInterface();
         }
 
@@ -396,6 +405,19 @@ namespace BasketballManadger
         {
             ClearPlayersInterface();
             ClearTeamsInterface();
+            var selectedTeam = lvTeamsOutput.SelectedItem;
+            var team = selectedTeam as Teams;
+            int teamNameIndex = 0;
+            int positionIndex = 0;
+            for (int i = 0; i < _teamsList.Count; i++)
+            {
+                if (team.TeamName == _teamsList[i].TeamName)
+                {
+                    teamNameIndex = i;
+                }
+            }
+            cbToEditOrAddPositions.SelectedIndex = positionIndex;
+            cbToEditOrAddTeams.SelectedIndex = teamNameIndex;
             gridEditingPlayers.Visibility = Visibility.Visible;
             gridBtnsToConfirmAddingPlayers.Visibility = Visibility.Visible;
         }
@@ -415,7 +437,7 @@ namespace BasketballManadger
 
             if (!string.IsNullOrEmpty(errMsg))
             {
-                MessageBox.Show(errMsg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ToLog(errMsg, MessageBoxImage.Error);
 
 
                 ClearPlayersInterface();
@@ -426,7 +448,7 @@ namespace BasketballManadger
             FilePath.Append(player1);
 
             UpdateInterface();
-            MessageBox.Show("Player was successfully added", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            ToLog($"{player1.Name} was successfully added", MessageBoxImage.Information);
 
             ClearPlayersInterface();
         }
@@ -435,9 +457,10 @@ namespace BasketballManadger
         {
             var player = lvPlayers.SelectedValue;
             BasketballPlayers player1 = player as BasketballPlayers;
+            string message = player1.Name;
             FilePath.Delete(player1);
             UpdateInterface();
-            MessageBox.Show("Player was successfully removed", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            ToLog($"{message} was successfully removed", MessageBoxImage.Information);
             ClearPlayersInterface();
         }
 
@@ -445,6 +468,15 @@ namespace BasketballManadger
         {
             ClearPlayersInterface();
             ClearTeamsInterface();
+            if (lvPlayers.SelectedItem == null)
+            {
+                ToLog("Please, select a player to remove", MessageBoxImage.Error);
+                return;
+            }
+
+            var player = lvPlayers.SelectedItem as BasketballPlayers;
+
+            tbRemovePlayer.Text = $"Are you sure you want to delete {player.Name} ?";
             gridBtnsToConfirmDeletingPlayers.Visibility = Visibility.Visible;
         }
 
@@ -454,7 +486,7 @@ namespace BasketballManadger
             CheckTeam(team);
             if (string.IsNullOrEmpty(tbGetCity.Text) || string.IsNullOrEmpty(tbgetTeamName.Text))
             {
-                MessageBox.Show("You can't add team without parameters", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ToLog("You can't add team without parameters", MessageBoxImage.Error);
                 ClearTeamsInterface();
                 return;
             }
@@ -463,7 +495,7 @@ namespace BasketballManadger
             team.CheckTeamPicture(team);
             FilePath.Append(team);
             UpdateInterface();
-            MessageBox.Show("Team was successfully added", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            ToLog($"{team.TeamName} was successfully added", MessageBoxImage.Information);
             ClearTeamsInterface();
         }
 
@@ -471,9 +503,10 @@ namespace BasketballManadger
         {
             var selectedTeam = lvTeamsOutput.SelectedItem;
             Teams team = selectedTeam as Teams;
+            string message = team.TeamName;
             FilePath.Delete(team);
             UpdateInterface();
-            MessageBox.Show("Team was successfully deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{message} was successfully deleted", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             ClearTeamsInterface();
 
         }
@@ -490,16 +523,45 @@ namespace BasketballManadger
         {
             ClearPlayersInterface();
             ClearTeamsInterface();
+            var team = lvTeamsOutput.SelectedItem as Teams;
+            tbRemoveTeam.Text = $"Are you sure you want to delete {team.TeamName} ?";
             gridBtnsToConfirmDeletingTeam.Visibility = Visibility.Visible;
         }
 
+
+        private string CutFilePathToFolder(string filePath)
+        {
+            var array = filePath.Split(@"\");
+            string filePathToReturn = null;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i == (array.Length - 1))
+                {
+                    break;
+                }
+                filePathToReturn += array[i] + "\\";
+            }
+            return filePathToReturn;
+        }
         private void btnPictureSelector_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG";
+
+
+            if (!string.IsNullOrEmpty(_playerIMG))
+            {
+                openFileDialog.FileName = _playerIMG;
+                string folderPath = CutFilePathToFolder(_playerIMG);
+
+                openFileDialog.InitialDirectory = folderPath;
+            }
             Nullable<bool> result = openFileDialog.ShowDialog();
+
+
             if (result == true)
             {
+
                 _playerIMG = openFileDialog.FileName;
                 tbToShowPlayerPictureFilePath.Text = openFileDialog.FileName;
             }
@@ -509,6 +571,15 @@ namespace BasketballManadger
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG";
+
+            if (!string.IsNullOrEmpty(_teamIMG))
+            {
+                openFileDialog.FileName = _teamIMG;
+
+                string folderPath = CutFilePathToFolder(_teamIMG);
+
+                openFileDialog.InitialDirectory = folderPath;
+            }
             Nullable<bool> result = openFileDialog.ShowDialog();
             if (result == true)
             {
@@ -522,8 +593,8 @@ namespace BasketballManadger
             var teams = FilePath.GetTeams();
             ImpExpDB.DataStorage = storageEnum;
             ImpExpDB.StorageTeamsEmptinessCheck();
-                ImpExpDB.ImportTeamDataToDB();
-                ToLog("Team data was inserted to database", MessageBoxImage.Information);
+            ImpExpDB.ImportTeamDataToDB();
+            ToLog("Team data was inserted to database", MessageBoxImage.Information);
         }
 
         public void ToLog(string message, MessageBoxImage messageBoxImage = MessageBoxImage.Error)
@@ -553,7 +624,7 @@ namespace BasketballManadger
             if (teams.Count > 0)
             {
                 ImpExpDB.ExportTeamDataFromDB();
-                ToLog("Team data was inserted from database",MessageBoxImage.Information);
+                ToLog("Team data was inserted from database", MessageBoxImage.Information);
             }
             else
             {
@@ -566,8 +637,8 @@ namespace BasketballManadger
             ImpExpDB.DataStorage = storageEnum;
             ImpExpDB.StoragePlayersEmptinessCheck();
 
-                ImpExpDB.ImportPlayerDataToDB();
-                MessageBox.Show("Basketball players data was inserted to database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            ImpExpDB.ImportPlayerDataToDB();
+            ToLog("Basketball players data was inserted to database", MessageBoxImage.Information);
         }
         private void ExportPlayers(FileTypeEnum storageEnum)
         {
@@ -588,7 +659,7 @@ namespace BasketballManadger
         {
             var sdadsa = (Control)sender;
 
-            if(sdadsa.Name.Contains("Txt", StringComparison.OrdinalIgnoreCase))
+            if (sdadsa.Name.Contains("Txt", StringComparison.OrdinalIgnoreCase))
 
                 ImportTeams(FileTypeEnum.TxtTeams);
         }
@@ -694,6 +765,39 @@ namespace BasketballManadger
 
 
 
+        private static bool IsTextAllowed(string text)
+        {
+
+            Regex regex = new Regex("[^0-9.-]+");
+            return !regex.IsMatch(text);
+        }
+        private void InputNumbersOnly(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+
+        private void TextBoxPasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(String)))
+            {
+                String text = (String)e.DataObject.GetData(typeof(String));
+                if (!IsTextAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+    }
+
+
+}
+
+
 
 
 
@@ -714,6 +818,3 @@ namespace BasketballManadger
         //    }
 
 
-
-    }
-}

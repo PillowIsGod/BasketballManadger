@@ -37,7 +37,7 @@ namespace BasketballManadger.ClassesImportExport
 
         public override void ImportPlayersData(BindingList<BasketballPlayers> playersToImport)
         {
-            using (FileStream fs = new FileStream(FileProcessingPath, FileMode.Truncate, FileAccess.ReadWrite))
+            using (FileStream fs = new FileStream(FileProcessingPath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
             using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
             {
                 using (CsvWriter cwriter = new CsvWriter(sw, CultureInfo.InvariantCulture))

@@ -9,25 +9,25 @@ using System.Windows;
 
 namespace BasketballManadger
 {
-    public static class ImpExpDB
+    public class ImpExpDB
     {
 
-        private static string _myConnectionString = "Database = basketballdata; Data Source = 127.0.0.1; User Id = root; Password = 7Bc145f606";
+        private string _myConnectionString = "Database = basketballdata; Data Source = 127.0.0.1; User Id = root; Password = 7Bc145f606";
 
-        private static DataProcessing DBPath;
+        private DataProcessing DBPath;
 
-        private static MySqlConnection _connection;
+        private MySqlConnection _connection;
 
-        private static string _txtPlayersPath { get; set; }
-        private static string _txtTeamsPath { get; set; }
-        private static string _xmlPlayersPath { get; set; }
-        private static string _xmlTeamsPath { get; set; }
-        private static string _jsonPlayersPath { get; set; }
-        private static string _jsonTeamsPath { get; set; }
-        private static string _excellPlayersPath { get; set; }
-        private static string _excellTeamsPath { get; set; }
-        private static string _csvPlayersPath { get; set; }
-        private static string _csvTeamsPath { get; set; }
+        private string _txtPlayersPath { get; set; }
+        private string _txtTeamsPath { get; set; }
+        private string _xmlPlayersPath { get; set; }
+        private string _xmlTeamsPath { get; set; }
+        private string _jsonPlayersPath { get; set; }
+        private string _jsonTeamsPath { get; set; }
+        private string _excellPlayersPath { get; set; }
+        private string _excellTeamsPath { get; set; }
+        private string _csvPlayersPath { get; set; }
+        private string _csvTeamsPath { get; set; }
 
         //TxtPlayers = 1,
         //TxtTeams = 2,
@@ -35,11 +35,11 @@ namespace BasketballManadger
         //XMLTeams = 4,
         //JsonPlayers = 5,
         //JsonTeams = 6
-        private static FileTypesProcessing _storage { get; set; }
+        private FileTypesProcessing _storage { get; set; }
 
-        private static FileTypeEnum _storageType;
+        private FileTypeEnum _storageType;
 
-        public static FileTypeEnum DataStorage
+        public FileTypeEnum DataStorage
         {
             get
             {
@@ -48,16 +48,16 @@ namespace BasketballManadger
             set
             {
                 _storageType = value;
-                _excellTeamsPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\ExcellTeams.xlsx";
-                _excellPlayersPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\ExcellPlayers.xlsx";
-                _xmlPlayersPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\XMLPlayers.xml";
-                _xmlTeamsPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\XMLTeams.xml";
-                _jsonPlayersPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\JsonPlayers.json";
-                _jsonTeamsPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\JsonTeams.json";
-                _txtPlayersPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\TXTPlayers.txt";
-                _txtTeamsPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\TXTTeams.txt";
-                _csvTeamsPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\CSVTeamStorage.csv";
-                _csvPlayersPath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\CSVPlayerStorage.csv";
+                _excellTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}ExcellTeams";
+                _excellPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}ExcellPlayers.xlsx";
+                _xmlPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}XMLPlayers.xml";
+                _xmlTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}XMLTeams.xml";
+                _jsonPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}JsonPlayers.json";
+                _jsonTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}JsonTeams.json";
+                _txtPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}TXTPlayers.txt";
+                _txtTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}TXTTeams.txt";
+                _csvTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}CSVTeamStorage.csv";
+                _csvPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}CSVPlayerStorage.csv";
 
                 switch (_storageType)
                 {
@@ -99,35 +99,107 @@ namespace BasketballManadger
         }
 
 
-        static ImpExpDB()
+        public ImpExpDB()
         {
+           
+        }
+        public ImpExpDB(string filePath, bool player = false)
+        {
+            if (filePath.Contains("txt", StringComparison.OrdinalIgnoreCase) && player == false)
+            {
+                _storage = new TXTProcessingTeams(filePath);
+            }
+            if (filePath.Contains("txt", StringComparison.OrdinalIgnoreCase) && player == true)
+            {
+                _storage = new TXTProcessingPlayers(filePath);
+            }
+            if (filePath.Contains("csv", StringComparison.OrdinalIgnoreCase) && player == false)
+            {
+                _storage = new CSVTeamsProcessing(filePath);
+            }
+            if (filePath.Contains("csv", StringComparison.OrdinalIgnoreCase) && player == true)
+            {
+                _storage = new CSVPlayersProcessing(filePath);
+            }
+            if (filePath.Contains("json", StringComparison.OrdinalIgnoreCase) && player == false)
+            {
+                _storage = new JsonTeamProcessing(filePath);
+            }
+            if (filePath.Contains("json", StringComparison.OrdinalIgnoreCase) && player == true)
+            {
+                _storage = new JsonPlayersProcessing(filePath);
+            }
+            if (filePath.Contains("xml", StringComparison.OrdinalIgnoreCase) && player == false)
+            {
+                _storage = new XMLTeamsProcessing(filePath);
+            }
+            if (filePath.Contains("xml", StringComparison.OrdinalIgnoreCase) && player == true)
+            {
+                _storage = new XMLPlayersProcessing(filePath);
+            } 
+            if (filePath.Contains("xlsx", StringComparison.OrdinalIgnoreCase) && player == false)
+            {
+                _storage = new ExcellTeamsProcessing(filePath);
+            } 
+            if (filePath.Contains("xlsx", StringComparison.OrdinalIgnoreCase) && player == true)
+            {
+                _storage = new ExcellPlayersProcessing(filePath);
+            }
             DBPath = new DBProcessing(_myConnectionString);
             _connection = new MySqlConnection(_myConnectionString);
         }
 
 
-        public static void ImportTeamDataToDB()
+        public void ImportTeamDataToDB()
         {
             BindingList<Teams> teamsToImport = _storage.GetTeamFromFIle();
 
             _connection.Open();
-                DBPath.Append(teamsToImport.ToArray());
+            var currentTeams = DBPath.GetTeams();
+            var refer = new MainWindow();
+            for (int i = teamsToImport.Count-1; i != -1; i--)
+            {
+                foreach (var item1 in currentTeams)
+                {
+                    if (teamsToImport[i].TeamName == item1.TeamName && teamsToImport[i].City == item1.City)
+                    {
+                        teamsToImport.Remove(teamsToImport[i]);
+                        break;
+                    }
+                }
+            }
+
+            DBPath.Append(teamsToImport.ToArray());
+            refer.ToLog($"{teamsToImport.Count} teams were inserted into database", MessageBoxImage.Information);
             _connection.Close();
 
         }
 
-        public static void ImportPlayerDataToDB()
+        public void ImportPlayerDataToDB()
         {
             BindingList<BasketballPlayers> playersToImport = _storage.GetPlayersFromFile();
-
             _connection.Open();
+            var currentplayers = DBPath.GetBasketballPlayers();
+            var refer = new MainWindow();
+            for (int i = playersToImport.Count-1; i != -1; i--) { 
+                foreach (var item1 in currentplayers)
+                {
+                    if (playersToImport[i].Name == item1.Name && playersToImport[i].Current_team == item1.Current_team)
+                    {
+                        playersToImport.Remove(playersToImport[i]);
+                        break;
+                    }
+                }
+            }
+            
                 DBPath.Append(playersToImport.ToArray());
+            refer.ToLog($"{playersToImport.Count} players were inserted into database", MessageBoxImage.Information);
             _connection.Close();
         }
 
 
 
-        public static void StorageTeamsEmptinessCheck()
+        public void StorageTeamsEmptinessCheck()
         {
             BindingList<Teams> teams = _storage.GetTeamFromFIle();
             if (teams.Count <= 0)
@@ -138,7 +210,7 @@ namespace BasketballManadger
             return;
         }
 
-        public static void StoragePlayersEmptinessCheck()
+        public void StoragePlayersEmptinessCheck()
         {
             BindingList<BasketballPlayers> players = _storage.GetPlayersFromFile();
             if (players.Count <= 0)
@@ -150,7 +222,7 @@ namespace BasketballManadger
             return;
         }
 
-        public static void ExportTeamDataFromDB()
+        public void ExportTeamDataFromDB()
         {
             BindingList<Teams> teamsToExport = DBPath.GetTeams();
 
@@ -159,7 +231,7 @@ namespace BasketballManadger
 
 
 
-        public static void ExportPlayerDataFromDB()
+        public void ExportPlayerDataFromDB()
         {
             BindingList<BasketballPlayers> playersToExport = DBPath.GetBasketballPlayers();
 

@@ -90,7 +90,7 @@ namespace BasketballManadger
             XmlElement positionElem = xdoc.CreateElement("position");
             xmlPlayer.AppendChild(positionElem);
 
-            XmlElement nameElem = xdoc.CreateElement("teamName");
+            XmlElement nameElem = xdoc.CreateElement("name");
             xmlPlayer.AppendChild(nameElem);
 
             XmlElement teamElem = xdoc.CreateElement("current_team");

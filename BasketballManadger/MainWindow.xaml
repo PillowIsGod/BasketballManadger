@@ -195,119 +195,26 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Menu x:Name="menu">
-            <MenuItem Header="Import Team Data" Width="110" x:Name="menuImportTeams" ToolTip="Get team data from selected file to current Database">
-                <!--x:Name="miTXTimportTeams"-->
-                <MenuItem Header="From .txt"   x:Name="btnImportTxt" Click="miTXTimportTeams_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageTXT}"></Image>
-                    </MenuItem.Icon>
+            <MenuItem Header="Import Data" Width="80">
+                <MenuItem x:Name="miImportPlayers" Header="Import Players" Width="185" Click="miImportPlayers_Click"></MenuItem>
+                <MenuItem x:Name="miImportTeams" Header="Import Teams" Width="185" Click="miImportTeams_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Export Data" Width="80">
+                <MenuItem x:Name="miExportPlayers" Header="Export Players" Width="180">
+                    <MenuItem Header="To .txt" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem Header="To .csv" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem Header="To .xml" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem Header="To .xlsx" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem Header="To .json" Click="miExportPlayers_Click"></MenuItem>
                 </MenuItem>
-
-                <MenuItem Header="From .csv" x:Name="miCSVimportTeams" Click="miCSVimportTeams_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageCSV}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="From .json" x:Name="miJSONimportTeams" Click="miJSONimportTeams_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageJSON}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="From .xml" x:Name="miXMLimporTeamst" Click="miXMLimporTeamst_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageXML}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="From .xlsx" x:Name="miXLSXimportTeams" Click="miXLSXimportTeams_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageXLSX}"></Image>
-                    </MenuItem.Icon>
+                <MenuItem x:Name="miExportTeams" Header="Export Teams" Width="180">
+                    <MenuItem Header="To .txt" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem Header="To .csv" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem Header="To .xml" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem Header="To .xlsx" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem Header="To .json" Click="miExportTeams_Click"></MenuItem>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Export Team Data" Width="110" x:Name="menuExportTeams" ToolTip="Export team data from current database to the chosen file type">
-                <MenuItem Header="To .txt" x:Name="miTXTexportTeams" Click="miTXTexportTeams_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageTXT}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="To .csv" x:Name="miCSVexportTeams" Click="miCSVexportTeams_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageCSV}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="To .json" x:Name="miJSONexportTeams" Click="miJSONexportTeams_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageJSON}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="To .xml" x:Name="miXMLexportTeams" Click="miXMLexportTeams_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageXML}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="To .xlsx" x:Name="miXLSXexportTeams" Click="miXLSXexportTeams_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageXLSX}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-            <MenuItem Header="Import Player Data" Width="110" x:Name="menuImportPlayers" ToolTip="Get player data from selected file to current Database">
-
-                <MenuItem Header="From .txt" x:Name="miTXTimportPlayers" Click="miTXTimportPlayers_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageTXT}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-
-                <MenuItem Header="From .csv" x:Name="miCSVimportPlayers" Click="miCSVimportPlayers_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageCSV}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="From .json" x:Name="miJSONimportPlayers" Click="miJSONimportPlayers_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageJSON}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="From .xml" x:Name="miXMLimportPlayers" Click="miXMLimportPlayers_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageXML}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="From .xlsx" x:Name="miXLSXimportPlayers" Click="miXLSXimportPlayers_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageXLSX}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-            <MenuItem Header="Export Player Data" Width="110" x:Name="menuExportPlayers" ToolTip="Export player data from current database to the chosen file type">
-                <MenuItem Header="To .txt" x:Name="miTXTexportPlayers" Click="miTXTexportPlayers_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageTXT}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="To .csv" x:Name="miCSVexportPlayers" Click="miCSVexportPlayers_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageCSV}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="To .json" x:Name="miJSONexportPlayers" Click="miJSONexportPlayers_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageJSON}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="To .xml" x:Name="miXMLexportPlayers" Click="miXMLexportPlayers_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageXML}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="To .xlsx" x:Name="miXLSXexportPlayers" Click="miXLSXexportPlayers_Click">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding Path= ImageXLSX}"></Image>
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-
         </Menu>
         <ListView x:Name="lvTeamsOutput" Grid.Column = "0" Grid.Row="1" SelectionChanged="lvTeamsOutput_SelectionChanged" MouseDoubleClick="lvTeamsOutput_MouseDoubleClick" ToolTip="Double click to edit" Background="#FF767575">
             <ListView.ItemTemplate>

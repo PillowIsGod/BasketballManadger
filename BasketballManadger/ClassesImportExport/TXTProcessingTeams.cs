@@ -29,7 +29,7 @@ namespace BasketballManadger
         public override void ImportTeamData(BindingList<Teams> teamsToImport)
         {
             string line;
-            using (FileStream fs = new FileStream(FileProcessingPath, FileMode.Truncate))
+            using (FileStream fs = new FileStream(FileProcessingPath, FileMode.OpenOrCreate))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 foreach (var item in teamsToImport)

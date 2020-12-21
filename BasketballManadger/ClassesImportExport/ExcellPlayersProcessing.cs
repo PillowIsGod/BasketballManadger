@@ -66,7 +66,7 @@ namespace BasketballManadger
         {
             IWorkbook workbook = null;
             ISheet worksheet = null;
-            using (FileStream fs = new FileStream(FileProcessingPath, FileMode.Truncate, FileAccess.ReadWrite))
+            using (FileStream fs = new FileStream(FileProcessingPath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {
                 workbook = new XSSFWorkbook();
                 worksheet = workbook.CreateSheet("Sheet0");

@@ -41,7 +41,7 @@ namespace BasketballManadger
             var jObj = new { Players = playersToImport };
 
 
-            using (FileStream fs = new FileStream(FileProcessingPath, FileMode.Truncate))
+            using (FileStream fs = new FileStream(FileProcessingPath, FileMode.OpenOrCreate))
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 var str = JObject.FromObject(jObj).ToString();

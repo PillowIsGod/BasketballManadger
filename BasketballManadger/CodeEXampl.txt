@@ -226,3 +226,11 @@
                                         <TextBlock Text="{Binding Path=AvgTeamHeight}" Grid.Column="1" Grid.Row="1"></TextBlock>
                                         <TextBlock Text="Average team age" Grid.Column="0" Grid.Row="2"></TextBlock>
                                         <TextBlock Text="{Binding Path=AvgTeamAge}" Grid.Column="1" Grid.Row="2"></TextBlock>
+
+
+
+
+
+                                        var sdadsa = (Control)sender;
+
+            if (sdadsa.Name.Contains("Txt", StringComparison.OrdinalIgnoreCase))

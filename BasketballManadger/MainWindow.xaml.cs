@@ -590,11 +590,7 @@ namespace BasketballManadger
 
         private void ImportTeams(FileTypeEnum storageEnum)
         {
-            var teams = FilePath.GetTeams();
-            ImpExpDB.DataStorage = storageEnum;
-            ImpExpDB.StorageTeamsEmptinessCheck();
-            ImpExpDB.ImportTeamDataToDB();
-            ToLog("Team data was inserted to database", MessageBoxImage.Information);
+          
         }
 
         public void ToLog(string message, MessageBoxImage messageBoxImage = MessageBoxImage.Error)
@@ -619,11 +615,12 @@ namespace BasketballManadger
         private void ExportTeams(FileTypeEnum storageEnum)
         {
             var teams = FilePath.GetTeams();
-            ImpExpDB.DataStorage = storageEnum;
+            var refer = new ImpExpDB();
+            refer.DataStorage = storageEnum;
 
             if (teams.Count > 0)
             {
-                ImpExpDB.ExportTeamDataFromDB();
+                refer.ExportTeamDataFromDB();
                 ToLog("Team data was inserted from database", MessageBoxImage.Information);
             }
             else
@@ -631,139 +628,26 @@ namespace BasketballManadger
                 ToLog("Database is empty", MessageBoxImage.Error);
             }
         }
-        private void ImportPlayers(FileTypeEnum storageEnum)
-        {
-            var players = FilePath.GetBasketballPlayers();
-            ImpExpDB.DataStorage = storageEnum;
-            ImpExpDB.StoragePlayersEmptinessCheck();
 
-            ImpExpDB.ImportPlayerDataToDB();
-            ToLog("Basketball players data was inserted to database", MessageBoxImage.Information);
-        }
         private void ExportPlayers(FileTypeEnum storageEnum)
         {
             var players = FilePath.GetBasketballPlayers();
-            ImpExpDB.DataStorage = storageEnum;
+            var refer = new ImpExpDB();
+            refer.DataStorage = storageEnum;
             if (players.Count > 0)
             {
-                ImpExpDB.ExportPlayerDataFromDB();
-                MessageBox.Show("Basketball players data was inserted from database", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+                refer.ExportPlayerDataFromDB();
+                ToLog("Basketball players data was inserted from database",MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("Database is empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ToLog("Database is empty",MessageBoxImage.Error);
             }
         }
 
-        private void miTXTimportTeams_Click(object sender, RoutedEventArgs e)
-        {
-            var sdadsa = (Control)sender;
+      
 
-            if (sdadsa.Name.Contains("Txt", StringComparison.OrdinalIgnoreCase))
-
-                ImportTeams(FileTypeEnum.TxtTeams);
-        }
-
-        private void miCSVimportTeams_Click(object sender, RoutedEventArgs e)
-        {
-            ImportTeams(FileTypeEnum.CSVTeams);
-        }
-
-        private void miJSONimportTeams_Click(object sender, RoutedEventArgs e)
-        {
-            ImportTeams(FileTypeEnum.JsonTeams);
-        }
-
-        private void miXMLimporTeamst_Click(object sender, RoutedEventArgs e)
-        {
-            ImportTeams(FileTypeEnum.XMLTeams);
-        }
-
-        private void miXLSXimportTeams_Click(object sender, RoutedEventArgs e)
-        {
-            ImportTeams(FileTypeEnum.ExcellTeams);
-        }
-
-        private void miTXTexportTeams_Click(object sender, RoutedEventArgs e)
-        {
-            ExportTeams(FileTypeEnum.TxtTeams);
-        }
-
-        private void miCSVexportTeams_Click(object sender, RoutedEventArgs e)
-        {
-            ExportTeams(FileTypeEnum.CSVTeams);
-
-        }
-
-        private void miJSONexportTeams_Click(object sender, RoutedEventArgs e)
-        {
-            ExportTeams(FileTypeEnum.JsonTeams);
-
-        }
-
-        private void miXMLexportTeams_Click(object sender, RoutedEventArgs e)
-        {
-            ExportTeams(FileTypeEnum.XMLTeams);
-
-        }
-
-        private void miXLSXexportTeams_Click(object sender, RoutedEventArgs e)
-        {
-            ExportTeams(FileTypeEnum.ExcellTeams);
-
-        }
-
-        private void miTXTimportPlayers_Click(object sender, RoutedEventArgs e)
-        {
-            ImportPlayers(FileTypeEnum.TxtPlayers);
-        }
-
-        private void miCSVimportPlayers_Click(object sender, RoutedEventArgs e)
-        {
-            ImportPlayers(FileTypeEnum.CSVPlayers);
-        }
-
-        private void miJSONimportPlayers_Click(object sender, RoutedEventArgs e)
-        {
-            ImportPlayers(FileTypeEnum.JsonPlayers);
-        }
-
-        private void miXMLimportPlayers_Click(object sender, RoutedEventArgs e)
-        {
-            ImportPlayers(FileTypeEnum.XMLPlayers);
-        }
-
-        private void miXLSXimportPlayers_Click(object sender, RoutedEventArgs e)
-        {
-            ImportPlayers(FileTypeEnum.ExcellPlayers);
-        }
-
-        private void miTXTexportPlayers_Click(object sender, RoutedEventArgs e)
-        {
-            ExportPlayers(FileTypeEnum.TxtPlayers);
-        }
-
-        private void miCSVexportPlayers_Click(object sender, RoutedEventArgs e)
-        {
-            ExportPlayers(FileTypeEnum.CSVPlayers);
-        }
-
-        private void miJSONexportPlayers_Click(object sender, RoutedEventArgs e)
-        {
-            ExportPlayers(FileTypeEnum.JsonPlayers);
-        }
-
-        private void miXMLexportPlayers_Click(object sender, RoutedEventArgs e)
-        {
-            ExportPlayers(FileTypeEnum.XMLPlayers);
-        }
-
-        private void miXLSXexportPlayers_Click(object sender, RoutedEventArgs e)
-        {
-            ExportPlayers(FileTypeEnum.ExcellPlayers);
-        }
-
-
+      
 
         private static bool IsTextAllowed(string text)
         {
@@ -791,6 +675,105 @@ namespace BasketballManadger
             {
                 e.CancelCommand();
             }
+        }
+
+        private void miImportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog opnfldlg = new OpenFileDialog();
+            opnfldlg.Filter = "Storage Files(*.TXT;*.CSV;*.JSON;*.XML;*.XLSX)|*.TXT;*.CSV;*.JSON;*.XML;*.XLSX";
+
+            string filePath = null;
+            var result = opnfldlg.ShowDialog();
+            if (result == true)
+            {
+                filePath = opnfldlg.FileName;
+            }
+            if (string.IsNullOrEmpty(filePath))
+            {
+                ToLog("You haven't chosen a file", MessageBoxImage.Error);
+                return;
+            }
+            var refer = new ImpExpDB(filePath, true);
+            refer.StoragePlayersEmptinessCheck();
+            refer.ImportPlayerDataToDB();
+        }
+
+        private void miImportTeams_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog opnfldlg = new OpenFileDialog();
+            opnfldlg.Filter = "Storage Files(*.TXT;*.CSV;*.JSON;*.XML;*.XLSX)|*.TXT;*.CSV;*.JSON;*.XML;*.XLSX";
+
+            string filePath = null;
+            var result = opnfldlg.ShowDialog();
+            if (result == true)
+            {
+                filePath = opnfldlg.FileName;
+            }
+            if (string.IsNullOrEmpty(filePath))
+            {
+                ToLog("You haven't chosen a file", MessageBoxImage.Error);
+                return;
+            }
+            var refer = new ImpExpDB(filePath, false);
+            refer.StorageTeamsEmptinessCheck();
+            refer.ImportTeamDataToDB();
+        }
+
+        private void miExportPlayers_Click(object sender, RoutedEventArgs e)
+        {
+
+            var button = (Control)sender;
+            var storagetype = new FileTypeEnum();
+
+            if (button.Name.Contains("Txt", StringComparison.OrdinalIgnoreCase))
+            {
+                storagetype = FileTypeEnum.TxtPlayers;                
+            }
+            if (button.Name.Contains("csv", StringComparison.OrdinalIgnoreCase))
+            {
+                storagetype = FileTypeEnum.CSVPlayers;
+            }
+            if (button.Name.Contains("xml", StringComparison.OrdinalIgnoreCase))
+            {
+                storagetype = FileTypeEnum.XMLPlayers;
+            }
+            if (button.Name.Contains("xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                storagetype = FileTypeEnum.ExcellPlayers;
+            }
+            if (button.Name.Contains("json", StringComparison.OrdinalIgnoreCase))
+            {
+                storagetype = FileTypeEnum.JsonPlayers;
+            }
+            ExportPlayers(storagetype);
+        }
+
+        private void miExportTeams_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Control)sender;
+            var storagetype = new FileTypeEnum();
+
+            if (button.Name.Contains("Txt", StringComparison.OrdinalIgnoreCase))
+            {
+                storagetype = FileTypeEnum.TxtTeams;
+            }
+            if (button.Name.Contains("csv", StringComparison.OrdinalIgnoreCase))
+            {
+                storagetype = FileTypeEnum.CSVTeams;
+            }
+            if (button.Name.Contains("xml", StringComparison.OrdinalIgnoreCase))
+            {
+                storagetype = FileTypeEnum.XMLTeams;
+            }
+            if (button.Name.Contains("xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                storagetype = FileTypeEnum.ExcellTeams;
+            }
+            if (button.Name.Contains("json", StringComparison.OrdinalIgnoreCase))
+            {
+                storagetype = FileTypeEnum.JsonTeams;
+            }
+            ExportTeams(storagetype);
         }
     }
 

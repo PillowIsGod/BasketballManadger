@@ -3,6 +3,9 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -17,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace BasketballManadger
 {
@@ -31,7 +35,7 @@ namespace BasketballManadger
         private string _myConnectionString = "Database = basketballdata; Data Source = 127.0.0.1; User Id = root; Password = 7Bc145f606";
         private MySqlConnection connection = null;
 
-
+        private ImageExtender _imageExtender;
 
         private bool _toCompleteEvent = false;
         private string _playerIMG;
@@ -70,7 +74,7 @@ namespace BasketballManadger
             _positions = FilePath.GetPositions();
             _menuImages = image.GetImagesFromFile();
 
-
+            _imageExtender = new ImageExtender();
             var exportFileName = $"TXTPlayers____{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss", CultureInfo.InvariantCulture)}.txt";
 
         }
@@ -123,6 +127,7 @@ namespace BasketballManadger
             tbToShowTeamLogoFilePath.Clear();
             _teamIMG = null;
         }
+
         private void UpdateInterface()
         {
             _toCompleteEvent = true;
@@ -180,11 +185,11 @@ namespace BasketballManadger
             return player;
         }
 
-        private void UAErrorCallback(Control control)
-        {
-            control.BorderBrush = Brushes.Red;
-            control.Focus();
-        }
+        //private void UAErrorCallback(Control control)
+        //{
+        //    control.BorderBrush = Brushes.Red;
+        //    control.Focus();
+        //}
 
 
         private string CombinedPlayerCheck(BasketballPlayers player)
@@ -193,7 +198,7 @@ namespace BasketballManadger
 
             if (string.IsNullOrEmpty(player.Name))
             {
-                UAErrorCallback(tbGetName);
+                //UAErrorCallback(tbGetName);
 
                 check = "Enter NAME, please!";
                 return check;
@@ -590,7 +595,7 @@ namespace BasketballManadger
 
         private void ImportTeams(FileTypeEnum storageEnum)
         {
-          
+
         }
 
         public void ToLog(string message, MessageBoxImage messageBoxImage = MessageBoxImage.Error)
@@ -637,17 +642,17 @@ namespace BasketballManadger
             if (players.Count > 0)
             {
                 refer.ExportPlayerDataFromDB();
-                ToLog("Basketball players data was inserted from database",MessageBoxImage.Information);
+                ToLog("Basketball players data was inserted from database", MessageBoxImage.Information);
             }
             else
             {
-                ToLog("Database is empty",MessageBoxImage.Error);
+                ToLog("Database is empty", MessageBoxImage.Error);
             }
         }
 
-      
 
-      
+
+
 
         private static bool IsTextAllowed(string text)
         {
@@ -725,9 +730,9 @@ namespace BasketballManadger
             var button = (Control)sender;
             var storagetype = new FileTypeEnum();
 
-            if (button.Name.Contains("Txt", StringComparison.OrdinalIgnoreCase))
+            if (button.Name.Contains("txt", StringComparison.OrdinalIgnoreCase))
             {
-                storagetype = FileTypeEnum.TxtPlayers;                
+                storagetype = FileTypeEnum.TxtPlayers;
             }
             if (button.Name.Contains("csv", StringComparison.OrdinalIgnoreCase))
             {
@@ -775,29 +780,84 @@ namespace BasketballManadger
             }
             ExportTeams(storagetype);
         }
+
+        private void cmOpenImageFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var team = lvTeamsOutput.SelectedItem as Teams;
+            var player = lvPlayers.SelectedItem as BasketballPlayers;
+            string path = null;
+            string objpath = null;
+            if (lvTeamsOutput.SelectedItem != null)
+            {
+                path = CutFilePathToFolder(team.Logo);
+                objpath = team.Logo;
+            }
+            if (lvPlayers.SelectedItem != null)
+            {
+                path = CutFilePathToFolder(player.Picture);
+                objpath = player.Picture;
+            }
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG";
+
+                openFileDialog.FileName = objpath;
+
+                openFileDialog.InitialDirectory = path;
+
+                openFileDialog.ShowDialog();
+        }
+
+        private void cmCopy_Click(object sender, RoutedEventArgs e)
+        {
+
+            var team = lvTeamsOutput.SelectedItem as Teams;
+            var player = lvPlayers.SelectedItem as BasketballPlayers;
+            var img = new BitmapImage();
+            if (lvTeamsOutput.SelectedItem != null)
+            {
+               img = ResizeImage(team.Logo, 200);
+            }
+            if(lvPlayers.SelectedItem != null)
+            {
+                img = ResizeImage(player.Picture, 200);
+            }
+
+            Clipboard.SetImage(img);
+        }
+        private BitmapImage ResizeImage(string imgPath, int width)
+        {
+            var img = new BitmapImage();
+            img.BeginInit();
+            img.UriSource = new Uri(imgPath);         
+            img.DecodePixelWidth = width;
+            img.EndInit();
+            return img;
+        }
+
+        private void cmExtendImageTeam_Click(object sender, RoutedEventArgs e)
+        {
+            _imageExtender.gridImageExtend.Children.Clear();
+            _imageExtender.Width = 500;
+            _imageExtender.Height = 500;
+            Grid grid = new Grid();
+            var img = new System.Windows.Controls.Image();
+            
+            var team = lvTeamsOutput.SelectedItem as Teams;
+            var player = lvPlayers.SelectedItem as BasketballPlayers;
+            var image = new BitmapImage();
+            if (lvTeamsOutput.SelectedItem != null)
+            {
+                image = ResizeImage(team.Logo, 500);
+            }
+            if (lvPlayers.SelectedItem != null)
+            {
+                image = ResizeImage(player.Picture, 500);
+            }
+            img.Source = image;
+            _imageExtender.gridImageExtend.Children.Add(img);
+
+            _imageExtender.Show();
+        }
     }
-
-
 }
-
-
-
-
-
-
-        //private void _teamsList_ListChanged(object sender, ListChangedEventArgs e)
-        //{
-        //    if (e.ListChangedType == ListChangedType.ItemAdded || e.ListChangedType == ListChangedType.ItemDeleted || e.ListChangedType == ListChangedType.ItemChanged)
-        //    {
-        //        try
-        //        {
-        //            JsonPath.SaveData(sender);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show(ex.Message);
-        //            Close();
-        //        }
-        //    }
-
-
+   

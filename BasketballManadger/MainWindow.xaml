@@ -201,7 +201,7 @@
             </MenuItem>
             <MenuItem Header="Export Data" Width="80">
                 <MenuItem x:Name="miExportPlayers" Header="Export Players" Width="180">
-                    <MenuItem Header="To .txt" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name="miTxtplayers" Header="To .txt" Click="miExportPlayers_Click"></MenuItem>
                     <MenuItem Header="To .csv" Click="miExportPlayers_Click"></MenuItem>
                     <MenuItem Header="To .xml" Click="miExportPlayers_Click"></MenuItem>
                     <MenuItem Header="To .xlsx" Click="miExportPlayers_Click"></MenuItem>
@@ -230,7 +230,16 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Image Source="{Binding Path=Logo}" Width="150" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" Height="150"></Image>
+                      
+                            <Image x:Name = "imgTeam" Source="{Binding Path=Logo}" Width="150" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" Height="150">
+                                <Image.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem x:Name ="cmExtendImageTeam" Header="Extend image" Width="250" Click="cmExtendImageTeam_Click"></MenuItem>
+                                        <MenuItem x:Name ="cmCopyTeam" Header="Copy" Width="250" Click="cmCopy_Click"></MenuItem>
+                                        <MenuItem x:Name ="cmOpenImageFolderTeam" Header="Open image folder" Click="cmOpenImageFolder_Click" Width="250"></MenuItem>
+                                    </ContextMenu>
+                                </Image.ContextMenu>
+                            </Image>
                             <TextBlock Text="{Binding Path=City}" Width="120" Grid.Column="1" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="0" Margin="10, 0, 0, 0"></TextBlock>
                             <TextBlock Text="{Binding Path = TeamName}" Width="120" Grid.Column="2" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="0">
                                 <TextBlock.ToolTip>
@@ -277,7 +286,15 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <Image Source="{Binding Path=Picture}" Width="150" Grid.Column="0" HorizontalAlignment="Center" Grid.RowSpan="7"></Image>
+                            <Image Source="{Binding Path=Picture}" Width="150" Grid.Column="0" HorizontalAlignment="Center" Grid.RowSpan="7">
+                                <Image.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem x:Name ="cmExtendImagePlayer" Header="Extend image" Width="250"></MenuItem>
+                                        <MenuItem x:Name ="cmCopyPlayer" Header="Copy" Width="250" Click="cmCopy_Click"></MenuItem>
+                                        <MenuItem x:Name ="cmOpenImageFolderPlayer" Header="Open image folder" Click="cmOpenImageFolder_Click" Width="250"></MenuItem>
+                                    </ContextMenu>
+                                </Image.ContextMenu>
+                            </Image>
                             <TextBlock Text="Team: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="0" Margin="15, 5, 5, 5"></TextBlock>
                             <TextBlock Text="{Binding Path=Current_team}" Width="auto" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Grid.Row="0" Margin="5"></TextBlock>
                             <TextBlock Text="Name: " Width="auto" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Grid.Row="1" Margin="15, 5, 5, 5"></TextBlock>

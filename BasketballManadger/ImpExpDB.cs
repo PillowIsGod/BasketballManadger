@@ -101,7 +101,8 @@ namespace BasketballManadger
 
         public ImpExpDB()
         {
-           
+            DBPath = new DBProcessing(_myConnectionString);
+            _connection = new MySqlConnection(_myConnectionString);
         }
         public ImpExpDB(string filePath, bool player = false)
         {

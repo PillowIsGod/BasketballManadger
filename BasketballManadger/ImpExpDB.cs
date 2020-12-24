@@ -230,7 +230,16 @@ namespace BasketballManadger
             _storage.ImportTeamData(teamsToExport);
         }
 
-
+        public string GetFilePath()
+        {
+            string pathToReturn = null;
+            if (!string.IsNullOrEmpty(_storage.ToString()))
+            {
+               pathToReturn = _storage.ToString();
+                return pathToReturn;
+            }
+            return pathToReturn;
+        }
 
         public void ExportPlayerDataFromDB()
         {

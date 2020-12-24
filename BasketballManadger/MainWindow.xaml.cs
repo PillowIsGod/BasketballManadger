@@ -643,6 +643,11 @@ namespace BasketballManadger
             {
                 refer.ExportPlayerDataFromDB();
                 ToLog("Basketball players data was inserted from database", MessageBoxImage.Information);
+                string path = refer.GetFilePath();
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.FileName = path;
+                openFileDialog.InitialDirectory = CutFilePathToFolder(path);
+                openFileDialog.ShowDialog();
             }
             else
             {

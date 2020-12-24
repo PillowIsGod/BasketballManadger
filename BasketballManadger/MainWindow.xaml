@@ -1,13 +1,13 @@
 ﻿
     
-    <Window x:Class="BasketballManadger.MainWindow"
+    <Window x:Name="WindowMain" x:Class="BasketballManadger.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BasketballManadger"
         mc:Ignorable="d"
-        Title="BasketballManager" Height="800" Width="1500" Loaded="Window_Loaded" Style="{StaticResource TextStyle}">
+        Title="BasketballManager" Height="800" Width="1500" Loaded="Window_Loaded" Style="{StaticResource TextStyle}" MinWidth="1000" MinHeight="500">
 
     <Window.Resources>
         <Style TargetType="Button">
@@ -200,19 +200,39 @@
                 <MenuItem x:Name="miImportTeams" Header="Import Teams" Width="185" Click="miImportTeams_Click"></MenuItem>
             </MenuItem>
             <MenuItem Header="Export Data" Width="80">
-                <MenuItem x:Name="miExportPlayers" Header="Export Players" Width="180">
-                    <MenuItem x:Name="miTxtplayers" Header="To .txt" Click="miExportPlayers_Click"></MenuItem>
-                    <MenuItem x:Name ="miCSVplayers" Header="To .csv" Click="miExportPlayers_Click"></MenuItem>
-                    <MenuItem x:Name ="miXMLplayers" Header="To .xml" Click="miExportPlayers_Click"></MenuItem>
-                    <MenuItem x:Name ="miXLSXplayers" Header="To .xlsx" Click="miExportPlayers_Click"></MenuItem>
-                    <MenuItem x:Name ="miJSONplayers" Header="To .json" Click="miExportPlayers_Click"></MenuItem>
+                
+                <MenuItem x:Name="miExportPlayers1" Header="Export Players" Width="180">
+                    <MenuItem Header="All players" Width="210">
+                    <MenuItem x:Name="miTxtplayers1" Header="To .txt" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name ="miCSVplayers1" Header="To .csv" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name ="miXMLplayers1" Header="To .xml" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name ="miXLSXplayers1" Header="To .xlsx" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name ="miJSONplayers1" Header="To .json" Click="miExportPlayers_Click"></MenuItem>
+                    </MenuItem>
+
+                    <MenuItem Header="From selected team" Width="210">
+                    <MenuItem x:Name="miTxtplayers2" Header="To .txt" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name ="miCSVplayers2" Header="To .csv" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name ="miXMLplayers2" Header="To .xml" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name ="miXLSXplayers2" Header="To .xlsx" Click="miExportPlayers_Click"></MenuItem>
+                <MenuItem x:Name ="miJSONplayers2" Header="To .json" Click="miExportPlayers_Click"></MenuItem>
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem x:Name="miExportTeams" Header="Export Teams" Width="180">
-                    <MenuItem x:Name ="miTXTteams" Header="To .txt" Click="miExportTeams_Click"></MenuItem>
-                    <MenuItem x:Name ="miCSVteams" Header="To .csv" Click="miExportTeams_Click"></MenuItem>
-                    <MenuItem x:Name ="miXMLteams" Header="To .xml" Click="miExportTeams_Click"></MenuItem>
-                    <MenuItem x:Name ="miXLSXteams" Header="To .xlsx" Click="miExportTeams_Click"></MenuItem>
-                    <MenuItem x:Name ="miJSONteams" Header="To .json" Click="miExportTeams_Click"></MenuItem>
+                <MenuItem x:Name="miExportTeams1" Header="Export Teams" Width="180">
+                    <MenuItem Header="All teams" Width="200">
+                        <MenuItem x:Name ="miTXTteams1" Header="To .txt" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miCSVteams1" Header="To .csv" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miXMLteams1" Header="To .xml" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miXLSXteams1" Header="To .xlsx" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miJSONteams1" Header="To .json" Click="miExportTeams_Click"></MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="Selected team" Width="200">
+                    <MenuItem x:Name ="miTXTteams2" Header="To .txt" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miCSVteams2" Header="To .csv" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miXMLteams2" Header="To .xml" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miXLSXteams2" Header="To .xlsx" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miJSONteams2" Header="To .json" Click="miExportTeams_Click"></MenuItem>
+                    </MenuItem>
                 </MenuItem>
             </MenuItem>
         </Menu>
@@ -289,7 +309,7 @@
                             <Image Source="{Binding Path=Picture}" Width="150" Grid.Column="0" HorizontalAlignment="Center" Grid.RowSpan="7">
                                 <Image.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem x:Name ="cmExtendImagePlayer" Header="Extend image" Width="250"></MenuItem>
+                                        <MenuItem x:Name ="cmExtendImagePlayer" Header="Extend image" Width="250" Click="cmExtendImageTeam_Click"></MenuItem>
                                         <MenuItem x:Name ="cmCopyPlayer" Header="Copy" Width="250" Click="cmCopy_Click"></MenuItem>
                                         <MenuItem x:Name ="cmOpenImageFolderPlayer" Header="Open image folder" Click="cmOpenImageFolder_Click" Width="250"></MenuItem>
                                     </ContextMenu>

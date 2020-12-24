@@ -14,7 +14,7 @@ namespace BasketballManadger
 
 
 
-        public override void ImportPlayersData(BindingList<BasketballPlayers> playersToImport)
+        public override void ImportPlayersData(params BasketballPlayers[] playersToImport)
         {
             string line;
             using (FileStream fs = new FileStream(FileProcessingPath, FileMode.OpenOrCreate))
@@ -66,7 +66,7 @@ namespace BasketballManadger
             return players;
         }
 
-        public override void ImportTeamData(BindingList<Teams> teamsToImport)
+        public override void ImportTeamData(params Teams[] teamsToImport)
         {
             throw new NotImplementedException();
         }

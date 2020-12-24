@@ -223,11 +223,10 @@ namespace BasketballManadger
             return;
         }
 
-        public void ExportTeamDataFromDB()
+        public void ExportTeamDataFromDB(params Teams [] team)
         {
-            BindingList<Teams> teamsToExport = DBPath.GetTeams();
+                _storage.ImportTeamData(team);
 
-            _storage.ImportTeamData(teamsToExport);
         }
 
         public string GetFilePath()
@@ -241,11 +240,10 @@ namespace BasketballManadger
             return pathToReturn;
         }
 
-        public void ExportPlayerDataFromDB()
+        public void ExportPlayerDataFromDB(params BasketballPlayers[] players)
         {
-            BindingList<BasketballPlayers> playersToExport = DBPath.GetBasketballPlayers();
-
-            _storage.ImportPlayersData(playersToExport);
+                _storage.ImportPlayersData(players);
+            
         }
 
 

@@ -16,8 +16,8 @@ namespace BasketballManadger
 
 
         public abstract BindingList<BasketballPlayers> GetPlayersFromFile();
-        public abstract void ImportPlayersData(BindingList<BasketballPlayers> playersToImport);
-        public abstract void ImportTeamData(BindingList<Teams> teamsToImport);
+        public abstract void ImportPlayersData(params BasketballPlayers [] playersToImport);
+        public abstract void ImportTeamData(params Teams [] teamsToImport);
 
         public abstract BindingList<Teams> GetTeamFromFIle();
     }

@@ -234,3 +234,7 @@
                                         var sdadsa = (Control)sender;
 
             if (sdadsa.Name.Contains("Txt", StringComparison.OrdinalIgnoreCase))
+
+
+
+                        var exportFileName = $"TXTPlayers____{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss", CultureInfo.InvariantCulture)}.txt";

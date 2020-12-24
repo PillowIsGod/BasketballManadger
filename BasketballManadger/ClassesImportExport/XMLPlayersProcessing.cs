@@ -65,7 +65,7 @@ namespace BasketballManadger
             throw new NotImplementedException();
         }
 
-        public override void ImportPlayersData(BindingList<BasketballPlayers> playersToImport)
+        public override void ImportPlayersData(params BasketballPlayers[] playersToImport)
         {
             XmlDocument xdoc = new XmlDocument();
             XmlElement xmlPlayer = xdoc.CreateElement("players");
@@ -78,7 +78,7 @@ namespace BasketballManadger
             xdoc.Save(FileProcessingPath);
         }
 
-        public override void ImportTeamData(BindingList<Teams> teamsToImport)
+        public override void ImportTeamData(params Teams[] teamsToImport)
         {
             throw new NotImplementedException();
         }

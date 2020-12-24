@@ -36,12 +36,12 @@ namespace BasketballManadger
             return teamToReturn;
         }
 
-        public override void ImportPlayersData(BindingList<BasketballPlayers> playersToImport)
+        public override void ImportPlayersData(params BasketballPlayers[] playersToImport)
         {
             throw new NotImplementedException();
         }
 
-        public override void ImportTeamData(BindingList<Teams> teamsToImport)
+        public override void ImportTeamData(params Teams[] teamsToImport)
         {
             var jObj = new { Teams = teamsToImport};
 

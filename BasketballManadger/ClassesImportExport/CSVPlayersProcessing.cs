@@ -35,7 +35,7 @@ namespace BasketballManadger.ClassesImportExport
             throw new NotImplementedException();
         }
 
-        public override void ImportPlayersData(BindingList<BasketballPlayers> playersToImport)
+        public override void ImportPlayersData(params BasketballPlayers[] playersToImport)
         {
             using (FileStream fs = new FileStream(FileProcessingPath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
             using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
@@ -67,7 +67,7 @@ namespace BasketballManadger.ClassesImportExport
             }
         }
 
-        public override void ImportTeamData(BindingList<Teams> teamsToImport)
+        public override void ImportTeamData(params Teams[] teamsToImport)
         {
             throw new NotImplementedException();
         }

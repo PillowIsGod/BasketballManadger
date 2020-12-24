@@ -36,7 +36,7 @@ namespace BasketballManadger
             throw new NotImplementedException();
         }
 
-        public override void ImportPlayersData(BindingList<BasketballPlayers> playersToImport)
+        public override void ImportPlayersData(params BasketballPlayers[] playersToImport)
         {
             var jObj = new { Players = playersToImport };
 
@@ -49,7 +49,7 @@ namespace BasketballManadger
             }
         }
 
-        public override void ImportTeamData(BindingList<Teams> teamsToImport)
+        public override void ImportTeamData(params Teams[] teamsToImport)
         {
             throw new NotImplementedException();
         }

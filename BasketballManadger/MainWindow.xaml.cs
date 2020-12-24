@@ -35,8 +35,6 @@ namespace BasketballManadger
         private string _myConnectionString = "Database = basketballdata; Data Source = 127.0.0.1; User Id = root; Password = 7Bc145f606";
         private MySqlConnection connection = null;
 
-        private ImageExtender _imageExtender;
-
         private bool _toCompleteEvent = false;
         private string _playerIMG;
         private string _teamIMG;
@@ -74,8 +72,6 @@ namespace BasketballManadger
             _positions = FilePath.GetPositions();
             _menuImages = image.GetImagesFromFile();
 
-            _imageExtender = new ImageExtender();
-            var exportFileName = $"TXTPlayers____{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss", CultureInfo.InvariantCulture)}.txt";
 
         }
 
@@ -613,7 +609,7 @@ namespace BasketballManadger
         }
 
 
-        private void ShowDialog(string path)
+        private void ShowFileDialog(string path)
         {
             if (!string.IsNullOrEmpty(path))
             {
@@ -625,27 +621,42 @@ namespace BasketballManadger
             }
             return;
         }
-        private void ExportData(FileTypeEnum storageEnum)
+        private void ExportData(FileTypeEnum storageEnum, bool selected = false, bool all = false)
         {
             var players = FilePath.GetBasketballPlayers();
             var teams = FilePath.GetTeams();
+            var selectedTeam = lvTeamsOutput.SelectedItem as Teams;           
             var refer = new ImpExpDB();
             string path;
             refer.DataStorage = storageEnum;
             if (players.Count > 0 && storageEnum.ToString().Contains("player", StringComparison.OrdinalIgnoreCase))
             {
-                refer.ExportPlayerDataFromDB();
+                if (all)
+                {
+                    refer.ExportPlayerDataFromDB(players.ToArray());
+                }
+                if (selected)
+                {
+                    refer.ExportPlayerDataFromDB(selectedTeam.BasketballPlayers.ToArray());
+                }
                 ToLog("Basketball players data was inserted from database", MessageBoxImage.Information);
                 path = refer.GetFilePath();
-                ShowDialog(path);
+                ShowFileDialog(path);
                 return;
             }
             if (teams.Count > 0 && storageEnum.ToString().Contains("team", StringComparison.OrdinalIgnoreCase))
             {
-                refer.ExportTeamDataFromDB();
+                if (all)
+                {
+                    refer.ExportTeamDataFromDB(teams.ToArray());
+                }
+                if (selected)
+                {
+                    refer.ExportTeamDataFromDB(selectedTeam);
+                }
                 ToLog("Team data was inserted from database", MessageBoxImage.Information);
                 path = refer.GetFilePath();
-                ShowDialog(path);
+                ShowFileDialog(path);
                 return;
             }
             else
@@ -653,11 +664,6 @@ namespace BasketballManadger
                 ToLog("Database is empty", MessageBoxImage.Error);
             }
         }
-
-
-
-
-
         private static bool IsTextAllowed(string text)
         {
 
@@ -733,6 +739,8 @@ namespace BasketballManadger
 
             var button = (Control)sender;
             var storagetype = new FileTypeEnum();
+            bool selected = false;
+            bool all = false;
 
             if (button.Name.Contains("txt", StringComparison.OrdinalIgnoreCase))
             {
@@ -754,14 +762,24 @@ namespace BasketballManadger
             {
                 storagetype = FileTypeEnum.JsonPlayers;
             }
-            ExportData(storagetype);
+            if (button.Name.Contains("1"))
+            {
+                all = true;
+            }
+            if (button.Name.Contains("2"))
+            {
+                selected = true;
+            }
+
+            ExportData(storagetype, selected, all);
         }
 
         private void miExportTeams_Click(object sender, RoutedEventArgs e)
         {
             var button = (Control)sender;
             var storagetype = new FileTypeEnum();
-
+            bool all = false;
+            bool selected = false;
             if (button.Name.Contains("Txt", StringComparison.OrdinalIgnoreCase))
             {
                 storagetype = FileTypeEnum.TxtTeams;
@@ -782,7 +800,15 @@ namespace BasketballManadger
             {
                 storagetype = FileTypeEnum.JsonTeams;
             }
-            ExportData(storagetype);
+            if (button.Name.Contains("1"))
+            {
+                all = true;
+            }
+            if (button.Name.Contains("2"))
+            {
+                selected = true;
+            }
+            ExportData(storagetype, selected, all);
         }
 
         private void cmOpenImageFolder_Click(object sender, RoutedEventArgs e)
@@ -801,7 +827,7 @@ namespace BasketballManadger
             OpenFileDialog openFileDialog = new OpenFileDialog();
             
             openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG";
-            ShowDialog(path);
+            ShowFileDialog(path);
         }
 
         private void cmCopy_Click(object sender, RoutedEventArgs e)
@@ -833,9 +859,11 @@ namespace BasketballManadger
 
         private void cmExtendImageTeam_Click(object sender, RoutedEventArgs e)
         {
-            _imageExtender.gridImageExtend.Children.Clear();
-            _imageExtender.Width = 500;
-            _imageExtender.Height = 500;
+            ImageExtender imageExtender = new ImageExtender();
+            imageExtender.Width = 500;
+            imageExtender.Height = 500;
+            imageExtender.Owner = WindowMain;
+            imageExtender.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             Grid grid = new Grid();
             var img = new System.Windows.Controls.Image();
             
@@ -851,9 +879,9 @@ namespace BasketballManadger
                 image = ResizeImage(player.Picture, 500);
             }
             img.Source = image;
-            _imageExtender.gridImageExtend.Children.Add(img);
+            imageExtender.gridImageExtend.Children.Add(img);
 
-            _imageExtender.Show();
+            imageExtender.Show();
         }
     }
 }

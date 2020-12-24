@@ -44,22 +44,25 @@ namespace BasketballManadger
                 OnPropertyChanged("City");
             }
         }
+        [JsonIgnore]
         public string FullTeamName { get
             {
                 return this.City + " " + this.TeamName;
             } }
 
+        [JsonIgnore]
 
         public double AvgTeamHeight { get
             {
                 return GetAvgTeamHeight(this.BasketballPlayers);
             } }
+        [JsonIgnore]
         public double AvgTeamAge { get
             {
                 return GetAvgTeamAge(this.BasketballPlayers);
             }
             }
-        
+        [JsonIgnore]
         public int AmountOfTeamMembers { get {
                 return this.BasketballPlayers.Count;
             } }

@@ -1,0 +1,242 @@
+<players>
+  <player>
+    <position>Point Guard</position>
+    <name>Stephen Curry</name>
+    <current_team>Warriors</current_team>
+    <age>32</age>
+    <career_age>11</career_age>
+    <height>1.91</height>
+    <weight>86</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Stephen_Curry.png</picture>
+  </player>
+  <player>
+    <position>Shooting Guard</position>
+    <name>Klay Thompson</name>
+    <current_team>Warriors</current_team>
+    <age>30</age>
+    <career_age>20</career_age>
+    <height>2</height>
+    <weight>98</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Klay_Thompson.png</picture>
+  </player>
+  <player>
+    <position>Power Forward</position>
+    <name>Draymond Green</name>
+    <current_team>Warriors</current_team>
+    <age>30</age>
+    <career_age>10</career_age>
+    <height>1.7</height>
+    <weight>98</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Draymond_Green.png</picture>
+  </player>
+  <player>
+    <position>Small Forward</position>
+    <name>LeBron James</name>
+    <current_team>Lakers</current_team>
+    <age>35</age>
+    <career_age>15</career_age>
+    <height>2</height>
+    <weight>113</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\LeBron_James.png</picture>
+  </player>
+  <player>
+    <position>Center</position>
+    <name>Anthony Davis</name>
+    <current_team>Lakers</current_team>
+    <age>27</age>
+    <career_age>7</career_age>
+    <height>2</height>
+    <weight>115</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Anthony_Davis.png</picture>
+  </player>
+  <player>
+    <position>Power Forward</position>
+    <name>Kyle Kuzma</name>
+    <current_team>Lakers</current_team>
+    <age>25</age>
+    <career_age>4</career_age>
+    <height>2</height>
+    <weight>100</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kyle_Kuzma.png</picture>
+  </player>
+  <player>
+    <position>Small Forward</position>
+    <name>Kevin Durant</name>
+    <current_team>Nets</current_team>
+    <age>32</age>
+    <career_age>11</career_age>
+    <height>2</height>
+    <weight>109</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kevin_Durant.png</picture>
+  </player>
+  <player>
+    <position>Point Guard</position>
+    <name>Kyrie Irving</name>
+    <current_team>Nets</current_team>
+    <age>28</age>
+    <career_age>7</career_age>
+    <height>2</height>
+    <weight>88</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kyrie_Irving.png</picture>
+  </player>
+  <player>
+    <position>Shooting Guard</position>
+    <name>Spencer Dinwiddie</name>
+    <current_team>Nets</current_team>
+    <age>27</age>
+    <career_age>6</career_age>
+    <height>2</height>
+    <weight>98</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Spencer_Dinwiddie.png</picture>
+  </player>
+  <player>
+    <position>Small Forward</position>
+    <name>Kawhi</name>
+    <current_team>Clippers</current_team>
+    <age>29</age>
+    <career_age>8</career_age>
+    <height>2</height>
+    <weight>104</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Kawhi_Leonard.png</picture>
+  </player>
+  <player>
+    <position>Power Forward</position>
+    <name>Paul George</name>
+    <current_team>Clippers</current_team>
+    <age>30</age>
+    <career_age>9</career_age>
+    <height>2</height>
+    <weight>128</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Paul_George.png</picture>
+  </player>
+  <player>
+    <position>Point Guard</position>
+    <name>Patrick Beverley</name>
+    <current_team>Clippers</current_team>
+    <age>32</age>
+    <career_age>11</career_age>
+    <height>2</height>
+    <weight>84</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Patrick_Beverley.png</picture>
+  </player>
+  <player>
+    <position>Power Forward</position>
+    <name>Giannis Antetokounmpo</name>
+    <current_team>Bucks</current_team>
+    <age>25</age>
+    <career_age>5</career_age>
+    <height>2.11</height>
+    <weight>110</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Giannis.png</picture>
+  </player>
+  <player>
+    <position>Small Forward</position>
+    <name>Khris Middleton</name>
+    <current_team>Bucks</current_team>
+    <age>29</age>
+    <career_age>9</career_age>
+    <height>2.01</height>
+    <weight>101</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Khris_Middleton.png</picture>
+  </player>
+  <player>
+    <position>Point Guard</position>
+    <name>Dianka</name>
+    <current_team>Vagos</current_team>
+    <age>21</age>
+    <career_age>5</career_age>
+    <height>1.73</height>
+    <weight>57</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\e5f1ccca-d4f1-4cf7-9906-7a64450c0b9f.jpg</picture>
+  </player>
+  <player>
+    <position>Center</position>
+    <name>Спортивный</name>
+    <current_team>Жигирь</current_team>
+    <age>35</age>
+    <career_age>20</career_age>
+    <height>1.5</height>
+    <weight>200</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\bcc86ae2-ae84-405a-8549-5a004385f75f.jpg</picture>
+  </player>
+  <player>
+    <position>Center</position>
+    <name>Пьющий</name>
+    <current_team>Жигирь</current_team>
+    <age>35</age>
+    <career_age>20</career_age>
+    <height>1.5</height>
+    <weight>200</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\Zhygyr.png</picture>
+  </player>
+  <player>
+    <position>Center</position>
+    <name>Отдыхающий</name>
+    <current_team>Жигирь</current_team>
+    <age>35</age>
+    <career_age>20</career_age>
+    <height>1.5</height>
+    <weight>200</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\76c86ca3-1438-415d-a852-ff5163a55642.jpg</picture>
+  </player>
+  <player>
+    <position>Center</position>
+    <name>Модный</name>
+    <current_team>Жигирь</current_team>
+    <age>35</age>
+    <career_age>20</career_age>
+    <height>1.5</height>
+    <weight>200</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\60a76a2f-412e-42e2-8c4c-705baddb62bf.jpg</picture>
+  </player>
+  <player>
+    <position>Center</position>
+    <name>Удушающий</name>
+    <current_team>Жигирь</current_team>
+    <age>35</age>
+    <career_age>20</career_age>
+    <height>1.5</height>
+    <weight>200</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\d9cfbcb2-dc75-4839-b120-42cc515368b4.jpg</picture>
+  </player>
+  <player>
+    <position>Center</position>
+    <name>Brook Lopez</name>
+    <current_team>Bucks</current_team>
+    <age>30</age>
+    <career_age>9</career_age>
+    <height>2.15</height>
+    <weight>120</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Brook_Lopez.png</picture>
+  </player>
+  <player>
+    <position>Point Guard</position>
+    <name>Stephen Curry</name>
+    <current_team>Warriors</current_team>
+    <age>32</age>
+    <career_age>11</career_age>
+    <height>1.91</height>
+    <weight>86</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Players pictures\Stephen_Curry.png</picture>
+  </player>
+  <player>
+    <position>Point Guard</position>
+    <name>Sergey Petrovich</name>
+    <current_team>Vagos</current_team>
+    <age>18</age>
+    <career_age>15</career_age>
+    <height>190</height>
+    <weight>100</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\unnamed.jpg</picture>
+  </player>
+  <player>
+    <position>Power Forward</position>
+    <name>Pozhiloy Povelitel Kolca</name>
+    <current_team>Vagos</current_team>
+    <age>54</age>
+    <career_age>54</career_age>
+    <height>120</height>
+    <weight>200</weight>
+    <picture>C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\Logos\Valakas.jpg</picture>
+  </player>
+</players>

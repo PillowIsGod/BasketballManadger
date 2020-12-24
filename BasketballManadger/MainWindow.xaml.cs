@@ -593,10 +593,6 @@ namespace BasketballManadger
             }
         }
 
-        private void ImportTeams(FileTypeEnum storageEnum)
-        {
-
-        }
 
         public void ToLog(string message, MessageBoxImage messageBoxImage = MessageBoxImage.Error)
         {
@@ -617,37 +613,40 @@ namespace BasketballManadger
         }
 
 
-        private void ExportTeams(FileTypeEnum storageEnum)
+        private void ShowDialog(string path)
         {
-            var teams = FilePath.GetTeams();
-            var refer = new ImpExpDB();
-            refer.DataStorage = storageEnum;
-
-            if (teams.Count > 0)
+            if (!string.IsNullOrEmpty(path))
             {
-                refer.ExportTeamDataFromDB();
-                ToLog("Team data was inserted from database", MessageBoxImage.Information);
-            }
-            else
-            {
-                ToLog("Database is empty", MessageBoxImage.Error);
-            }
-        }
-
-        private void ExportPlayers(FileTypeEnum storageEnum)
-        {
-            var players = FilePath.GetBasketballPlayers();
-            var refer = new ImpExpDB();
-            refer.DataStorage = storageEnum;
-            if (players.Count > 0)
-            {
-                refer.ExportPlayerDataFromDB();
-                ToLog("Basketball players data was inserted from database", MessageBoxImage.Information);
-                string path = refer.GetFilePath();
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.FileName = path;
                 openFileDialog.InitialDirectory = CutFilePathToFolder(path);
                 openFileDialog.ShowDialog();
+                return;
+            }
+            return;
+        }
+        private void ExportData(FileTypeEnum storageEnum)
+        {
+            var players = FilePath.GetBasketballPlayers();
+            var teams = FilePath.GetTeams();
+            var refer = new ImpExpDB();
+            string path;
+            refer.DataStorage = storageEnum;
+            if (players.Count > 0 && storageEnum.ToString().Contains("player", StringComparison.OrdinalIgnoreCase))
+            {
+                refer.ExportPlayerDataFromDB();
+                ToLog("Basketball players data was inserted from database", MessageBoxImage.Information);
+                path = refer.GetFilePath();
+                ShowDialog(path);
+                return;
+            }
+            if (teams.Count > 0 && storageEnum.ToString().Contains("team", StringComparison.OrdinalIgnoreCase))
+            {
+                refer.ExportTeamDataFromDB();
+                ToLog("Team data was inserted from database", MessageBoxImage.Information);
+                path = refer.GetFilePath();
+                ShowDialog(path);
+                return;
             }
             else
             {
@@ -755,7 +754,7 @@ namespace BasketballManadger
             {
                 storagetype = FileTypeEnum.JsonPlayers;
             }
-            ExportPlayers(storagetype);
+            ExportData(storagetype);
         }
 
         private void miExportTeams_Click(object sender, RoutedEventArgs e)
@@ -783,7 +782,7 @@ namespace BasketballManadger
             {
                 storagetype = FileTypeEnum.JsonTeams;
             }
-            ExportTeams(storagetype);
+            ExportData(storagetype);
         }
 
         private void cmOpenImageFolder_Click(object sender, RoutedEventArgs e)
@@ -791,25 +790,18 @@ namespace BasketballManadger
             var team = lvTeamsOutput.SelectedItem as Teams;
             var player = lvPlayers.SelectedItem as BasketballPlayers;
             string path = null;
-            string objpath = null;
             if (lvTeamsOutput.SelectedItem != null)
             {
-                path = CutFilePathToFolder(team.Logo);
-                objpath = team.Logo;
+                path = team.Logo;
             }
             if (lvPlayers.SelectedItem != null)
             {
-                path = CutFilePathToFolder(player.Picture);
-                objpath = player.Picture;
+                path = player.Picture;
             }
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            
             openFileDialog.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;*.PNG";
-
-                openFileDialog.FileName = objpath;
-
-                openFileDialog.InitialDirectory = path;
-
-                openFileDialog.ShowDialog();
+            ShowDialog(path);
         }
 
         private void cmCopy_Click(object sender, RoutedEventArgs e)

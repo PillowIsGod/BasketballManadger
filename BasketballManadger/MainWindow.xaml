@@ -202,17 +202,17 @@
             <MenuItem Header="Export Data" Width="80">
                 <MenuItem x:Name="miExportPlayers" Header="Export Players" Width="180">
                     <MenuItem x:Name="miTxtplayers" Header="To .txt" Click="miExportPlayers_Click"></MenuItem>
-                    <MenuItem Header="To .csv" Click="miExportPlayers_Click"></MenuItem>
-                    <MenuItem Header="To .xml" Click="miExportPlayers_Click"></MenuItem>
-                    <MenuItem Header="To .xlsx" Click="miExportPlayers_Click"></MenuItem>
-                    <MenuItem Header="To .json" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name ="miCSVplayers" Header="To .csv" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name ="miXMLplayers" Header="To .xml" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name ="miXLSXplayers" Header="To .xlsx" Click="miExportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name ="miJSONplayers" Header="To .json" Click="miExportPlayers_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem x:Name="miExportTeams" Header="Export Teams" Width="180">
-                    <MenuItem Header="To .txt" Click="miExportTeams_Click"></MenuItem>
-                    <MenuItem Header="To .csv" Click="miExportTeams_Click"></MenuItem>
-                    <MenuItem Header="To .xml" Click="miExportTeams_Click"></MenuItem>
-                    <MenuItem Header="To .xlsx" Click="miExportTeams_Click"></MenuItem>
-                    <MenuItem Header="To .json" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miTXTteams" Header="To .txt" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miCSVteams" Header="To .csv" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miXMLteams" Header="To .xml" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miXLSXteams" Header="To .xlsx" Click="miExportTeams_Click"></MenuItem>
+                    <MenuItem x:Name ="miJSONteams" Header="To .json" Click="miExportTeams_Click"></MenuItem>
                 </MenuItem>
             </MenuItem>
         </Menu>

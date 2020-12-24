@@ -48,7 +48,7 @@ namespace BasketballManadger
             set
             {
                 _storageType = value;
-                _excellTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}ExcellTeams";
+                _excellTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}ExcellTeams.xlsx";
                 _excellPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}ExcellPlayers.xlsx";
                 _xmlPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}XMLPlayers.xml";
                 _xmlTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}XMLTeams.xml";
@@ -233,9 +233,9 @@ namespace BasketballManadger
         public string GetFilePath()
         {
             string pathToReturn = null;
-            if (!string.IsNullOrEmpty(_storage.ToString()))
+            if (!string.IsNullOrEmpty(_storage.FileProcessingPath))
             {
-               pathToReturn = _storage.ToString();
+               pathToReturn = _storage.FileProcessingPath;
                 return pathToReturn;
             }
             return pathToReturn;

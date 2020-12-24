@@ -1,0 +1,39 @@
+{
+  "Teams": [
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Warriors.png",
+      "City": "Golden-State",
+      "TeamName": "Warriors"
+    },
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\312c6d65630d08a85549bd5dee6dd7c6.png",
+      "City": "Los-Angeles",
+      "TeamName": "Clippers"
+    },
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Lakers.png",
+      "City": "Los-Angeles",
+      "TeamName": "Lakers"
+    },
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Nets.png",
+      "City": "Brooklyn",
+      "TeamName": "Nets"
+    },
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\maxresdefault.jpg",
+      "City": "Los-Santos",
+      "TeamName": "Vagos"
+    },
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\Bucks.png",
+      "City": "Milwaukee",
+      "TeamName": "Bucks"
+    },
+    {
+      "Logo": "C:\\Users\\Zhenya\\source\\repos\\BasketballManadger\\BasketballManadger\\Logos\\koo43w4brJo.jpg",
+      "City": "Коллекция",
+      "TeamName": "Жигирь"
+    }
+  ]
+}

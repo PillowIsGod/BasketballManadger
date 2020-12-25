@@ -29,7 +29,7 @@ namespace BasketballManadger
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string _filePath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\content.json";
+        private string _filePath = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\MainDataProcessing\content.json";
         private DataProcessing FilePath;
 
         private string _myConnectionString = "Database = basketballdata; Data Source = 127.0.0.1; User Id = root; Password = 7Bc145f606";
@@ -70,7 +70,7 @@ namespace BasketballManadger
             _teamsList = teams;
             connection = new MySqlConnection(_myConnectionString);
             _positions = FilePath.GetPositions();
-            _menuImages = image.GetImagesFromFile();
+            //_menuImages = image.GetImagesFromFile();
 
 
         }
@@ -199,15 +199,38 @@ namespace BasketballManadger
                 check = "Enter NAME, please!";
                 return check;
             }
-
-
-
-            if (string.IsNullOrEmpty(player.Position) || string.IsNullOrEmpty(player.Name) || string.IsNullOrEmpty(tbGetAge.Text) ||
-               string.IsNullOrEmpty(tbGetCareerAge.Text) || string.IsNullOrEmpty(tbGetHeight.Text) || string.IsNullOrEmpty(tbGetWeight.Text))
+            if (string.IsNullOrEmpty(player.Position))
             {
-                check = "You can't successfully add player with empty parameter";
+                check = "Select positon, please!";
+                return check;
+            
+            }
+            if (string.IsNullOrEmpty(player.Current_team))
+            {
+                check = "Select team, please!";
                 return check;
             }
+            if (string.IsNullOrEmpty(tbGetAge.Text))
+            {
+                check = "Enter the age, please!";
+                return check;
+            } 
+            if (string.IsNullOrEmpty(tbGetCareerAge.Text))
+            {
+                check = "Enter the career age, please!";
+                return check;
+            } 
+            if (string.IsNullOrEmpty(tbGetHeight.Text))
+            {
+                check = "Enter height, please!";
+                return check;
+            } 
+            if (string.IsNullOrEmpty(tbGetWeight.Text))
+            {
+                check = "Select weight, please!";
+                return check;
+            } 
+
             if (player.Age == -1 || player.Career_age == -1 || player.Height == -1 || player.Weight == -1)
             {
                 check = "Please, enter the number";
@@ -223,21 +246,28 @@ namespace BasketballManadger
 
             return check;
         }
-        private Teams CheckTeam(Teams team)
+        private Teams GetTeam(Teams team)
         {
-            if (!string.IsNullOrEmpty(tbGetCity.Text))
-            {
-                team.City = tbGetCity.Text;
-            }
-            if (!string.IsNullOrEmpty(tbgetTeamName.Text))
-            {
+                team.City = tbGetCity.Text;         
                 team.TeamName = tbgetTeamName.Text;
-            }
-            if (!string.IsNullOrEmpty(_teamIMG))
-            {
                 team.Logo = _teamIMG;
-            }
             return team;
+        }
+        private string CombinedTeamCheck(Teams team)
+        {
+            string check = null;
+
+            if (string.IsNullOrEmpty(team.City))
+            {
+                check = "Please, enter city!";
+                return check;
+            }
+            if (string.IsNullOrEmpty(team.TeamName))
+            {
+                check = "Please, enter name of the team!";
+                return check;
+            }
+            return check;
         }
 
 
@@ -365,16 +395,18 @@ namespace BasketballManadger
             Teams team = selectedTeam as Teams;
             BindingList<Teams> currentTeams = FilePath.GetTeams();
             string message = team.TeamName;
-            CheckTeam(team);
-
+            GetTeam(team);
+            var errMsg = CombinedTeamCheck(team);
+            if (!string.IsNullOrEmpty(errMsg))
+            {
+                ToLog(errMsg, MessageBoxImage.Error);
+                UpdateInterface();
+                ClearTeamsInterface();
+            }
+            
             team.CheckTeamPicture(team);
 
-            if (string.IsNullOrEmpty(tbGetCity.Text) || string.IsNullOrEmpty(tbgetTeamName.Text))
-            {
-                MessageBox.Show("You can't successfully edit team without parameters", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                ClearTeamsInterface();
-                return;
-            }
+           
 
             foreach (var item in currentTeams)
             {
@@ -435,6 +467,7 @@ namespace BasketballManadger
             GetPlayerFromForm(player1, team, position);
 
             var errMsg = CombinedPlayerCheck(player1);
+            player1.CheckPlayerPicture(player1);
 
             if (!string.IsNullOrEmpty(errMsg))
             {
@@ -484,19 +517,19 @@ namespace BasketballManadger
         private void btnConfirmAddingTeam_Click(object sender, RoutedEventArgs e)
         {
             Teams team = new Teams();
-            CheckTeam(team);
-            if (string.IsNullOrEmpty(tbGetCity.Text) || string.IsNullOrEmpty(tbgetTeamName.Text))
+            var team1 = GetTeam(team);
+            var errMsg = CombinedTeamCheck(team1);
+            if(!string.IsNullOrEmpty(errMsg))
             {
-                ToLog("You can't add team without parameters", MessageBoxImage.Error);
+                ToLog(errMsg, MessageBoxImage.Error);
+                UpdateInterface();
                 ClearTeamsInterface();
-                return;
             }
 
-
-            team.CheckTeamPicture(team);
-            FilePath.Append(team);
+            team1.CheckTeamPicture(team1);
+            FilePath.Append(team1);
             UpdateInterface();
-            ToLog($"{team.TeamName} was successfully added", MessageBoxImage.Information);
+            ToLog($"{team1.TeamName} was successfully added", MessageBoxImage.Information);
             ClearTeamsInterface();
         }
 

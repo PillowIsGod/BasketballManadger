@@ -45,3 +45,5 @@ C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\net
 C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\netcoreapp3.1\CsvHelper.dll
 C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\obj\Debug\netcoreapp3.1\ImageExtender.g.cs
 C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\obj\Debug\netcoreapp3.1\ImageExtender.baml
+C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\netcoreapp3.1\BasketballManadger.dll.config
+C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\bin\Debug\netcoreapp3.1\App.config

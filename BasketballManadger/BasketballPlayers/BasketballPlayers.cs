@@ -34,6 +34,17 @@ namespace BasketballManadger
                 player.Picture = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\NullPicture.png";
             }
         }
+        public bool CompletePlayerNullCheck( BasketballPlayers player)
+        {
+            bool check = false;
+            if (string.IsNullOrEmpty(player.Current_team) || string.IsNullOrEmpty(player.Name) || string.IsNullOrEmpty(player.Age.ToString()) ||
+                string.IsNullOrEmpty(player.Career_age.ToString()) || string.IsNullOrEmpty(player.Height.ToString()) || 
+                string.IsNullOrEmpty(player.Weight.ToString()) || string.IsNullOrEmpty(player.Picture))
+            {
+                check = true;
+            }
+            return check;
+        }
         public bool PlayerAdequacyCheck(BasketballPlayers player)
         {
             if(player.Age > 45 || player.Age < 19)

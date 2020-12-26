@@ -26,32 +26,35 @@ namespace BasketballManadger
                 workbook = new XSSFWorkbook(fs);
             }
 
-
-
             ISheet sheet = workbook.GetSheet("Sheet0");
-            int number = 0;
-            for (int row = 0; row <= sheet.LastRowNum; row++)
+
+            
+            for (int row = 1; row <= sheet.LastRowNum; row++)
             {
                 BasketballPlayers player = new BasketballPlayers();
                 if (sheet.GetRow(row) != null)
                 {
+                    if (!player.CompletePlayerNullCheck(player))
+                    {
+                    
                     player.Picture = sheet.GetRow(row).GetCell(0).ToString();
                     player.Name = sheet.GetRow(row).GetCell(1).ToString();
                     player.Position = sheet.GetRow(row).GetCell(2).ToString();
 
 
                     player.Age = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(3).ToString());
-   
-                        player.Career_age = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(4).ToString());
 
-                        player.Height =  EditingInfo.ConvertNumberToDouble(sheet.GetRow(row).GetCell(5).ToString()); 
-    
-                        player.Weight = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(6).ToString());
+                    player.Career_age = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(4).ToString());
 
-                       player.Current_team = sheet.GetRow(row).GetCell(7).ToString();
+                    player.Height = EditingInfo.ConvertNumberToDouble(sheet.GetRow(row).GetCell(5).ToString());
+
+                    player.Weight = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(6).ToString());
+
+                    player.Current_team = sheet.GetRow(row).GetCell(7).ToString();
 
 
                     playersToOutput.Add(player);
+                }
                 }
             }
             return playersToOutput;
@@ -71,11 +74,35 @@ namespace BasketballManadger
                 workbook = new XSSFWorkbook();
                 worksheet = workbook.CreateSheet("Sheet0");
                 int row = 0;
+                IRow newRow = worksheet.CreateRow(row);
+                ICell cell = newRow.CreateCell(0, CellType.String);
+                    cell.SetCellValue("Picture");
+                cell = newRow.CreateCell(1, CellType.String);
+                cell.SetCellValue("Name");
+
+                cell = newRow.CreateCell(2, CellType.String);
+                cell.SetCellValue("Position");
+
+                cell = newRow.CreateCell(3, CellType.String);
+                cell.SetCellValue("Age");
+
+                cell = newRow.CreateCell(4, CellType.String);
+                cell.SetCellValue("Career Age");
+
+                cell = newRow.CreateCell(5, CellType.String);
+                cell.SetCellValue("Height");
+
+                cell = newRow.CreateCell(6, CellType.String);
+                cell.SetCellValue("Weight");
+
+                cell = newRow.CreateCell(7, CellType.String);
+                cell.SetCellValue("Current Team");
+                row++;
                 foreach (var item in playersToImport)
                 {
-                    IRow newRow = worksheet.CreateRow(row);
 
-                    ICell cell = newRow.CreateCell(0, CellType.String);
+                    newRow = worksheet.CreateRow(row);
+                    cell = newRow.CreateCell(0, CellType.String);
                     cell.SetCellValue(item.Picture);
 
                     cell = newRow.CreateCell(1, CellType.String);

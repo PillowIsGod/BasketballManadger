@@ -105,6 +105,15 @@ namespace BasketballManadger
                 team.Logo = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\NullPicture.png";
             }
         }
+        public bool CompleteTeamNullCheck(Teams team)
+        {
+            bool check = false;
+            if(string.IsNullOrEmpty(team.TeamName) || string.IsNullOrEmpty(team.City) || string.IsNullOrEmpty(team.Logo))
+            {
+                check = true;
+            }
+            return check;
+        }
         protected void OnPropertyChanged(string propertyname = "")
         {
             if (PropertyChanged != null)

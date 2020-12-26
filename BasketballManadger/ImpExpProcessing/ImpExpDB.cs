@@ -176,11 +176,18 @@ namespace BasketballManadger
 
         }
 
-        public void ImportPlayerDataToDB()
+        public void ImportPlayerDataToDB(bool selected = false, params Teams[] team)
         {
             BindingList<BasketballPlayers> playersToImport = _storage.GetPlayersFromFile();
             _connection.Open();
             var currentplayers = DBPath.GetBasketballPlayers();
+            if(selected)
+            {
+                foreach (var item in playersToImport)
+                {
+                    item.Current_team = team[0].TeamName;
+                }
+            }
             var refer = new MainWindow();
             for (int i = playersToImport.Count-1; i != -1; i--) { 
                 foreach (var item1 in currentplayers)

@@ -34,17 +34,19 @@ namespace BasketballManadger
 
 
             ISheet sheet = workbook.GetSheet("Sheet0");
-            int number = 0;
-            for (int row = 0; row <= sheet.LastRowNum; row++)
+            for (int row = 1; row <= sheet.LastRowNum; row++)
             {
                 Teams team = new Teams();
                 if (sheet.GetRow(row) != null)
                 {
-                    team.Logo = sheet.GetRow(row).GetCell(0).ToString();
-                    team.TeamName = sheet.GetRow(row).GetCell(1).ToString();
-                    team.City = sheet.GetRow(row).GetCell(2).ToString();
+                    if (!team.CompleteTeamNullCheck(team))
+                    {
+                        team.Logo = sheet.GetRow(row).GetCell(0).ToString();
+                        team.TeamName = sheet.GetRow(row).GetCell(1).ToString();
+                        team.City = sheet.GetRow(row).GetCell(2).ToString();
 
-                    teamsToOutput.Add(team);
+                        teamsToOutput.Add(team);
+                    }
                 } 
             }
             return teamsToOutput;
@@ -64,11 +66,22 @@ namespace BasketballManadger
                 workbook = new XSSFWorkbook();
                 worksheet = workbook.CreateSheet("Sheet0");
                 int row = 0;
+                IRow newRow = worksheet.CreateRow(row);
+
+                ICell cell = newRow.CreateCell(0, CellType.String);
+                cell.SetCellValue("Logo");
+
+                cell = newRow.CreateCell(1, CellType.String);
+                cell.SetCellValue("Team Name");
+
+                cell = newRow.CreateCell(2, CellType.String);
+                cell.SetCellValue("City");
+                row++;
                 foreach (var item in teamsToImport)
                 {
-                    IRow newRow = worksheet.CreateRow(row);
+                    newRow = worksheet.CreateRow(row);
 
-                    ICell cell = newRow.CreateCell(0, CellType.String);
+                    cell = newRow.CreateCell(0, CellType.String);
                     cell.SetCellValue(item.Logo);
 
                     cell = newRow.CreateCell(1, CellType.String);

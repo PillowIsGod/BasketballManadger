@@ -129,9 +129,14 @@ namespace BasketballManadger
             _toCompleteEvent = true;
             var teams = FilePath.GetTeams();
             var players = FilePath.GetBasketballPlayers();
+            foreach (var item in players)
+            {
+                item.CheckPlayerPicture(item);
+            }
             foreach (var item in teams)
             {
-                item.BasketballPlayers = players;
+
+                item.BasketballPlayers = players;                
             }
             var basketballPlayer = new BasketballPlayers();
             foreach (var item in teams)
@@ -289,10 +294,7 @@ namespace BasketballManadger
 
             if (!string.IsNullOrEmpty(errMsg))
             {
-                MessageBox.Show(errMsg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-
-                ClearPlayersInterface();
+                ToLog(errMsg, MessageBoxImage.Error);
                 UpdateInterface();
                 return;
             }
@@ -401,7 +403,7 @@ namespace BasketballManadger
             {
                 ToLog(errMsg, MessageBoxImage.Error);
                 UpdateInterface();
-                ClearTeamsInterface();
+                return;
             }
             
             team.CheckTeamPicture(team);
@@ -472,9 +474,6 @@ namespace BasketballManadger
             if (!string.IsNullOrEmpty(errMsg))
             {
                 ToLog(errMsg, MessageBoxImage.Error);
-
-
-                ClearPlayersInterface();
                 UpdateInterface();
                 return;
             }
@@ -523,7 +522,7 @@ namespace BasketballManadger
             {
                 ToLog(errMsg, MessageBoxImage.Error);
                 UpdateInterface();
-                ClearTeamsInterface();
+                return;
             }
 
             team1.CheckTeamPicture(team1);
@@ -729,7 +728,7 @@ namespace BasketballManadger
         {
             OpenFileDialog opnfldlg = new OpenFileDialog();
             opnfldlg.Filter = "Storage Files(*.TXT;*.CSV;*.JSON;*.XML;*.XLSX)|*.TXT;*.CSV;*.JSON;*.XML;*.XLSX";
-
+            
             string filePath = null;
             var result = opnfldlg.ShowDialog();
             if (result == true)
@@ -742,8 +741,21 @@ namespace BasketballManadger
                 return;
             }
             var refer = new ImpExpDB(filePath, true);
+            var cont = (Control)sender;
+            
             refer.StoragePlayersEmptinessCheck();
-            refer.ImportPlayerDataToDB();
+            if (cont.Name.Contains("all", StringComparison.OrdinalIgnoreCase)) 
+            {
+                refer.ImportPlayerDataToDB();
+                UpdateInterface();
+            }
+            if (cont.Name.Contains("selected", StringComparison.OrdinalIgnoreCase))
+            {
+                var team = lvTeamsOutput.SelectedItem as Teams;
+                refer.ImportPlayerDataToDB(true, team);
+                UpdateInterface();
+            }
+            
         }
 
         private void miImportTeams_Click(object sender, RoutedEventArgs e)

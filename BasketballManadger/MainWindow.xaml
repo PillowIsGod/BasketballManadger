@@ -196,8 +196,12 @@
         </Grid.RowDefinitions>
         <Menu x:Name="menu">
             <MenuItem Header="Import Data" Width="80">
-                <MenuItem x:Name="miImportPlayers" Header="Import Players" Width="185" Click="miImportPlayers_Click"></MenuItem>
-                <MenuItem x:Name="miImportTeams" Header="Import Teams" Width="185" Click="miImportTeams_Click"></MenuItem>
+                <MenuItem x:Name="miImportPlayers" Header="Import Players" Width="185" >
+                    <MenuItem x:Name="miSelectedPlayers" Header="To selected team" Click="miImportPlayers_Click"></MenuItem>
+                    <MenuItem x:Name="miAllPlayers" Header="All players" Click="miImportPlayers_Click"></MenuItem>
+                </MenuItem>
+                <MenuItem x:Name="miImportTeams" Header="Import Teams" Width="185" Click="miImportTeams_Click">
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Export Data" Width="80">
                 

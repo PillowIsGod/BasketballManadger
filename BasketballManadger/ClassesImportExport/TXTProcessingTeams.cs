@@ -32,6 +32,9 @@ namespace BasketballManadger
             using (FileStream fs = new FileStream(FileProcessingPath, FileMode.OpenOrCreate))
             using (StreamWriter sw = new StreamWriter(fs))
             {
+                line = $"City,Team Name, Logo";
+                sw.WriteLine(line);
+                line = null;
                 foreach (var item in teamsToImport)
             {
                 line = item.City + "," + item.TeamName + "," + item.Logo;
@@ -59,9 +62,9 @@ namespace BasketballManadger
                     fileContent.Add(line);
                 }
             }
-            foreach (var item in fileContent)
+            for (int i = 1; i < fileContent.Count; i++) 
             {
-                var array = item.Split(",");
+                var array = fileContent[i].Split(",");
                 Teams team = new Teams();
                 team.City = array[0];
                 team.TeamName = array[1];

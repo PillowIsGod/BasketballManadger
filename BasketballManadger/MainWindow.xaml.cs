@@ -3,10 +3,12 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -180,7 +182,7 @@ namespace BasketballManadger
             //}
             //if (!string.IsNullOrEmpty(_playerIMG))
             //{
-            player.Picture = _playerIMG;
+            player.Picture = tbToShowPlayerPictureFilePath.Text;
             //}
 
             return player;
@@ -255,7 +257,7 @@ namespace BasketballManadger
         {
                 team.City = tbGetCity.Text;         
                 team.TeamName = tbgetTeamName.Text;
-                team.Logo = _teamIMG;
+                team.Logo = tbToShowTeamLogoFilePath.Text;
             return team;
         }
         private string CombinedTeamCheck(Teams team)
@@ -298,7 +300,7 @@ namespace BasketballManadger
                 UpdateInterface();
                 return;
             }
-
+            player1.CheckPlayerPicture(player1);
             foreach (var item in currentPlayers)
             {
                 if (player1.ID == item.ID)
@@ -643,13 +645,9 @@ namespace BasketballManadger
 
         private void ShowFileDialog(string path)
         {
-            if (!string.IsNullOrEmpty(path))
+            if (File.Exists(path))
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.FileName = path;
-                openFileDialog.InitialDirectory = CutFilePathToFolder(path);
-                openFileDialog.ShowDialog();
-                return;
+                Process.Start("explorer.exe", "/select, " + path);
             }
             return;
         }

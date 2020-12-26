@@ -57,9 +57,9 @@ namespace BasketballManadger
             {              
                 var array = fileContent[i].Split(",");
                 BasketballPlayers player = new BasketballPlayers();
-                if (!string.IsNullOrEmpty(array[0]) || !string.IsNullOrEmpty(array[1]) || !string.IsNullOrEmpty(array[2]) ||
-                    !string.IsNullOrEmpty(array[3]) || !string.IsNullOrEmpty(array[4]) || !string.IsNullOrEmpty(array[5]) ||  
-                    !string.IsNullOrEmpty(array[6]) || !string.IsNullOrEmpty(array[7])) {
+                //if (!string.IsNullOrEmpty(array[0]) || !string.IsNullOrEmpty(array[1]) || !string.IsNullOrEmpty(array[2]) ||
+                //    !string.IsNullOrEmpty(array[3]) || !string.IsNullOrEmpty(array[4]) || !string.IsNullOrEmpty(array[5]) ||  
+                //    !string.IsNullOrEmpty(array[6]) || !string.IsNullOrEmpty(array[7])) {
                 player.Name = array[0];
                 player.Current_team = array[1];
                 player.Picture = array[2];
@@ -69,7 +69,7 @@ namespace BasketballManadger
                 player.Weight = Convert.ToInt32(array[6]);
                 player.Position = array[7];
                 players.Add(player);
-            }
+            //}
             }
             return players;
         }

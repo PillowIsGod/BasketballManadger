@@ -265,27 +265,23 @@
                                 </Image.ContextMenu>
                             </Image>
                             <TextBlock Text="{Binding Path=City}" Width="120" Grid.Column="1" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="0" Margin="10, 0, 0, 0"></TextBlock>
-                            <TextBlock Text="{Binding Path = TeamName}" Width="120" Grid.Column="2" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="0">
-                                <TextBlock.ToolTip>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition></ColumnDefinition>
-                                            <ColumnDefinition></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Text="Team members: " Grid.Column="0" Grid.Row="0"></TextBlock>
-                                        <TextBlock Text="{Binding Path=AmountOfTeamMembers}" Grid.Column="1" Grid.Row="0"></TextBlock>
-                                        <TextBlock Text="Average team height: " Grid.Column="0" Grid.Row="1"></TextBlock>
-                                        <TextBlock Text="{Binding Path=AvgTeamHeight}" Grid.Column="1" Grid.Row="1"></TextBlock>
-                                        <TextBlock Text="Average team age" Grid.Column="0" Grid.Row="2"></TextBlock>
-                                        <TextBlock Text="{Binding Path=AvgTeamAge}" Grid.Column="1" Grid.Row="2"></TextBlock>
-                                    </Grid>
-                                </TextBlock.ToolTip>
-                            </TextBlock>
+                            <TextBlock Text="{Binding Path = TeamName}" Width="120" Grid.Column="2" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="0"></TextBlock>
+                            <Grid Grid.ColumnSpan ="3" Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Team members: " Grid.Column="0"></TextBlock>
+                            <TextBlock Text="{Binding Path=AmountOfTeamMembers}" Grid.Column="1" Margin="0, 0, 10, 0"></TextBlock>
+                            <TextBlock Text="Average team height: " Grid.Column="2"></TextBlock>
+                                <TextBlock Text="{Binding Path=AvgTeamHeight}" Grid.Column="3" Margin="0, 0, 10, 0"></TextBlock>
+                            <TextBlock Text="Average team age: " Grid.Column="4"></TextBlock>
+                                <TextBlock Text="{Binding Path=AvgTeamAge}" Grid.Column="5" Margin="0, 0, 10, 0"></TextBlock>
+                            </Grid>
                         </Grid>
                     </StackPanel>
                 </DataTemplate>
@@ -422,7 +418,7 @@
             <Button x:Name="btnPictureSelector" Grid.Column="0" Grid.Row="8" Click="btnPictureSelector_Click">
                 <TextBlock Text="Browse Images" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3"></TextBlock>
             </Button>
-            <TextBox x:Name="tbToShowPlayerPictureFilePath" Grid.Row="8" Grid.Column="1" IsReadOnly="True"  HorizontalAlignment="Center" Width="250"></TextBox>
+            <TextBox x:Name="tbToShowPlayerPictureFilePath" Grid.Row="8" Grid.Column="1" IsReadOnly="False"  HorizontalAlignment="Center" Width="250"></TextBox>
             <Grid x:Name="gridBtnsToConfirmEditingPlayers" Grid.Row="10" Grid.ColumnSpan="2" Height="30" Visibility="Hidden" VerticalAlignment="Bottom" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -493,7 +489,7 @@
             <Button x:Name="btnLogoSelector" Grid.Column="0" Grid.Row="3" Click="btnLogoSelector_Click">
                 <TextBlock Text="Browse Images" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="3"></TextBlock>
             </Button>
-            <TextBox x:Name="tbToShowTeamLogoFilePath" Grid.Row="3" Grid.Column="1" IsReadOnly="True" Width="250"></TextBox>
+            <TextBox x:Name="tbToShowTeamLogoFilePath" Grid.Row="3" Grid.Column="1" IsReadOnly="False" Width="250"></TextBox>
             <Grid x:Name="gridBtnsToConfirmEditingTeam" Grid.Row="4" Grid.ColumnSpan="2" Visibility="Hidden" Height="30" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

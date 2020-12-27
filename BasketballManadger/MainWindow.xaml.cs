@@ -40,7 +40,7 @@ namespace BasketballManadger
         private bool _toCompleteEvent = false;
         private string _playerIMG;
         private string _teamIMG;
-
+        private BindingList<Teams> _teamsToSort;
         private BindingList<Teams> _teamsList;
         private BindingList<Positions> _positions;
         private BindingList<MenuImagesProcessing> _menuImages;
@@ -70,10 +70,10 @@ namespace BasketballManadger
                 item.BasketballPlayers = basketballPlayer.RelatePlayerToATeam(item, players); ;
             }
             _teamsList = teams;
+            _teamsToSort = teams;
             connection = new MySqlConnection(_myConnectionString);
             _positions = FilePath.GetPositions();
             //_menuImages = image.GetImagesFromFile();
-
 
         }
 
@@ -925,6 +925,33 @@ namespace BasketballManadger
             imageExtender.gridImageExtend.Children.Add(img);
 
             imageExtender.Show();
+        }
+
+
+        private void miSortAmount_Click(object sender, RoutedEventArgs e)
+        {
+            _toCompleteEvent = true;
+            Teams team = new Teams();
+            
+            var cont = (Control)sender;
+            var sort = new BindingList<Teams>();
+
+            if (cont.Name.Contains("amount", StringComparison.OrdinalIgnoreCase))
+            {
+                sort = team.TeamsSort(_teamsToSort, 1);
+            }
+            if (cont.Name.Contains("age", StringComparison.OrdinalIgnoreCase))
+            {
+                sort = team.TeamsSort(_teamsToSort, 2);
+            }
+            if (cont.Name.Contains("height", StringComparison.OrdinalIgnoreCase))
+            {
+                sort = team.TeamsSort(_teamsToSort, 3);
+            }
+            _teamsToSort = sort; 
+            lvTeamsOutput.ItemsSource = null;
+            lvTeamsOutput.ItemsSource = sort;
+            _toCompleteEvent = false;
         }
     }
 }

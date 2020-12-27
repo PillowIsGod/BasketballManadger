@@ -191,6 +191,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="20"/>
             <RowDefinition/>
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
@@ -240,7 +241,12 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <ListView x:Name="lvTeamsOutput" Grid.Column = "0" Grid.Row="1" SelectionChanged="lvTeamsOutput_SelectionChanged" MouseDoubleClick="lvTeamsOutput_MouseDoubleClick" ToolTip="Double click to edit" Background="#FF767575">
+        <Menu Grid.Row="1">
+            <MenuItem x:Name = "miSortAmount" Header="Amount of members" Margin="10, 0, 0, 0" Padding="1" HorizontalAlignment="Center" Click="miSortAmount_Click"/>
+            <MenuItem x:Name = "miSortAge" Header="Average age" Margin="0" Padding="1" HorizontalAlignment="Center" Click="miSortAmount_Click"/>
+            <MenuItem x:Name = "miSortHeight" Header="Average height" Margin="0" Padding="1" HorizontalAlignment="Center" Click="miSortAmount_Click"/>
+        </Menu>
+        <ListView x:Name="lvTeamsOutput" Grid.Column = "0" Grid.Row="2" SelectionChanged="lvTeamsOutput_SelectionChanged" MouseDoubleClick="lvTeamsOutput_MouseDoubleClick" ToolTip="Double click to edit" Background="#FF767575">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -253,9 +259,10 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
-                      
-                            <Image x:Name = "imgTeam" Source="{Binding Path=Logo}" Width="150" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="0" Height="150">
+                            
+                            <Image x:Name = "imgTeam" Source="{Binding Path=Logo}" Width="150" Grid.Column="0" HorizontalAlignment="Center" Grid.Row="1" Grid.RowSpan="2" Height="150">
                                 <Image.ContextMenu>
                                     <ContextMenu>
                                         <MenuItem x:Name ="cmExtendImageTeam" Header="Extend image" Width="250" Click="cmExtendImageTeam_Click"></MenuItem>
@@ -264,30 +271,32 @@
                                     </ContextMenu>
                                 </Image.ContextMenu>
                             </Image>
-                            <TextBlock Text="{Binding Path=City}" Width="120" Grid.Column="1" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="0" Margin="10, 0, 0, 0"></TextBlock>
-                            <TextBlock Text="{Binding Path = TeamName}" Width="120" Grid.Column="2" VerticalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.Row="0"></TextBlock>
-                            <Grid Grid.ColumnSpan ="3" Grid.Row="1">
+                            <TextBlock Text="{Binding Path=City}" Width="120" Grid.Column="1" VerticalAlignment="Bottom" FontSize="18" FontWeight="Bold" Grid.Row="1" Margin="10, 0, 0, 0"></TextBlock>
+                            <TextBlock Text="{Binding Path = TeamName}" Width="120" Grid.Column="2" VerticalAlignment="Bottom" FontSize="18" FontWeight="Bold" Grid.Row="1"></TextBlock>
+
+                            <Grid Grid.Column="1" Grid.ColumnSpan ="2" Grid.Row="2" VerticalAlignment="Bottom">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="Team members: " Grid.Column="0"></TextBlock>
-                            <TextBlock Text="{Binding Path=AmountOfTeamMembers}" Grid.Column="1" Margin="0, 0, 10, 0"></TextBlock>
-                            <TextBlock Text="Average team height: " Grid.Column="2"></TextBlock>
-                                <TextBlock Text="{Binding Path=AvgTeamHeight}" Grid.Column="3" Margin="0, 0, 10, 0"></TextBlock>
-                            <TextBlock Text="Average team age: " Grid.Column="4"></TextBlock>
-                                <TextBlock Text="{Binding Path=AvgTeamAge}" Grid.Column="5" Margin="0, 0, 10, 0"></TextBlock>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="Team members: " Grid.Column="0" Grid.Row="0" Margin="10, 0, 0, 0"></TextBlock>
+                                <TextBlock Text="{Binding Path=AmountOfTeamMembers}" Grid.Column="1" Grid.Row="0" Margin="10, 0, 0, 0" ></TextBlock>
+                                <TextBlock Text="Average team height: " Grid.Column="0" Grid.Row="1" Margin="10, 0, 0, 0"> </TextBlock>
+                                <TextBlock Text="{Binding Path=AvgTeamHeight}" Grid.Column="1"  Grid.Row="1"  Margin="10, 0, 0, 0"></TextBlock>
+                                <TextBlock Text="Average team age: " Grid.Column="0" Grid.Row="2" Margin="10, 0, 0, 0"></TextBlock>
+                                <TextBlock Text="{Binding Path=AvgTeamAge}" Grid.Column="1" Grid.Row="2"  Margin="10, 0, 0, 0"></TextBlock>
                             </Grid>
                         </Grid>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView x:Name="lvPlayers" Grid.Column="1" Grid.Row="1" Visibility="Hidden" MouseDoubleClick="lvPlayers_MouseDoubleClickEditing" SelectionChanged="lvPlayers_SelectionChanged" ToolTip="Double click to edit" Width="auto" Background="#FF767575">
+        <ListView x:Name="lvPlayers" Grid.Column="1" Grid.Row="2" Visibility="Hidden" MouseDoubleClick="lvPlayers_MouseDoubleClickEditing" SelectionChanged="lvPlayers_SelectionChanged" ToolTip="Double click to edit" Width="auto" Background="#FF767575">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -336,7 +345,7 @@
             </ListView.ItemTemplate>
         </ListView>
         
-        <Grid Grid.Row="2" Height="30">
+        <Grid Grid.Row="3" Height="30">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -349,7 +358,7 @@
             </Button>
         </Grid>
         
-        <Grid x:Name="gridPlayerButtons" Grid.Column="1" Grid.Row="2" Height="30" Visibility="Hidden">
+        <Grid x:Name="gridPlayerButtons" Grid.Column="1" Grid.Row="3" Height="30" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -361,7 +370,7 @@
                 <TextBlock Text="Remove Player" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0" ></TextBlock>
             </Button>
         </Grid>
-        <Grid x:Name="gridEditingPlayers"  Grid.Column="2" Grid.Row="1" Height="400" VerticalAlignment="Top" Visibility="Hidden">
+        <Grid x:Name="gridEditingPlayers"  Grid.Column="2" Grid.Row="2" Height="400" VerticalAlignment="Top" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="300"/>
@@ -446,7 +455,7 @@
            
         </Grid>
 
-        <Grid x:Name="gridBtnsToConfirmDeletingPlayers" Grid.Row="1" Grid.Column="2" Visibility="Hidden" Height="60" >
+        <Grid x:Name="gridBtnsToConfirmDeletingPlayers" Grid.Row="2" Grid.Column="2" Visibility="Hidden" Height="60" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -469,7 +478,7 @@
 
 
 
-        <Grid x:Name="gridEditingTeams" Grid.Row="1" Height ="250" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Top">
+        <Grid x:Name="gridEditingTeams" Grid.Row="2" Height ="250" Grid.Column="2" Visibility="Hidden" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"></ColumnDefinition>
                 <ColumnDefinition Width="300"></ColumnDefinition>
@@ -517,7 +526,7 @@
            
         </Grid>
 
-        <Grid x:Name="gridBtnsToConfirmDeletingTeam" Grid.Row="1" Grid.Column="2" Visibility="Hidden" Height="60">
+        <Grid x:Name="gridBtnsToConfirmDeletingTeam" Grid.Row="2" Grid.Column="2" Visibility="Hidden" Height="60">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -535,7 +544,6 @@
                 <TextBlock Text="Decline" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0"></TextBlock>
             </Button>
         </Grid>
-
 
     </Grid>
 

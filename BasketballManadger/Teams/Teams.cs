@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace BasketballManadger
@@ -69,6 +70,49 @@ namespace BasketballManadger
             } }
         public Teams()
         {
+        }
+        public BindingList<Teams> TeamsSort(BindingList<Teams> teamsToSort, int type)
+        {
+            var teamsOutput = new BindingList<Teams>();
+            Teams[] arr = new Teams[teamsToSort.Count];
+            switch (type)
+            {
+                case 1:
+                    if (teamsToSort[0].AmountOfTeamMembers >= teamsToSort[1].AmountOfTeamMembers)
+                    {
+                        arr = teamsToSort.OrderBy(x => x.AmountOfTeamMembers).ToArray();
+                    }
+                    if (teamsToSort[0].AmountOfTeamMembers <= teamsToSort[1].AmountOfTeamMembers)
+                    {
+                        arr = teamsToSort.OrderByDescending(x => x.AmountOfTeamMembers).ToArray();
+                    }
+                    break;
+                case 2:
+                    if (teamsToSort[0].AvgTeamAge >= teamsToSort[1].AvgTeamAge)
+                    {
+                        arr = teamsToSort.OrderBy(x => x.AvgTeamAge).ToArray();
+                    }
+                    if (teamsToSort[0].AvgTeamAge <= teamsToSort[1].AvgTeamAge)
+                    {
+                        arr = teamsToSort.OrderByDescending(x => x.AvgTeamAge).ToArray();
+                    }
+                    break;
+                case 3:
+                    if (teamsToSort[0].AvgTeamHeight >= teamsToSort[1].AvgTeamHeight)
+                    {
+                        arr = teamsToSort.OrderBy(x => x.AvgTeamHeight).ToArray();
+                    }
+                    if (teamsToSort[0].AvgTeamHeight <= teamsToSort[1].AvgTeamHeight)
+                    {
+                        arr = teamsToSort.OrderByDescending(x => x.AvgTeamHeight).ToArray();
+                    }
+                    break;
+            }
+            foreach (var item in arr)
+            {
+                teamsOutput.Add(item);
+            }
+            return teamsOutput;
         }
         private double GetAvgTeamHeight(BindingList< BasketballPlayers> basketballPlayers)
         {

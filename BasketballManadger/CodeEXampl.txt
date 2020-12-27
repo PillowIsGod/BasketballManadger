@@ -238,3 +238,15 @@
 
 
                         var exportFileName = $"TXTPlayers____{DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss", CultureInfo.InvariantCulture)}.txt";
+
+
+
+
+
+                        <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Amount of members" DisplayMemberBinding="{Binding Path=AmountOfTeamMembers}"></GridViewColumn>
+                    <GridViewColumn Header="Average age" DisplayMemberBinding="{Binding Path=AvgTeamHeight}"></GridViewColumn>
+                    <GridViewColumn Header="Average height" DisplayMemberBinding="{Binding Path=AvgTeamAge}"></GridViewColumn>
+                </GridView>
+            </ListView.View>

@@ -37,6 +37,7 @@ namespace BasketballManadger
         private string _myConnectionString = "Database = basketballdata; Data Source = 127.0.0.1; User Id = root; Password = 7Bc145f606";
         private MySqlConnection connection = null;
 
+        private bool _toSort = false;
         private bool _toCompleteEvent = false;
         private string _playerIMG;
         private string _teamIMG;
@@ -73,6 +74,7 @@ namespace BasketballManadger
             _teamsToSort = teams;
             connection = new MySqlConnection(_myConnectionString);
             _positions = FilePath.GetPositions();
+            
             //_menuImages = image.GetImagesFromFile();
 
         }
@@ -98,6 +100,7 @@ namespace BasketballManadger
             lvPlayers.Visibility = Visibility.Visible;
             cbToEditOrAddTeams.ItemsSource = _teamsList;
             cbToEditOrAddPositions.ItemsSource = _positions;
+            cbSortPosition.ItemsSource = _positions;
             gridPlayerButtons.Visibility = Visibility.Visible;
         }
         private void ClearPlayersInterface()
@@ -244,7 +247,7 @@ namespace BasketballManadger
                 ClearPlayersInterface();
                 return check;
             }
-            if (player.PlayerAdequacyCheck(player))
+            if (player.PlayerAdequacyCheck())
             {
                 check = "The parameters you've entered can not exist";
                 ClearPlayersInterface();
@@ -335,6 +338,25 @@ namespace BasketballManadger
 
             Teams str1 = str as Teams;
             var players = str1.BasketballPlayers;
+            if (_toSort)
+            {
+                BasketballPlayers player = new BasketballPlayers();
+                Positions temp = new Positions();
+                if (cbSortPosition.SelectedItem != null)
+                {
+                    temp = cbSortPosition.SelectedItem as Positions;
+                }
+
+                var pos = temp.Position;
+                int toSort = 0;
+                if (!string.IsNullOrEmpty(tbSortByAge.Text))
+                {
+                    toSort = Convert.ToInt32(tbSortByAge.Text);
+                }
+
+
+                players = player.SortPlayers(players, pos, tbSortByName.Text, toSort);
+            }
             lvPlayers.ItemsSource = players;
 
             lvPlayers.Visibility = Visibility.Visible;
@@ -738,6 +760,8 @@ namespace BasketballManadger
                 ToLog("You haven't chosen a file", MessageBoxImage.Error);
                 return;
             }
+
+
             var refer = new ImpExpDB(filePath, true);
             var cont = (Control)sender;
             
@@ -951,7 +975,51 @@ namespace BasketballManadger
             _teamsToSort = sort; 
             lvTeamsOutput.ItemsSource = null;
             lvTeamsOutput.ItemsSource = sort;
+            lvTeamsOutput.SelectedIndex = 0;
             _toCompleteEvent = false;
+        }
+
+        private void btnSortResults_Click(object sender, RoutedEventArgs e)
+        {
+            _toSort = true;
+            _toCompleteEvent = true;
+            var team = lvTeamsOutput.SelectedItem as Teams;
+            var players = team.BasketballPlayers;
+            BasketballPlayers player = new BasketballPlayers();
+            Positions temp = new Positions();
+            if (cbSortPosition.SelectedItem != null)
+            {
+                temp = cbSortPosition.SelectedItem as Positions;
+            }
+
+            var pos = temp.Position;
+            int toSort = 0;
+            if (!string.IsNullOrEmpty(tbSortByAge.Text))
+            {
+                toSort = Convert.ToInt32(tbSortByAge.Text);
+            }
+
+
+            players = player.SortPlayers(players, pos, tbSortByName.Text, toSort);
+
+
+            lvPlayers.ItemsSource = null;
+            lvPlayers.ItemsSource = players;
+            _toCompleteEvent = false;
+
+        }
+
+        private void btnToRefreshUI_Click(object sender, RoutedEventArgs e)
+        {
+            var str = lvTeamsOutput.SelectedValue;
+
+            Teams str1 = str as Teams;
+            var players = str1.BasketballPlayers;
+            lvPlayers.ItemsSource = players;
+            cbSortPosition.SelectedIndex = 0;
+            tbSortByAge.Clear();
+            tbSortByName.Clear();
+            _toSort = false;
         }
     }
 }

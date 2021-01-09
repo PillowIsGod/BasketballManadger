@@ -10,10 +10,13 @@ namespace BasketballManadger.ClassesImportExport
 {
     public class CSVPlayersProcessing : FileTypesProcessing
     {
+
         public CSVPlayersProcessing(string filePath) : base(filePath)
         {
 
         }
+
+
         public override BindingList<BasketballPlayers> GetPlayersFromFile()
         {
             BindingList<BasketballPlayers> playerToOutput = new BindingList<BasketballPlayers>();
@@ -71,5 +74,6 @@ namespace BasketballManadger.ClassesImportExport
         {
             throw new NotImplementedException();
         }
+
     }
 }

@@ -13,7 +13,18 @@ namespace BasketballManadger
         [JsonIgnore]
         [IgnoreAttribute]
         public int ID { get; set; }
-        public string Picture { get; set; }
+
+        private string _picture;
+        public string Picture 
+        { 
+            get 
+            {
+
+                return _picture;
+            } 
+            set => _picture = value;
+        }
+
         public string Name { get; set; }
         public int Age { get; set; }
         public int Career_age { get; set; }
@@ -34,20 +45,20 @@ namespace BasketballManadger
                 player.Picture = @"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\NullPicture.png";
             }
         }
-        public bool CompletePlayerNullCheck( BasketballPlayers player)
+        public bool CompletePlayerNullCheck(string name, string position, string current_team, string age, string height, string weight, string career_age, string picture)
         {
             bool check = false;
-            if (string.IsNullOrEmpty(player.Current_team) || string.IsNullOrEmpty(player.Name) || string.IsNullOrEmpty(player.Age.ToString()) ||
-                string.IsNullOrEmpty(player.Career_age.ToString()) || string.IsNullOrEmpty(player.Height.ToString()) || 
-                string.IsNullOrEmpty(player.Weight.ToString()) || string.IsNullOrEmpty(player.Picture))
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(position) || string.IsNullOrEmpty(current_team) || string.IsNullOrEmpty(picture) || string.IsNullOrEmpty(age) ||
+                string.IsNullOrEmpty(career_age) || string.IsNullOrEmpty(height) || string.IsNullOrEmpty(weight)) 
             {
                 check = true;
             }
             return check;
         }
-        public bool PlayerAdequacyCheck(BasketballPlayers player)
+        public bool PlayerAdequacyCheck()
         {
-            if(player.Age > 45 || player.Age < 19)
+            BasketballPlayers player = this;
+            if (player.Age > 45 || player.Age < 19)
             {
                 return true;
             }
@@ -65,7 +76,119 @@ namespace BasketballManadger
             }
             return false;
         }
-            public BindingList<BasketballPlayers> RelatePlayerToATeam(Teams team, BindingList<BasketballPlayers> players)
+        public BindingList<BasketballPlayers> SortPlayersByName(BindingList<BasketballPlayers> playersToSort, string name)
+        {
+            BindingList<BasketballPlayers> playersOutput = new BindingList<BasketballPlayers>();
+
+            foreach (var item in playersToSort) 
+            {
+                if (item.Name.Contains(name,StringComparison.OrdinalIgnoreCase))
+                {
+                    playersOutput.Add(item);
+                }
+            }
+            return playersOutput;
+        }
+        public BindingList<BasketballPlayers> SortPlayersByAge(BindingList<BasketballPlayers> playersToSort, int age)
+        {
+            BindingList<BasketballPlayers> playersOutput = new BindingList<BasketballPlayers>();
+
+            foreach (var item in playersToSort)
+            {
+                if (item.Age == age)
+                {
+                    playersOutput.Add(item);
+                }
+            }
+            return playersOutput;
+        }
+        public BindingList<BasketballPlayers> SortByPosition(BindingList<BasketballPlayers> playersToSort, string position)
+        {
+            BindingList<BasketballPlayers> playersOutput = new BindingList<BasketballPlayers>();
+            foreach (var item in playersToSort)
+            {
+
+                if(item.Position == position)
+                {
+                    playersOutput.Add(item);
+                }
+            }
+            return playersOutput;
+        }
+        public BindingList<BasketballPlayers> SortPlayers(BindingList<BasketballPlayers> playersToSort, string position, string name, int age)
+        {
+                BindingList<BasketballPlayers> playersToOutput = new BindingList<BasketballPlayers>();
+
+                if (!string.IsNullOrEmpty(position) && !string.IsNullOrEmpty(name) && age != 0)
+                {
+                    foreach (var item in playersToSort)
+                    {
+                        if (item.Name.Contains(name, StringComparison.OrdinalIgnoreCase) && item.Age == age && item.Position == position)
+                        {
+                            playersToOutput.Add(item);
+                        }
+                    }
+                    return playersToOutput;
+                }
+
+                if (string.IsNullOrEmpty(position) && !string.IsNullOrEmpty(name) && age != 0)
+                {
+                    foreach (var item in playersToSort)
+                    {
+
+                        if (item.Name.Contains(name, StringComparison.OrdinalIgnoreCase) && item.Age == age)
+                        {
+                            playersToOutput.Add(item);
+                        }
+                    }
+                    return playersToOutput;
+                }
+
+                if ((string.IsNullOrEmpty(age.ToString()) || age == 0) && !string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(position))
+                {
+                    foreach (var item in playersToSort)
+                    {
+
+                        if (item.Position == position && item.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+                        {
+                            playersToOutput.Add(item);
+                        }
+                    }
+                    return playersToOutput;
+                }
+                if (age != 0 && string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(position))
+                {
+                    foreach (var item in playersToSort)
+                    {
+
+                        if (item.Position == position && item.Age == age)
+                        {
+                            playersToOutput.Add(item);
+                        }
+                    }
+                    return playersToOutput;
+                }
+
+
+                if (string.IsNullOrEmpty(position) && string.IsNullOrEmpty(name) && age != 0)
+                {
+                    playersToOutput = SortPlayersByAge(playersToSort, age);
+                    return playersToOutput;
+                }
+                if ((string.IsNullOrEmpty(age.ToString()) || age == 0) && string.IsNullOrEmpty(position) && !string.IsNullOrEmpty(name))
+                {
+                    playersToOutput = SortPlayersByName(playersToSort, name);
+                    return playersToOutput;
+                }
+                if ((string.IsNullOrEmpty(age.ToString()) || age == 0) && string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(position))
+                {
+                    playersToOutput = SortByPosition(playersToSort, position);
+                    return playersToOutput;
+                }
+            
+            return playersToOutput;
+        }
+        public BindingList<BasketballPlayers> RelatePlayerToATeam(Teams team, BindingList<BasketballPlayers> players)
         {
             BindingList<BasketballPlayers> playersToReturn = new BindingList<BasketballPlayers>();
 
@@ -79,8 +202,6 @@ namespace BasketballManadger
 
             return playersToReturn;
         }
-        public BasketballPlayers()
-        {
-        }
+       
     }
 }

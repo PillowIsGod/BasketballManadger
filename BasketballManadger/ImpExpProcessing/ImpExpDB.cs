@@ -9,6 +9,48 @@ using System.Windows;
 
 namespace BasketballManadger
 {
+
+    public abstract class ExportDB 
+    {
+        public void ImportFromFile(string filePath, bool needPlayers = false)
+        {
+            FileTypesProcessing ftp = null;
+            var currentExtension = System.IO.Path.GetExtension(filePath);
+            //switch (currentExtension)
+            //{
+            //    case "txt":
+            //    ftp = new TXTProcessing(filePath, player);
+            //    break;
+            //}
+
+            var teams = ftp.GetTeamFromFIle();
+            TeamsToDb(teams);
+        }
+        public void ImportFromFilePlayers(string filePath)
+        {
+            FileTypesProcessing ftp = null;
+            var currentExtension = System.IO.Path.GetExtension(filePath);
+            //switch (currentExtension)
+            //{
+            //    case "txt":
+            //    ftp = new TXTProcessing(filePath, player);
+            //    break;
+            //}
+
+            var teams = ftp.GetPlayersFromFile();
+            PlayersToDb(teams);
+        }
+
+
+
+        public abstract string EportData(IEnumerable<Teams> teams, bool withPlayers = false);
+        public abstract string EportData(IEnumerable<BasketballPlayers> players);
+
+        protected abstract void TeamsToDb(IEnumerable<Teams> teams);
+        protected abstract void PlayersToDb(IEnumerable<BasketballPlayers> players);
+    }
+
+
     public class ImpExpDB
     {
 
@@ -29,6 +71,8 @@ namespace BasketballManadger
         private string _csvPlayersPath { get; set; }
         private string _csvTeamsPath { get; set; }
 
+        string _exportDefaultFolder { get; set; }
+
         //TxtPlayers = 1,
         //TxtTeams = 2,
         //XMLPlayers = 3,
@@ -47,49 +91,65 @@ namespace BasketballManadger
             }
             set
             {
+
                 _storageType = value;
-                _excellTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}ExcellTeams.xlsx";
-                _excellPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}ExcellPlayers.xlsx";
-                _xmlPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}XMLPlayers.xml";
-                _xmlTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}XMLTeams.xml";
-                _jsonPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}JsonPlayers.json";
-                _jsonTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}JsonTeams.json";
-                _txtPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}TXTPlayers.txt";
-                _txtTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}TXTTeams.txt";
-                _csvTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}CSVTeamStorage.csv";
-                _csvPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}CSVPlayerStorage.csv";
+                //_excellTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}ExcellTeams.xlsx";
+                //_excellPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}ExcellPlayers.xlsx";
+                //_xmlPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}XMLPlayers.xml";
+                //_xmlTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}XMLTeams.xml";
+                //_jsonPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}JsonPlayers.json";
+                //_jsonTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}JsonTeams.json";
+                //_txtPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}TXTPlayers.txt";
+                //_txtTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}TXTTeams.txt";
+                //_csvTeamsPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}CSVTeamStorage.csv";
+                //_csvPlayersPath = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport\{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}CSVPlayerStorage.csv";
+
+                var pathFile = "";
+
+       
 
                 switch (_storageType)
                 {
                     case FileTypeEnum.TxtPlayers:
-                        _storage = new TXTProcessingPlayers(_txtPlayersPath);
+                        pathFile = System.IO.Path.Combine(_exportDefaultFolder, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}_TXTPlayers.txt");
+
+                        _storage = new TXTProcessingPlayers(pathFile);
                         break;
                     case FileTypeEnum.TxtTeams:
-                        _storage = new TXTProcessingTeams(_txtTeamsPath);
+                        pathFile = System.IO.Path.Combine(_exportDefaultFolder, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}_TXTTeams.txt");
+                        _storage = new TXTProcessingTeams(pathFile);
                         break;
                     case FileTypeEnum.XMLPlayers:
-                        _storage = new XMLPlayersProcessing(_xmlPlayersPath);
+                        pathFile = System.IO.Path.Combine(_exportDefaultFolder, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}_XMLplayers.txt");
+                        _storage = new XMLPlayersProcessing(pathFile);
                         break;
                     case FileTypeEnum.XMLTeams:
-                        _storage = new XMLTeamsProcessing(_xmlTeamsPath);
+                        pathFile = System.IO.Path.Combine(_exportDefaultFolder, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}_XMLteams.txt");
+                        _storage = new XMLTeamsProcessing(pathFile);
                         break;
                     case FileTypeEnum.JsonPlayers:
-                        _storage = new JsonPlayersProcessing(_jsonPlayersPath);
+                        pathFile = System.IO.Path.Combine(_exportDefaultFolder, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}_JsonPlayers.txt");
+                        _storage = new JsonPlayersProcessing(pathFile);
                         break;
                     case FileTypeEnum.JsonTeams:
-                        _storage = new JsonTeamProcessing(_jsonTeamsPath);
+                        pathFile = System.IO.Path.Combine(_exportDefaultFolder, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}_JsonTeams.txt");
+                        _storage = new JsonTeamProcessing(pathFile);
                         break;
                     case FileTypeEnum.ExcellPlayers:
-                        _storage = new ExcellPlayersProcessing(_excellPlayersPath) ;
+                        pathFile = System.IO.Path.Combine(_exportDefaultFolder, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}_ExcellPlayers.txt");
+                        _storage = new ExcellPlayersProcessing(pathFile) ;
                         break;
                     case FileTypeEnum.ExcellTeams:
-                        _storage = new ExcellTeamsProcessing(_excellTeamsPath);
+                        pathFile = System.IO.Path.Combine(_exportDefaultFolder, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}_ExcellTeams.txt");
+                        _storage = new ExcellTeamsProcessing(pathFile);
                         break;
                     case FileTypeEnum.CSVPlayers:
-                        _storage = new CSVPlayersProcessing(_csvPlayersPath);
+                        pathFile = System.IO.Path.Combine(_exportDefaultFolder, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}_CsvPlayers.txt");
+                        _storage = new CSVPlayersProcessing(pathFile);
                         break;
                     case FileTypeEnum.CSVTeams:
-                        _storage = new CSVTeamsProcessing(_csvTeamsPath);
+                        pathFile = System.IO.Path.Combine(_exportDefaultFolder, $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss-fff}_CsvTeams.txt");
+                        _storage = new CSVTeamsProcessing(pathFile);
                         break;
                     default:
                         break;
@@ -101,11 +161,21 @@ namespace BasketballManadger
 
         public ImpExpDB()
         {
+            _exportDefaultFolder = @$"C:\Users\Zhenya\source\repos\BasketballManadger\BasketballManadger\StoragesImportExport";
+
+            if (!System.IO.Directory.Exists(_exportDefaultFolder))
+            {
+                System.IO.Directory.CreateDirectory(_exportDefaultFolder);
+            }
+
             DBPath = new DBProcessing(_myConnectionString);
             _connection = new MySqlConnection(_myConnectionString);
         }
-        public ImpExpDB(string filePath, bool player = false)
+        public ImpExpDB(string filePath, bool player = false) : this()
         {
+          
+
+
             if (filePath.Contains("txt", StringComparison.OrdinalIgnoreCase) && player == false)
             {
                 _storage = new TXTProcessingTeams(filePath);
@@ -146,8 +216,6 @@ namespace BasketballManadger
             {
                 _storage = new ExcellPlayersProcessing(filePath);
             }
-            DBPath = new DBProcessing(_myConnectionString);
-            _connection = new MySqlConnection(_myConnectionString);
         }
 
 

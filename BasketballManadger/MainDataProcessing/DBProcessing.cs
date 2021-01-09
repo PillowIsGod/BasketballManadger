@@ -25,101 +25,128 @@ namespace BasketballManadger
         public override void Delete(params BasketballPlayers[] playersToDelete)
         {
             var currentPlayers = GetBasketballPlayers();
-            foreach (var player in playersToDelete)
+            using (MySqlConnection connection = new MySqlConnection(FilePath))
             {
-                foreach (var item in currentPlayers)
+                connection.Open();
+                foreach (var player in playersToDelete)
                 {
-                    if (item.ID == player.ID)
+                    foreach (var item in currentPlayers)
                     {
-                        using (MySqlConnection connection = new MySqlConnection(FilePath))
+                        if (item.ID == player.ID)
                         {
-                            connection.Open();
-                            string sqlExpression = String.Format("DELETE FROM basketballplayers WHERE id = '{0}'", player.ID);
-                            MySqlCommand command = new MySqlCommand(sqlExpression, connection);
-                            command.ExecuteNonQuery();
-                            connection.Close();
+
+                            try
+                            {
+                                string sqlExpression = String.Format("DELETE FROM basketballplayers WHERE id = '{0}'", player.ID);
+                                MySqlCommand command = new MySqlCommand(sqlExpression, connection);
+                                command.ExecuteNonQuery();
+                            }
+                            catch (Exception)
+                            {
+                                //
+                            }
+
                         }
                     }
                 }
+                connection.Close();
             }
         }
         public override void Delete(params Teams[] teamsToDelete)
         {
             var currentPlayers = GetBasketballPlayers();
             var currentTeams = GetTeams();
-            foreach (var team in teamsToDelete)
+            string sqlExpression = null;
+            MySqlCommand command = null;
+            using (MySqlConnection connection = new MySqlConnection(FilePath))
             {
-                foreach (var item in currentTeams)
+                connection.Open();
+                try
                 {
-                    if (item.ID == team.ID)
+                    foreach (var team in teamsToDelete)
                     {
-                        foreach (var player in currentPlayers) 
+                        foreach (var item in currentTeams)
                         {
-                            int id_team = GetPlayersTeamID(player);
-                            if(id_team == team.ID)
+                            if (item.ID == team.ID)
                             {
-                                using(MySqlConnection connection = new MySqlConnection(FilePath))
+                                foreach (var player in currentPlayers)
                                 {
-                                    connection.Open();
-                                    string sqlExpression = String.Format("DELETE FROM basketballplayers WHERE id_team = '{0}'", id_team);
-                                    MySqlCommand command = new MySqlCommand(sqlExpression, connection);
-                                    command.ExecuteNonQuery();
-                                    connection.Close();
-                                }
-                            }
-                        }
-                        using (MySqlConnection connection = new MySqlConnection(FilePath))
-                        {
-                            connection.Open();
+                                    int id_team = GetPlayersTeamID(player);
+                                    if (id_team == team.ID)
+                                    {
 
-                            string sqlExpression = String.Format("DELETE FROM teams WHERE id = '{0}'", team.ID);
-                            MySqlCommand command = new MySqlCommand(sqlExpression, connection);
-                            command.ExecuteNonQuery();
-                            connection.Close();
+                                        sqlExpression = String.Format("DELETE FROM basketballplayers WHERE id_team = '{0}'", id_team);
+                                        command = new MySqlCommand(sqlExpression, connection);
+                                        command.ExecuteNonQuery();
+
+
+                                    }
+                                }
+
+                                sqlExpression = String.Format("DELETE FROM teams WHERE id = '{0}'", team.ID);
+                                command = new MySqlCommand(sqlExpression, connection);
+                                command.ExecuteNonQuery();
+                            }
                         }
                     }
                 }
+                catch (Exception)
+                {
+                    //
+                }
+
+                connection.Close();
             }
         }
         public override void Append(params BasketballPlayers[] playerToAdd)
         {
-            foreach (var player in playerToAdd)
+            using (MySqlConnection connection = new MySqlConnection(FilePath))
             {
-                using (MySqlConnection connection = new MySqlConnection(FilePath))
+                connection.Open();
+                foreach (var player in playerToAdd)
                 {
-                    connection.Open();
-                    int id_team = GetPlayersTeamID(player);
-                    int id_position = GetPlayersPositionID(player);
 
-                    string sqlExpression = String.Format("INSERT INTO basketballplayers (name,age, career_age, height, weight, id_team, id_position, picture) VALUES ('{0}','{1}','{2}','{3}'," +
-                        "'{4}','{5}','{6}','{7}')", player.Name, player.Age, player.Career_age, player.Height, player.Weight, id_team, id_position, player.Picture.Replace(@"\", @"\\"));
+                    try
+                    {
+                        int id_team = GetPlayersTeamID(player);
+                        int id_position = GetPlayersPositionID(player);
+
+                        string sqlExpression = String.Format("INSERT INTO basketballplayers (name,age, career_age, height, weight, id_team, id_position, picture) VALUES ('{0}','{1}','{2}','{3}'," +
+                            "'{4}','{5}','{6}','{7}')", player.Name, player.Age, player.Career_age, player.Height, player.Weight, id_team, id_position, player.Picture.Replace(@"\", @"\\"));
 
 
-                    MySqlCommand command = new MySqlCommand(sqlExpression, connection);
+                        MySqlCommand command = new MySqlCommand(sqlExpression, connection);
 
-                    command.ExecuteNonQuery();
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception)
+                    {
+                        //
+                    }
 
-                    connection.Close();
                 }
+                connection.Close();
             }
         }
         public override void Append(params Teams[] teamToAdd)
         {
-            foreach( var team in teamToAdd)
+            using (MySqlConnection connection = new MySqlConnection(FilePath))
             {
-                using (MySqlConnection connection = new MySqlConnection(FilePath))
+                connection.Open();
+
+                foreach (var team in teamToAdd)
                 {
-                    connection.Open();
 
                     string sqlExpression = String.Format("INSERT INTO teams (team_name, city, logo) VALUES ('{0}', '{1}', '{2}')", team.TeamName, team.City, team.Logo.Replace(@"\", @"\\"));
 
                     MySqlCommand command = new MySqlCommand(sqlExpression, connection);
                     command.ExecuteNonQuery();
 
-                    connection.Close();
 
                 }
-            }   
+
+                connection.Close();
+            }
         }
         public override void SaveData(BindingList<Teams> listToSave)
         {
@@ -180,7 +207,7 @@ namespace BasketballManadger
             _mysqlDataAdapter = new MySqlDataAdapter("SELECT id, picture, name, age, career_age, height, weight, (SELECT team_name FROM teams WHERE ID = id_team) AS team," +
                 " (SELECT position FROM positions WHERE ID = id_position) AS position FROM basketballplayers", sqlConnection);
             BindingList<BasketballPlayers> playersToReturn = new BindingList<BasketballPlayers>();
-            
+
             _dataset = new DataSet();
             _mysqlDataAdapter.Fill(_dataset);
             DataTable dt = _dataset.Tables[0];

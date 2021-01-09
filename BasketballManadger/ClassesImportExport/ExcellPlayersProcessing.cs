@@ -34,27 +34,28 @@ namespace BasketballManadger
                 BasketballPlayers player = new BasketballPlayers();
                 if (sheet.GetRow(row) != null)
                 {
-                    if (!player.CompletePlayerNullCheck(player))
+                    //if (sheet.GetRow(row).GetCell(1).ToString() != null && sheet.GetRow(row).GetCell(2).ToString() != null && sheet.GetRow(row).GetCell(7).ToString() != null &&
+                    //    sheet.GetRow(row).GetCell(3).ToString() != null && sheet.GetRow(row).GetCell(5).ToString() != null && sheet.GetRow(row).GetCell(6).ToString() != null &&
+                    //    sheet.GetRow(row).GetCell(4).ToString() != null && sheet.GetRow(row).GetCell(0).ToString() != null)
                     {
-                    
-                    player.Picture = sheet.GetRow(row).GetCell(0).ToString();
-                    player.Name = sheet.GetRow(row).GetCell(1).ToString();
-                    player.Position = sheet.GetRow(row).GetCell(2).ToString();
+
+                        player.Picture = sheet.GetRow(row).GetCell(0).ToString();
+                        player.Name = sheet.GetRow(row).GetCell(1).ToString();
+                        player.Position = sheet.GetRow(row).GetCell(2).ToString();
 
 
-                    player.Age = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(3).ToString());
+                        player.Age = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(3).ToString());
 
-                    player.Career_age = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(4).ToString());
+                        player.Career_age = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(4).ToString());
 
-                    player.Height = EditingInfo.ConvertNumberToDouble(sheet.GetRow(row).GetCell(5).ToString());
+                        player.Height = EditingInfo.ConvertNumberToDouble(sheet.GetRow(row).GetCell(5).ToString());
 
-                    player.Weight = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(6).ToString());
+                        player.Weight = EditingInfo.ConvertNumber(sheet.GetRow(row).GetCell(6).ToString());
 
-                    player.Current_team = sheet.GetRow(row).GetCell(7).ToString();
+                        player.Current_team = sheet.GetRow(row).GetCell(7).ToString();
 
-
-                    playersToOutput.Add(player);
-                }
+                        playersToOutput.Add(player);
+                    }
                 }
             }
             return playersToOutput;

@@ -5,8 +5,10 @@ using System.Text;
 
 namespace BasketballManadger
 {
+
     public abstract class FileTypesProcessing
     {
+
 
         public string FileProcessingPath;
         public FileTypesProcessing(string filePath)
@@ -14,6 +16,7 @@ namespace BasketballManadger
             FileProcessingPath = filePath;
         }
 
+   
 
         public abstract BindingList<BasketballPlayers> GetPlayersFromFile();
         public abstract void ImportPlayersData(params BasketballPlayers [] playersToImport);
